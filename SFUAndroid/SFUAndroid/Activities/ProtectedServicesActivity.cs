@@ -15,7 +15,9 @@ namespace SFUAndroid.Activities
     [Activity(Label = "Protected Services")]
     public class ProtectedServicesActivity : Activity
     {
-        private string[] items = {"webct", "go sfu", "sfu connect", "my sfu", "coursys"};
+        private List<string> items = new List<string>() {"webct", "go sfu", "sfu connect", "my sfu", "coursys"};
+        private List<string> mURLs = new List<string>() {"https://webct.sfu.ca/webct/urw/ssinboundCAS.siURN:X-WEBCT-VISTA-V1:ae0c1f73-8e3a-65d6-001c-5fd50753fb4e.snWebCT/cobaltMainFrame.dowebct?&allow=sfu,apache&app=WebCT",
+"https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL", "https://connect.sfu.ca/zimbra/mail#1", "http://sakai.sfu.ca/portal/login", "https://courses.cs.sfu.ca/" };
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,9 +35,11 @@ namespace SFUAndroid.Activities
         {
                 ListView lv = FindViewById<ListView>(Resource.Id.listview);
                 string t = (string)lv.GetItemAtPosition(e.Position);
+                int index = items.IndexOf(t);
+                string url = mURLs.ElementAt(index);
 
             var browserActivity = new Intent(this, typeof (ProtectedServicesBrowserActivity));
-            browserActivity.PutExtra("site", t.ToString());
+            browserActivity.PutExtra("url", url);
             StartActivity(browserActivity);
             // Android.Widget.Toast.MakeText(this, t.ToString(), Android.Widget.ToastLength.Short).Show();
 
