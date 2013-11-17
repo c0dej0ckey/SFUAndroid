@@ -13,6 +13,7 @@ using System.Net;
 using System.IO;
 using HtmlAgilityPack;
 using SFUAndroid.Services;
+using System.Threading;
 
 namespace SFUAndroid.Activities
 {
@@ -51,6 +52,9 @@ namespace SFUAndroid.Activities
             EditText computingIdBox = FindViewById<EditText>(Resource.Id.ComputingIdText);
             EditText passwordBox = FindViewById<EditText>(Resource.Id.PasswordText);
 
+            ProgressBar progressBar = FindViewById<ProgressBar>(Resource.Id.LoginProgressBar);
+            progressBar.Visibility = ViewStates.Visible;
+
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             var editor = preferences.Edit();
             editor.PutString("ComputingId", computingIdBox.Text);
@@ -58,10 +62,10 @@ namespace SFUAndroid.Activities
             editor.Commit();
 
 
-
             WebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://cas.sfu.ca/cgi-bin/WebObjects/cas.woa/wa/login");
             ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
             IAsyncResult response = request.BeginGetResponse(new AsyncCallback(GetLoginResponseCallback), request);
+              
         }
 
         /// <summary>
@@ -135,6 +139,13 @@ namespace SFUAndroid.Activities
             {
                 CookieService.RemoveCookieWithName("CASTGC");
             }
+
+            RunOnUiThread(() =>
+            {
+                ProgressBar progressBar = FindViewById<ProgressBar>(Resource.Id.LoginProgressBar);
+                progressBar.Visibility = ViewStates.Gone;
+            });
+
             foreach (Cookie cookie in cookies)
             {
                 CookieService.AddCookie(cookie);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ProtectedServices">Protected Services</string>
-  <string name="LoginString">Login</string>
+  <string name="Login">Login</string>
   <string name="ComputingId">ComputingId: </string>
   <string name="Password">Password: </string>
     <string name="Library">Library</string>

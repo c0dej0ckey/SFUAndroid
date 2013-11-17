@@ -13,7 +13,9 @@
     android:layout_height="wrap_content" />
   <EditText android:id="@+id/PasswordText" android:inputType="textPassword" android:password="true" android:layout_width="fill_parent"
     android:layout_height="wrap_content" />
-  <Button android:id="@+id/LoginUserButton" android:text="@string/LoginString" android:layout_width="fill_parent"
+  <Button android:id="@+id/LoginUserButton" android:text="@string/Login" android:layout_width="fill_parent"
     android:layout_height="wrap_content" />
+
+  <ProgressBar android:id="@+id/LoginProgressBar" android:visibility="invisible" android:layout_height="fill_parent" android:layout_width="fill_parent"/>
   
 </LinearLayout>

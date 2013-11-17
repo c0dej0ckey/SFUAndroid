@@ -66,8 +66,11 @@ namespace SFUAndroid
 			// aapt resource value: 0x7f050001
 			public const int ComputingIdText = 2131034113;
 			
-			// aapt resource value: 0x7f050006
-			public const int LoginButton = 2131034118;
+			// aapt resource value: 0x7f050007
+			public const int LoginButton = 2131034119;
+			
+			// aapt resource value: 0x7f050005
+			public const int LoginProgressBar = 2131034117;
 			
 			// aapt resource value: 0x7f050004
 			public const int LoginUserButton = 2131034116;
@@ -78,14 +81,14 @@ namespace SFUAndroid
 			// aapt resource value: 0x7f050003
 			public const int PasswordText = 2131034115;
 			
-			// aapt resource value: 0x7f050005
-			public const int ProtectedServicesButton = 2131034117;
-			
-			// aapt resource value: 0x7f050007
-			public const int listview = 2131034119;
+			// aapt resource value: 0x7f050006
+			public const int ProtectedServicesButton = 2131034118;
 			
 			// aapt resource value: 0x7f050008
-			public const int ps_webView = 2131034120;
+			public const int listview = 2131034120;
+			
+			// aapt resource value: 0x7f050009
+			public const int ps_webView = 2131034121;
 			
 			static Id()
 			{
@@ -138,7 +141,7 @@ namespace SFUAndroid
 			public const int Library = 2130968580;
 			
 			// aapt resource value: 0x7f040001
-			public const int LoginString = 2130968577;
+			public const int Login = 2130968577;
 			
 			// aapt resource value: 0x7f040003
 			public const int Password = 2130968579;
