@@ -30,6 +30,10 @@ namespace SFUAndroid.Activities
             Button loginButton = FindViewById<Button>(Resource.Id.LoginButton);
             loginButton.Click += NavigateToLoginView;
 
+            Button coursesButton = FindViewById<Button>(Resource.Id.ScheduleButton);
+            coursesButton.Click += NavigateToCoursesView;
+
+
         }
 
         void NavigateToProtectedServices(object sender, EventArgs e)
@@ -41,6 +45,12 @@ namespace SFUAndroid.Activities
         void NavigateToLoginView(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(LoginActivity));
+            StartActivity(intent);
+        }
+
+        void NavigateToCoursesView(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(ScheduleActivity));
             StartActivity(intent);
         }
     }

@@ -60,35 +60,44 @@ namespace SFUAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int ComputingIdLabel = 2131034112;
-			
 			// aapt resource value: 0x7f050001
-			public const int ComputingIdText = 2131034113;
-			
-			// aapt resource value: 0x7f050007
-			public const int LoginButton = 2131034119;
-			
-			// aapt resource value: 0x7f050005
-			public const int LoginProgressBar = 2131034117;
-			
-			// aapt resource value: 0x7f050004
-			public const int LoginUserButton = 2131034116;
+			public const int ComputingIdLabel = 2131034113;
 			
 			// aapt resource value: 0x7f050002
-			public const int PasswordLabel = 2131034114;
+			public const int ComputingIdText = 2131034114;
 			
-			// aapt resource value: 0x7f050003
-			public const int PasswordText = 2131034115;
+			// aapt resource value: 0x7f05000c
+			public const int CourseListView = 2131034124;
 			
-			// aapt resource value: 0x7f050006
-			public const int ProtectedServicesButton = 2131034118;
+			// aapt resource value: 0x7f050000
+			public const int CourseName = 2131034112;
 			
 			// aapt resource value: 0x7f050008
-			public const int listview = 2131034120;
+			public const int LoginButton = 2131034120;
+			
+			// aapt resource value: 0x7f050006
+			public const int LoginProgressBar = 2131034118;
+			
+			// aapt resource value: 0x7f050005
+			public const int LoginUserButton = 2131034117;
+			
+			// aapt resource value: 0x7f050003
+			public const int PasswordLabel = 2131034115;
+			
+			// aapt resource value: 0x7f050004
+			public const int PasswordText = 2131034116;
+			
+			// aapt resource value: 0x7f050007
+			public const int ProtectedServicesButton = 2131034119;
 			
 			// aapt resource value: 0x7f050009
-			public const int ps_webView = 2131034121;
+			public const int ScheduleButton = 2131034121;
+			
+			// aapt resource value: 0x7f05000a
+			public const int listview = 2131034122;
+			
+			// aapt resource value: 0x7f05000b
+			public const int ps_webView = 2131034123;
 			
 			static Id()
 			{
@@ -104,16 +113,22 @@ namespace SFUAndroid
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Login = 2130903040;
+			public const int Course = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int Login = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int ProtectedServices = 2130903042;
+			public const int Main = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int ProtectedServicesBrowser = 2130903043;
+			public const int ProtectedServices = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int ProtectedServicesBrowser = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int Schedule = 2130903045;
 			
 			static Layout()
 			{
@@ -128,17 +143,20 @@ namespace SFUAndroid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040007
-			public const int ApplicationName = 2130968583;
+			// aapt resource value: 0x7f040008
+			public const int ApplicationName = 2130968584;
 			
-			// aapt resource value: 0x7f040005
-			public const int Books = 2130968581;
+			// aapt resource value: 0x7f040006
+			public const int Books = 2130968582;
 			
 			// aapt resource value: 0x7f040002
 			public const int ComputingId = 2130968578;
 			
 			// aapt resource value: 0x7f040004
-			public const int Library = 2130968580;
+			public const int Courses = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int Library = 2130968581;
 			
 			// aapt resource value: 0x7f040001
 			public const int Login = 2130968577;
@@ -149,8 +167,8 @@ namespace SFUAndroid
 			// aapt resource value: 0x7f040000
 			public const int ProtectedServices = 2130968576;
 			
-			// aapt resource value: 0x7f040006
-			public const int Schedule = 2130968582;
+			// aapt resource value: 0x7f040007
+			public const int Schedule = 2130968583;
 			
 			static String()
 			{

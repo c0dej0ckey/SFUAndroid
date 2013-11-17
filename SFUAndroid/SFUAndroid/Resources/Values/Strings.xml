@@ -4,6 +4,7 @@
   <string name="Login">Login</string>
   <string name="ComputingId">ComputingId: </string>
   <string name="Password">Password: </string>
+  <string name="Courses">Courses</string>
     <string name="Library">Library</string>
     <string name="Books">Books</string>
     <string name="Schedule">Schedule</string>
