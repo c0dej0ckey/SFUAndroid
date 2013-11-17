@@ -20,6 +20,12 @@ namespace SFUAndroid.Activities
     public class ProtectedServicesBrowserActivity : Activity
     {
         private string mURL;
+        private const string WEBCT_URL = "https://webct.sfu.ca/webct/cobaltMainFrame.dowebct?appforward=/webct/viewMyWebCT.dowebct";
+        private const string COURSYS_URL = "https://courses.cs.sfu.ca/";
+        private const string CONNECT_URL = "https://connect.sfu.ca/zimbra/m/zmain#1";
+        private const string GOSFU_URL = "http://sakai.sfu.ca/portal/login";
+        private const string SAKAI_URL = "http://sakai.sfu.ca/portal/login";
+
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -73,7 +79,6 @@ namespace SFUAndroid.Activities
             /// <param name="url"></param>
             public override void OnPageFinished(WebView view, string url)
             {
-
                 if(Regex.IsMatch(url, "https:\\/\\/cas\\.sfu\\.ca.*"))
                 {
 
@@ -85,28 +90,7 @@ namespace SFUAndroid.Activities
                     view.LoadUrl("javascript:(function() { document.getElementById('user').value='swa53'; document.getElementById('pwd').value='5jun38';document.getElementById('userid').value='SWA53'; document.forms[0].submit(); })()");
                     mHasLoggedIn = true;
                 }
-                else if (url == "https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?&" && mHasLoggedIn == true)
-                {
-                    view.Visibility = ViewStates.Visible;
-                    mHasLoggedIn = false;
-                }
-
-                else if(url == "https://webct.sfu.ca/webct/cobaltMainFrame.dowebct?appforward=/webct/viewMyWebCT.dowebct" && mHasLoggedIn == true)
-                {
-                    view.Visibility = ViewStates.Visible;
-                    mHasLoggedIn = false;
-                }
-                else if(url == "https://connect.sfu.ca/zimbra/m/zmain#1" && mHasLoggedIn == true)
-                {
-                    view.Visibility = ViewStates.Visible;
-                    mHasLoggedIn = false;
-                }
-                else if(url == "http://sakai.sfu.ca/portal/login" && mHasLoggedIn == true)
-                {
-                    view.Visibility = ViewStates.Visible;
-                    mHasLoggedIn = false;
-                }
-                else if(url == "https://courses.cs.sfu.ca/" && mHasLoggedIn == true)
+                else if ((url == WEBCT_URL || url == CONNECT_URL || url == COURSYS_URL || url == SAKAI_URL) && mHasLoggedIn == true)
                 {
                     view.Visibility = ViewStates.Visible;
                     mHasLoggedIn = false;
