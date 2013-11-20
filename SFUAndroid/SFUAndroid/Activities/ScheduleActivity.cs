@@ -15,6 +15,7 @@ using System.Net;
 using System.IO;
 using HtmlAgilityPack;
 using SFUAndroid.Services;
+using SFUAndroid.Adapters;
 
 namespace SFUAndroid.Activities
 {
@@ -32,26 +33,31 @@ namespace SFUAndroid.Activities
             mCourses = new List<Course>();
             
         
-            // Create your application here
+            //load courses - if not found request them from GOSFU
             mCourses = GetCourses();
             if(mCourses == null)
             {
                 TryParseCourses();
             }
+            else
+            {
+                mCourseAdapter = new CourseAdapter(this, Resource.Layout.Course, mCourses);
+                ListView CourseListView = FindViewById<ListView>(Resource.Id.CourseListView);
+                CourseListView.Adapter = mCourseAdapter;
+                mCourseAdapter.AddAll(mCourses);
+                mCourseAdapter.NotifyDataSetChanged();
+            }
             
-           // mCourseAdapter.AddAll(mCourses);
-            //mCourseAdapter.NotifyDataSetChanged();
-           // mCourseAdapter.NotifyAll();
-            mCourseAdapter = new CourseAdapter(this, Resource.Layout.Course, mCourses);
-            ListView CourseListView = FindViewById<ListView>(Resource.Id.CourseListView);
-            CourseListView.Adapter = mCourseAdapter;
-            mCourseAdapter.AddAll(mCourses);
-            mCourseAdapter.NotifyDataSetChanged();
+            
             
             
         }
 
         #region Course Parsing
+
+        /// <summary>
+        /// Create the login request to GOSFU and attach any cookies needed.
+        /// </summary>
         private void TryParseCourses()
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://go.sfu.ca/psp/paprd/?cmd=login&languageCd=ENG");
@@ -71,6 +77,10 @@ namespace SFUAndroid.Activities
 
         }
 
+        /// <summary>
+        /// Write the login data to request and send it
+        /// </summary>
+        /// <param name="asyncResult"></param>
         private void GetSIMSRequestStream(IAsyncResult asyncResult)
         {
             HttpWebRequest request = (HttpWebRequest)asyncResult.AsyncState;
@@ -83,6 +93,10 @@ namespace SFUAndroid.Activities
 
         }
 
+        /// <summary>
+        /// Get the login response from SIMS and save any cookies to the app
+        /// </summary>
+        /// <param name="result"></param>
         private void GetSIMSResponse(IAsyncResult result)
         {
             HttpWebRequest request = (HttpWebRequest)result.AsyncState;
@@ -116,6 +130,10 @@ namespace SFUAndroid.Activities
             request2.BeginGetResponse(new AsyncCallback(GetClassesResponse), request2);
         }
 
+        /// <summary>
+        /// If already made a request from the server, attach the appropriate cookies and send request 
+        /// for class data
+        /// </summary>
         private void GetSIMSResponseWithCookies()
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM=", "1137")); //SemesterHelper.GetSemesterId()));
@@ -131,6 +149,10 @@ namespace SFUAndroid.Activities
             request.BeginGetResponse(new AsyncCallback(GetClassesResponse), request);
         }
 
+        /// <summary>
+        /// Get the user's classes and parse the response
+        /// </summary>
+        /// <param name="result"></param>
         private void GetClassesResponse(IAsyncResult result)
         {
             HttpWebRequest request = (HttpWebRequest)result.AsyncState;
@@ -144,6 +166,10 @@ namespace SFUAndroid.Activities
 
         }
 
+        /// <summary>
+        /// Parse the classes and save them to file
+        /// </summary>
+        /// <param name="document"></param>
         private void ParseClasses(HtmlDocument document)
         {
             int classIndex = 0;
@@ -222,10 +248,23 @@ namespace SFUAndroid.Activities
 
             SaveCourses(courses);
 
+            RunOnUiThread(() =>
+                {
+                    mCourseAdapter = new CourseAdapter(this, Resource.Layout.Course, mCourses);
+                    ListView CourseListView = FindViewById<ListView>(Resource.Id.CourseListView);
+                    CourseListView.Adapter = mCourseAdapter;
+                    mCourseAdapter.AddAll(mCourses);
+                    mCourseAdapter.NotifyDataSetChanged();
+                });
+
+
         }
         #endregion
 
-
+        /// <summary>
+        /// Load courses from disk
+        /// </summary>
+        /// <returns></returns>
         private List<Course> GetCourses()
         {
             List<Course> courses = new List<Course>();
@@ -235,6 +274,10 @@ namespace SFUAndroid.Activities
             return courses;
         }
 
+        /// <summary>
+        /// Save courses to disk
+        /// </summary>
+        /// <param name="courses"></param>
         private void SaveCourses(List<Course> courses)
         {
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);

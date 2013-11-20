@@ -15,8 +15,6 @@ namespace SFUAndroid.Services
 {
     public static class Settings
     {
-        private static string mPassword;
-        private static string mComputingId;
 
         public static string GetComputingId(Context context)
         {

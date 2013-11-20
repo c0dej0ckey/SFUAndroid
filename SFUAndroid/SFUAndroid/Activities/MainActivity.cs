@@ -33,6 +33,9 @@ namespace SFUAndroid.Activities
             Button coursesButton = FindViewById<Button>(Resource.Id.ScheduleButton);
             coursesButton.Click += NavigateToCoursesView;
 
+            Button booksButton = FindViewById<Button>(Resource.Id.BooksButton);
+            booksButton.Click += NavigateToBooksView;
+
 
         }
 
@@ -51,6 +54,12 @@ namespace SFUAndroid.Activities
         void NavigateToCoursesView(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(ScheduleActivity));
+            StartActivity(intent);
+        }
+
+        void NavigateToBooksView(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(BooksActivity));
             StartActivity(intent);
         }
     }

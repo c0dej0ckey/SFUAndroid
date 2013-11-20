@@ -47,7 +47,7 @@
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Users\iNFiNiTY\Desktop\Json50r8\Bin\Net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:\Users\iNFiNiTY\Desktop\Bin\Net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,12 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\BooksActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\ProtectedServicesActivity.cs" />
     <Compile Include="Activities\ProtectedServicesBrowserActivity.cs" />
     <Compile Include="Activities\ScheduleActivity.cs" />
-    <Compile Include="CourseAdapter.cs" />
+    <Compile Include="Adapters\BookAdapter.cs" />
+    <Compile Include="Adapters\CourseAdapter.cs" />
+    <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +83,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Course.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Books.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Book.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
