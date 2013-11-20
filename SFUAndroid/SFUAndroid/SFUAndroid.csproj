@@ -66,6 +66,7 @@
     <Compile Include="Activities\ProtectedServicesActivity.cs" />
     <Compile Include="Activities\ProtectedServicesBrowserActivity.cs" />
     <Compile Include="Activities\ScheduleActivity.cs" />
+    <Compile Include="Activities\TransitActivity.cs" />
     <Compile Include="Adapters\BookAdapter.cs" />
     <Compile Include="Adapters\CourseAdapter.cs" />
     <Compile Include="Entities\Book.cs" />
@@ -94,6 +95,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Book.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Transit.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
