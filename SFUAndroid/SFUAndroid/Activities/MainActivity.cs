@@ -41,17 +41,14 @@ namespace SFUAndroid.Activities
 
             Button mapsButton = FindViewById<Button>(Resource.Id.MapsButton);
             mapsButton.Click += NavigateToMapsView;
-            /*
-
+            
             Button burnabyMapButton = FindViewById<Button>(Resource.Id.BurnabyMapButton);
             burnabyMapButton.Click += NavigateToBurnabyBuildingSelectView;
 
             Button surreyMapButton = FindViewById<Button>(Resource.Id.SurreyMapButton);
             surreyMapButton.Click += NavigateToSurreyFloorSelectView;
 
-            Button harbourCentreMapButton = FindViewById<Button>(Resource.Id.HarbourCentreMapButton);
-            harbourCentreMapButton.Click += NavigateToHarbourCentreFloorSelectView;
-            */
+            
 
         }
 
@@ -91,7 +88,7 @@ namespace SFUAndroid.Activities
             StartActivity(intent);
         }
 
-        /*
+        
         void NavigateToBurnabyBuildingSelectView(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(BurnabyBuildingSelectActivity));
@@ -103,13 +100,7 @@ namespace SFUAndroid.Activities
             Intent intent = new Intent(this, typeof(SurreyFloorSelectActivity));
             StartActivity(intent);
         }
-
-        void NavigateToHarbourCentreFloorSelectView(object sender, EventArgs e)
-        {
-            Intent intent = new Intent(this, typeof(HarbourCentreFloorSelectActivity));
-            StartActivity(intent);
-        }
-         * */
+         
 
     }
 }

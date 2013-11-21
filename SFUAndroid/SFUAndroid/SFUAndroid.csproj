@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Activities\BooksActivity.cs" />
     <Compile Include="Activities\BurnabyBuildingSelectActivity.cs" />
-    <Compile Include="Activities\HarbourCentreFloorSelectActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\MapsActivity.cs" />
@@ -114,9 +113,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SurreyFloorSelect.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\HarbourCentreFloorSelect.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\slide_up_left.xml">
