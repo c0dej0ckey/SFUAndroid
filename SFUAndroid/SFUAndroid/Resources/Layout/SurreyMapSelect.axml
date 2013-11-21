@@ -4,33 +4,33 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <Button
-        android:id="@+id/ProtectedServicesButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ProtectedServices" />
-    <Button
-        android:id="@+id/LoginButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Login" />
-    <Button
-        android:id="@+id/ScheduleButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Schedule" />
-    <Button
-        android:id="@+id/BooksButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Books" />
-    <Button
-        android:text="@string/Transit"
+        android:text="MezzanineButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/TransitButton" />
+        android:id="MezzanineButton" />
     <Button
-        android:text="@string/Maps"
+        android:text="Podium 2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/MapsButton" />
+        android:id="Podium2Button" />
+    <Button
+        android:text="Podium 3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="Podium3Button" />
+    <Button
+        android:text="Galleria 3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="Galleria3Button" />
+    <Button
+        android:text="Galleria 4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="Galleria4Button" />
+    <Button
+        android:text="Galleria 5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="Galleria5Button" />
 </LinearLayout>

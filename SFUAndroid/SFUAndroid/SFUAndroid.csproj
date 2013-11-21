@@ -61,11 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\BooksActivity.cs" />
+    <Compile Include="Activities\BurnabyBuildingSelectActivity.cs" />
+    <Compile Include="Activities\HarbourCentreFloorSelectActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Activities\MapsActivity.cs" />
     <Compile Include="Activities\ProtectedServicesActivity.cs" />
     <Compile Include="Activities\ProtectedServicesBrowserActivity.cs" />
     <Compile Include="Activities\ScheduleActivity.cs" />
+    <Compile Include="Activities\SurreyFloorSelectActivity.cs" />
     <Compile Include="Activities\TransitActivity.cs" />
     <Compile Include="Adapters\BookAdapter.cs" />
     <Compile Include="Adapters\BusRouteAdapter.cs" />
@@ -103,6 +107,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BusRoute.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Maps.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\SurreyFloorSelect.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\HarbourCentreFloorSelect.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
