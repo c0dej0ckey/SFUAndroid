@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="17" />
-	<application>
+	<application android:icon="@drawable/sfulogo">
 		<activity android:name=".ProtectedServicesActivity" />
 		<activity android:name=".LoginActivity" />
 		<activity android:name=".ProtectedServicesBrowserActivity" />

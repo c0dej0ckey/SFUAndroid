@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "SFUAndroid", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/sfulogo")]
     public class MainActivity : Activity
     {
 

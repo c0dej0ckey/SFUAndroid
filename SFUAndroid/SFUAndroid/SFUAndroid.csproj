@@ -146,6 +146,7 @@
     <AndroidResource Include="Resources\Values\Integers.xml" />
     <AndroidResource Include="Resources\Values\Styles.xml" />
     <AndroidResource Include="Resources\Drawable\search_bg_shadow.9.png" />
+    <AndroidResource Include="Resources\Drawable\sfulogo.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
