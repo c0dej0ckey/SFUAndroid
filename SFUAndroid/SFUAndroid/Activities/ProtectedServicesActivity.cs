@@ -26,7 +26,7 @@ namespace SFUAndroid.Activities
 
             ListView lv = FindViewById<ListView>(Resource.Id.listview);
             ArrayAdapter lvA = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, items);
-            lv.SetAdapter(lvA);
+            lv.Adapter = lvA;
             lv.ItemClick += item_Selected;
 
         }

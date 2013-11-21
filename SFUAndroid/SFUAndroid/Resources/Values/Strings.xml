@@ -9,4 +9,5 @@
     <string name="Books">Books</string>
     <string name="Schedule">Schedule</string>
     <string name="ApplicationName">SFUAndroid</string>
+  <string name="Transit">Transit</string>
 </resources>

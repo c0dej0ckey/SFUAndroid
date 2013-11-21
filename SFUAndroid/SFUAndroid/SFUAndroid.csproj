@@ -68,8 +68,10 @@
     <Compile Include="Activities\ScheduleActivity.cs" />
     <Compile Include="Activities\TransitActivity.cs" />
     <Compile Include="Adapters\BookAdapter.cs" />
+    <Compile Include="Adapters\BusRouteAdapter.cs" />
     <Compile Include="Adapters\CourseAdapter.cs" />
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\BusRoute.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +100,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Transit.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\BusRoute.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -33,7 +33,7 @@ namespace SFUAndroid.Activities
             mBooks = new List<Book>();
             mBookAdapter = new BookAdapter(mBooks, this, Resource.Layout.Book);
             ListView bookListView = FindViewById<ListView>(Resource.Id.BooksListView);
-            bookListView.SetAdapter(mBookAdapter);
+            bookListView.Adapter = mBookAdapter;
 
             GetBooks();
         }

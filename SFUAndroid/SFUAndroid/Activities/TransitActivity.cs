@@ -9,6 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using SFUAndroid.Entities;
+using SFUAndroid.Adapters;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace SFUAndroid.Activities
 {
@@ -17,14 +22,18 @@ namespace SFUAndroid.Activities
     {
         private static List<string> sStops = new List<string>() { "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
         private static string apiKey = "AWkVpR4XnN8gmsf31mku";
-        private List<Bus> mBusRoutes;
+        private List<BusRoute> mBusRoutes;
+        private BusRouteAdapter mBusRouteAdapter;
 
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Transit);
-            mBusRoutes = new List<Bus>();
+            mBusRoutes = new List<BusRoute>();
+            mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBusRoutes);
+            ListView busRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
+            busRouteListView.Adapter = mBusRouteAdapter;
             // Create your application here
             GetBusTimes();
         }
@@ -67,8 +76,12 @@ namespace SFUAndroid.Activities
                 route.AddRouteTime(time);
             }
 
-
-            BusRoutes.Add(route);
+            RunOnUiThread(() =>
+                {
+                    mBusRoutes.Add(route);
+                    mBusRouteAdapter.Add(route);
+                    mBusRouteAdapter.NotifyDataSetChanged();
+                });
 
         }
 

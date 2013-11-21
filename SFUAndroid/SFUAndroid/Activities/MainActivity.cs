@@ -36,6 +36,9 @@ namespace SFUAndroid.Activities
             Button booksButton = FindViewById<Button>(Resource.Id.BooksButton);
             booksButton.Click += NavigateToBooksView;
 
+            Button transitButton = FindViewById<Button>(Resource.Id.TransitButton);
+            transitButton.Click += NavigateToTransitView;
+
 
         }
 
@@ -62,6 +65,13 @@ namespace SFUAndroid.Activities
             Intent intent = new Intent(this, typeof(BooksActivity));
             StartActivity(intent);
         }
+
+        void NavigateToTransitView(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(TransitActivity));
+            StartActivity(intent);
+        }
+
     }
 }
 
