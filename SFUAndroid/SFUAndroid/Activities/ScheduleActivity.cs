@@ -31,6 +31,7 @@ namespace SFUAndroid.Activities
             SetContentView(Resource.Layout.Schedule);
             
             mCourses = new List<Course>();
+
             
         
             //load courses - if not found request them from GOSFU
