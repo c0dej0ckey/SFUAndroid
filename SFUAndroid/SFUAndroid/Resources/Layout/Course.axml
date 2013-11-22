@@ -13,7 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:textSize="24dp"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:textColor="#ff000000" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,4 +34,15 @@
         android:layout_alignRight="@+id/CourseSection"
         android:textSize="16dp"
         android:textIsSelectable="false" />
+    <ListView
+        android:id="@+id/ClassTimeListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/CourseName"
+        android:layout_alignBottom="@+id/CourseSection"
+        android:clickable="false"
+        android:choiceMode="none"
+        android:isScrollContainer="false"
+        android:longClickable="false"
+        android:scrollbars="none" />
 </RelativeLayout>

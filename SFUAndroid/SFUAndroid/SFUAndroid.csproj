@@ -121,6 +121,9 @@
     <AndroidResource Include="Resources\Layout\slide_up_right.xml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ListViewAlignRight.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -144,7 +147,9 @@
     <Content Include="HtmlAgilityPack.dll" />
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\Values\Integers.xml" />
-    <AndroidResource Include="Resources\Values\Styles.xml" />
+    <AndroidResource Include="Resources\Values\Styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Drawable\search_bg_shadow.9.png" />
     <AndroidResource Include="Resources\Drawable\sfulogo.png" />
   </ItemGroup>

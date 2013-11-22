@@ -52,6 +52,22 @@ namespace SFUAndroid.Adapters
                 tx.Text = course.Section;
                 tx = view.FindViewById<TextView>(Resource.Id.CourseInstructor);
                 tx.Text = course.Instructor;
+
+                ListView classTimeListView = view.FindViewById<ListView>(Resource.Id.ClassTimeListView);
+
+                List<string> classInformation = new List<string>();
+                foreach(CourseOffering offering in course.CourseOfferings)
+                {
+                    classInformation.Add(offering.Location);
+                    string cl = offering.StartTime + " - " + offering.EndTime + "  " + offering.Days;
+                    classInformation.Add(cl);
+                }
+
+                ArrayAdapter<string> courseTimes = new ArrayAdapter<string>(this.Context, Resource.Layout.ListViewAlignRight, classInformation);
+                //courseTimes.AddAll(classTimes);
+                classTimeListView.Adapter = courseTimes;
+                courseTimes.NotifyDataSetChanged();
+
             }
             return view;
         }

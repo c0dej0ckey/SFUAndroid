@@ -42,11 +42,11 @@ namespace SFUAndroid.Activities
             Button mapsButton = FindViewById<Button>(Resource.Id.MapsButton);
             mapsButton.Click += NavigateToMapsView;
             
-            Button burnabyMapButton = FindViewById<Button>(Resource.Id.BurnabyMapButton);
-            burnabyMapButton.Click += NavigateToBurnabyBuildingSelectView;
+           // Button burnabyMapButton = FindViewById<Button>(Resource.Id.BurnabyMapButton);
+          //  burnabyMapButton.Click += NavigateToBurnabyBuildingSelectView;
 
-            Button surreyMapButton = FindViewById<Button>(Resource.Id.SurreyMapButton);
-            surreyMapButton.Click += NavigateToSurreyFloorSelectView;
+          //  Button surreyMapButton = FindViewById<Button>(Resource.Id.SurreyMapButton);
+          //  surreyMapButton.Click += NavigateToSurreyFloorSelectView;
 
             
 
