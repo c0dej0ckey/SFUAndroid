@@ -61,14 +61,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\BooksActivity.cs" />
-    <Compile Include="Activities\BurnabyBuildingSelectActivity.cs" />
+    <Compile Include="Activities\BurnabyRoomSelectActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\MapsActivity.cs" />
     <Compile Include="Activities\ProtectedServicesActivity.cs" />
     <Compile Include="Activities\ProtectedServicesBrowserActivity.cs" />
     <Compile Include="Activities\ScheduleActivity.cs" />
-    <Compile Include="Activities\SurreyFloorSelectActivity.cs" />
+    <Compile Include="Activities\SurreyRoomSelectActivity.cs" />
     <Compile Include="Activities\TransitActivity.cs" />
     <Compile Include="Adapters\BookAdapter.cs" />
     <Compile Include="Adapters\BusRouteAdapter.cs" />
@@ -77,12 +77,15 @@
     <Compile Include="Entities\BusRoute.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\CardLayout.cs" />
+    <Compile Include="Entities\Room.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CookieService.cs" />
     <Compile Include="Services\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\surrey-campus-list.csv" />
+    <AndroidAsset Include="Assets\burnaby-campus-list.csv" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\Layout\ProtectedServicesBrowser.axml">

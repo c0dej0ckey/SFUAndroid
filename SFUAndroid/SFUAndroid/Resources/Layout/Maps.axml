@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <Button
+    android:layout_height="fill_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+
+  <Spinner
+        android:id="@+id/SurreyFloorSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/BurnabyMapButton"
-        android:enabled="true"
-        android:clickable="true"
-        android:cursorVisible="true"
-        android:text="Burnaby" />
-    <Button
-        android:text="Surrey"
+        android:entries="@array/surrey_floors_array" />
+
+  <Spinner
+        android:id="@+id/BurnabyBuildingSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SurreyMapButton" />
+        android:entries="@array/burnaby_buildings_array" />
+
 </LinearLayout>

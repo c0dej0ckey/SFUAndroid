@@ -11,4 +11,23 @@
     <string name="ApplicationName">SFUAndroid</string>
   <string name="Transit">Transit</string>
   <string name="Maps">Maps</string>
+
+  <string-array name="surrey_floors_array">
+    <item>Surrey</item>
+    <item>Galleria 3</item>
+    <item>Galleria 4</item>
+    <item>Galleria 5</item>
+    <item>Podium 2</item>
+  </string-array>
+
+  <string-array name="burnaby_buildings_array">
+    <item>Burnaby</item>
+    <item>Townhouse Complex</item>
+     <item>Townhouse Complex</item>
+    <item>Pauline Jewett House</item>
+    <item>Barbara Rate House</item>
+    <item>Shadbolt House</item>
+    <item>Hamilton Hall Residence</item>
+  </string-array>
+
 </resources>
