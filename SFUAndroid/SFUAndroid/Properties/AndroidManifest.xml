@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="17" />
 	<application android:icon="@drawable/sfulogo">
+		<activity android:name=".MainActivity" />
 		<activity android:name=".ProtectedServicesActivity" />
 		<activity android:name=".LoginActivity" />
 		<activity android:name=".ProtectedServicesBrowserActivity" />
-		<activity android:name=".ScheduleActivity" />
+		<activity android:name=".ScheduleActivity">
+			<meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
+		</activity>
 		<activity android:name=".BooksActivity" />
 	</application>
 	<uses-permission android:name="android.permission.INTERNET" />

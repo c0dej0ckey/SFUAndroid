@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "")]
+    [Activity(Label = "Protected Service", ParentActivity=typeof(ProtectedServicesActivity))]
     public class ProtectedServicesBrowserActivity : Activity
     {
         private string mURL;
@@ -32,6 +32,8 @@ namespace SFUAndroid.Activities
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.ProtectedServicesBrowser);
 
+            ActionBar actionBar = this.ActionBar;
+            actionBar.SetDisplayHomeAsUpEnabled(true);
 
             mURL = this.Intent.GetStringExtra("url");
             WebView view = FindViewById<WebView>(Resource.Id.ps_webView);

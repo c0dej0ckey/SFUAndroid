@@ -23,16 +23,18 @@ namespace SFUAndroid.Activities
 
         protected override void OnCreate(Bundle bundle)
         {
+           
             base.OnCreate(bundle);
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             string computingId = preferences.GetString("ComputingId", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
-
+            
 
             if(!computingId.Equals(string.Empty) && !password.Equals(string.Empty))
             {
+                mIsLoggedIn = false;
                 TryLoginUser();
             }
 
@@ -46,8 +48,6 @@ namespace SFUAndroid.Activities
             Button button = FindViewById<Button>(Resource.Id.ProtectedServicesButton);
             button.Click += NavigateToProtectedServices;
 
-            Button loginButton = FindViewById<Button>(Resource.Id.LoginButton);
-            loginButton.Click += NavigateToLoginView;
 
             Button coursesButton = FindViewById<Button>(Resource.Id.ScheduleButton);
             coursesButton.Click += NavigateToCoursesView;
@@ -65,16 +65,58 @@ namespace SFUAndroid.Activities
 
         }
 
+        protected override void OnResume()
+        {
+            if(CookieService.CookieExists("CASTGC"))
+            {
+                mIsLoggedIn = true;
+               
+            }
+            base.OnResume();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater inflater = this.MenuInflater;
+            inflater.Inflate(Resource.Menu.main_activity_actions, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.action_login:
+                    NavigateToLoginView();
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+
+            }
+
+
+        }
+
+
         void NavigateToProtectedServices(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(ProtectedServicesActivity));
             StartActivity(intent);
         }
 
-        void NavigateToLoginView(object sender, EventArgs e)
+        void NavigateToLoginView()
         {
-            Intent intent = new Intent(this, typeof(LoginActivity));
-            StartActivity(intent);
+            if (!mIsLoggedIn)
+            {
+                Intent intent = new Intent(this, typeof(LoginActivity));
+                StartActivity(intent);
+            }
+            else //logout
+            {
+                LogoutUser();
+                
+            }
         }
 
         void NavigateToCoursesView(object sender, EventArgs e)
@@ -113,6 +155,29 @@ namespace SFUAndroid.Activities
             IAsyncResult response = request.BeginGetResponse(new AsyncCallback(GetLoginResponseCallback), request);
 
         }
+
+        /// <summary>
+        /// Logouts out the user
+        /// </summary>
+        private void LogoutUser()
+        {
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            var editor = preferences.Edit();
+            editor.PutString("ComputingId", "");
+            editor.PutString("Password", "");
+            editor.PutString("courses", "");
+            CookieService.DeleteCookies();
+            editor.Commit();
+            mIsLoggedIn = false;
+            /*
+            RunOnUiThread(() =>
+                {
+                    Button loginButton = this.FindViewById<Button>(Resource.Id.LoginButton);
+                    loginButton.Text = "Login";
+                });
+             * */
+        }
+        
 
         /// <summary>
         /// Get the login page to strip the page of the Key
@@ -191,10 +256,14 @@ namespace SFUAndroid.Activities
                 CookieService.AddCookie(cookie);
                 if (cookie.Name == "CASTGC")
                 {
-                    Intent.SetClass(this, typeof(MainActivity));
-                    Intent.SetFlags(ActivityFlags.ReorderToFront);
-                    StartActivity(Intent);
-
+                    mIsLoggedIn = true;
+                    /*
+                    RunOnUiThread(() =>
+                        {
+                            Button loginButton = this.FindViewById<Button>(Resource.Id.LoginButton);
+                            loginButton.Text = "Logout";
+                        });
+                    */
                 }
             }
         }

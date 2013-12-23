@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Protected Services")]
+    [Activity(Label = "Protected Services", ParentActivity=typeof(MainActivity))]
     public class ProtectedServicesActivity : Activity
     {
         private List<string> items = new List<string>() {"webct", "go sfu", "sfu connect", "my sfu", "coursys"};
@@ -23,6 +23,9 @@ namespace SFUAndroid.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ProtectedServices);
+
+            ActionBar actionBar = this.ActionBar;
+            actionBar.SetDisplayHomeAsUpEnabled(true);
 
             ListView lv = FindViewById<ListView>(Resource.Id.listview);
             ArrayAdapter lvA = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, items);
@@ -41,7 +44,6 @@ namespace SFUAndroid.Activities
             var browserActivity = new Intent(this, typeof (ProtectedServicesBrowserActivity));
             browserActivity.PutExtra("url", url);
             StartActivity(browserActivity);
-            // Android.Widget.Toast.MakeText(this, t.ToString(), Android.Widget.ToastLength.Short).Show();
 
         }
 

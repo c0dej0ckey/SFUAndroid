@@ -19,7 +19,7 @@ using SFUAndroid.Adapters;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Schedule")]
+    [Activity(Label = "Schedule", ParentActivity=typeof(MainActivity))]
     public class ScheduleActivity : Activity
     {
         private List<Course> mCourses;
@@ -29,7 +29,10 @@ namespace SFUAndroid.Activities
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Schedule);
-            
+
+            ActionBar actionBar = this.ActionBar;
+            actionBar.SetDisplayHomeAsUpEnabled(true);
+
             mCourses = new List<Course>();
 
             
@@ -51,6 +54,34 @@ namespace SFUAndroid.Activities
             
             
             
+            
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater inflater = this.MenuInflater;
+            inflater.Inflate(Resource.Menu.schedule_activity_actions, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch(item.ItemId)
+            {
+                case Resource.Id.action_refresh:
+                    RefreshSchedule();
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+
+            }
+
+            
+        }
+
+        private void RefreshSchedule()
+        {
             
         }
 

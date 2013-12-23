@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SFUAndroid.Activities
 {
-     [Activity(Label = "Maps")]
+     [Activity(Label = "Maps", ParentActivity=typeof(MainActivity))]
     public class MapsActivity : Activity
     {
          //private List<string> mSurreyFloors = new List<string>() { "Galleria 3", "Galleria 4" };
@@ -27,6 +27,8 @@ namespace SFUAndroid.Activities
          {
              base.OnCreate(bundle);
              SetContentView(Resource.Layout.Maps);
+             ActionBar actionBar = this.ActionBar;
+             actionBar.SetDisplayHomeAsUpEnabled(true);
 
              Spinner surreyMapSpinner = FindViewById<Spinner>(Resource.Id.SurreyFloorSpinner);
              surreyMapSpinner.ItemSelected += NavigateToSurreyRoomView;

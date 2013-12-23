@@ -17,7 +17,7 @@ using System.Threading;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Login")]
+    [Activity(Label = "Login", ParentActivity=typeof(MainActivity))]
     public class LoginActivity : Activity
     {
         private string mKey;
@@ -26,6 +26,9 @@ namespace SFUAndroid.Activities
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Login);
+
+            ActionBar actionBar = this.ActionBar;
+            actionBar.SetDisplayHomeAsUpEnabled(true);
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             string computingId = preferences.GetString("ComputingId", "");

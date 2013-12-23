@@ -64,13 +64,19 @@ namespace SFUAndroid
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int ic_action_refresh = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int search_bg_shadow = 2130837505;
+			public const int ic_action_user = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int sfulogo = 2130837506;
+			public const int Icon = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int search_bg_shadow = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int sfulogo = 2130837508;
 			
 			static Drawable()
 			{
@@ -85,89 +91,92 @@ namespace SFUAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080000
-			public const int BookImage = 2131230720;
+			// aapt resource value: 0x7f090000
+			public const int BookImage = 2131296256;
 			
-			// aapt resource value: 0x7f080001
-			public const int BookName = 2131230721;
+			// aapt resource value: 0x7f090001
+			public const int BookName = 2131296257;
 			
-			// aapt resource value: 0x7f080012
-			public const int BooksButton = 2131230738;
+			// aapt resource value: 0x7f090011
+			public const int BooksButton = 2131296273;
 			
-			// aapt resource value: 0x7f080002
-			public const int BooksListView = 2131230722;
+			// aapt resource value: 0x7f090002
+			public const int BooksListView = 2131296258;
 			
-			// aapt resource value: 0x7f080016
-			public const int BurnabyBuildingSpinner = 2131230742;
+			// aapt resource value: 0x7f090015
+			public const int BurnabyBuildingSpinner = 2131296277;
 			
-			// aapt resource value: 0x7f08001b
-			public const int BusRoutesListView = 2131230747;
+			// aapt resource value: 0x7f09001a
+			public const int BusRoutesListView = 2131296282;
 			
-			// aapt resource value: 0x7f080008
-			public const int ClassTimeListView = 2131230728;
+			// aapt resource value: 0x7f090008
+			public const int ClassTimeListView = 2131296264;
 			
-			// aapt resource value: 0x7f080009
-			public const int ComputingIdLabel = 2131230729;
+			// aapt resource value: 0x7f090009
+			public const int ComputingIdLabel = 2131296265;
 			
-			// aapt resource value: 0x7f08000a
-			public const int ComputingIdText = 2131230730;
+			// aapt resource value: 0x7f09000a
+			public const int ComputingIdText = 2131296266;
 			
-			// aapt resource value: 0x7f080007
-			public const int CourseInstructor = 2131230727;
+			// aapt resource value: 0x7f090007
+			public const int CourseInstructor = 2131296263;
 			
-			// aapt resource value: 0x7f08001a
-			public const int CourseListView = 2131230746;
+			// aapt resource value: 0x7f090019
+			public const int CourseListView = 2131296281;
 			
-			// aapt resource value: 0x7f080005
-			public const int CourseName = 2131230725;
+			// aapt resource value: 0x7f090005
+			public const int CourseName = 2131296261;
 			
-			// aapt resource value: 0x7f080006
-			public const int CourseSection = 2131230726;
+			// aapt resource value: 0x7f090006
+			public const int CourseSection = 2131296262;
 			
-			// aapt resource value: 0x7f080010
-			public const int LoginButton = 2131230736;
+			// aapt resource value: 0x7f09000e
+			public const int LoginProgressBar = 2131296270;
 			
-			// aapt resource value: 0x7f08000e
-			public const int LoginProgressBar = 2131230734;
+			// aapt resource value: 0x7f09000d
+			public const int LoginUserButton = 2131296269;
 			
-			// aapt resource value: 0x7f08000d
-			public const int LoginUserButton = 2131230733;
+			// aapt resource value: 0x7f090013
+			public const int MapsButton = 2131296275;
 			
-			// aapt resource value: 0x7f080014
-			public const int MapsButton = 2131230740;
+			// aapt resource value: 0x7f09000b
+			public const int PasswordLabel = 2131296267;
 			
-			// aapt resource value: 0x7f08000b
-			public const int PasswordLabel = 2131230731;
+			// aapt resource value: 0x7f09000c
+			public const int PasswordText = 2131296268;
 			
-			// aapt resource value: 0x7f08000c
-			public const int PasswordText = 2131230732;
+			// aapt resource value: 0x7f09000f
+			public const int ProtectedServicesButton = 2131296271;
 			
-			// aapt resource value: 0x7f08000f
-			public const int ProtectedServicesButton = 2131230735;
+			// aapt resource value: 0x7f090003
+			public const int RouteName = 2131296259;
 			
-			// aapt resource value: 0x7f080003
-			public const int RouteName = 2131230723;
+			// aapt resource value: 0x7f090004
+			public const int RouteTimes = 2131296260;
 			
-			// aapt resource value: 0x7f080004
-			public const int RouteTimes = 2131230724;
+			// aapt resource value: 0x7f090010
+			public const int ScheduleButton = 2131296272;
 			
-			// aapt resource value: 0x7f080011
-			public const int ScheduleButton = 2131230737;
+			// aapt resource value: 0x7f090018
+			public const int ScheduleScrollView = 2131296280;
 			
-			// aapt resource value: 0x7f080019
-			public const int ScheduleScrollView = 2131230745;
+			// aapt resource value: 0x7f090014
+			public const int SurreyFloorSpinner = 2131296276;
 			
-			// aapt resource value: 0x7f080015
-			public const int SurreyFloorSpinner = 2131230741;
+			// aapt resource value: 0x7f090012
+			public const int TransitButton = 2131296274;
 			
-			// aapt resource value: 0x7f080013
-			public const int TransitButton = 2131230739;
+			// aapt resource value: 0x7f09001b
+			public const int action_login = 2131296283;
 			
-			// aapt resource value: 0x7f080017
-			public const int listview = 2131230743;
+			// aapt resource value: 0x7f09001c
+			public const int action_refresh = 2131296284;
 			
-			// aapt resource value: 0x7f080018
-			public const int ps_webView = 2131230744;
+			// aapt resource value: 0x7f090016
+			public const int listview = 2131296278;
+			
+			// aapt resource value: 0x7f090017
+			public const int ps_webView = 2131296279;
 			
 			static Id()
 			{
@@ -253,6 +262,25 @@ namespace SFUAndroid
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f080000
+			public const int main_activity_actions = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int schedule_activity_actions = 2131230721;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
@@ -288,6 +316,9 @@ namespace SFUAndroid
 			
 			// aapt resource value: 0x7f050009
 			public const int Transit = 2131034121;
+			
+			// aapt resource value: 0x7f05000b
+			public const int action_schedule_refresh = 2131034123;
 			
 			static String()
 			{

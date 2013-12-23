@@ -11,6 +11,7 @@
     <string name="ApplicationName">SFUAndroid</string>
   <string name="Transit">Transit</string>
   <string name="Maps">Maps</string>
+  <string name="action_schedule_refresh">refresh</string>
 
   <string-array name="surrey_floors_array">
     <item>Surrey</item>
