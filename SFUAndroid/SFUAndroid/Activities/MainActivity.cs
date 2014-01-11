@@ -11,15 +11,19 @@ using SFUAndroid.Services;
 using System.Net;
 using System.IO;
 using System.Text;
+using Android.Graphics;
+using SFUAndroid.Adapters;
+using System.Collections.Generic;
+using SFUAndroid.Entities;
 
 namespace SFUAndroid.Activities
 {
     [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/sfulogo")]
     public class MainActivity : Activity
     {
-        private bool mIsLoggedIn;
         private string mKey;
-
+        private IMenu mActionBarMenu;
+        private MainActivityGridAdapter mGridAdapter;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -34,32 +38,75 @@ namespace SFUAndroid.Activities
 
             if(!computingId.Equals(string.Empty) && !password.Equals(string.Empty))
             {
-                mIsLoggedIn = false;
+                
                 TryLoginUser();
             }
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            List<Selection> menuSelections = new List<Selection>();
+
+
+            Bitmap coursesIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.courses);
+            Selection sel = new Selection("Schedule", coursesIcon);
+            menuSelections.Add(sel);
+
+            Bitmap protectedServicesIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.proserv);
+            sel = new Selection("Protected \n Services", protectedServicesIcon);
+            menuSelections.Add(sel);
+
+            Bitmap transitIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.transit);
+            sel = new Selection("Transit", transitIcon);
+            menuSelections.Add(sel);
+
+            Bitmap mapsIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.maps);
+            sel = new Selection("Maps", mapsIcon);
+            menuSelections.Add(sel);
+
+            Bitmap booksIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.library);
+            sel = new Selection("Books", booksIcon);
+            menuSelections.Add(sel);
+
             
+            GridView gridView = FindViewById<GridView>(Resource.Id.gridView1);
+
+            mGridAdapter = new MainActivityGridAdapter(this, Resource.Layout.main_activity_option, menuSelections);
+            gridView.Adapter = mGridAdapter;
+            gridView.ItemClick += Selection_ItemClick;
+            mGridAdapter.AddAll(menuSelections);
+            mGridAdapter.NotifyDataSetChanged();
+          
+            //RunOnUiThread(() =>
+            //    {
+            //        adapter.Add(sel);
+            //        adapter.NotifyDataSetChanged();
+
+            //    });
+
+//MainActivityGridAdapter adapter = new MainActivityGridAdapter(this, Resource.Menu.main_activity_option, menuSelections);
+            //gridView.Adapter = adapter;
+            //adapter.Add(sel);
+           // adapter.NotifyDataSetChanged();
+
 
             // Get our button from the layout resource,
             // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.ProtectedServicesButton);
-            button.Click += NavigateToProtectedServices;
+            //Button button = FindViewById<Button>(Resource.Id.ProtectedServicesButton);
+            //button.Click += NavigateToProtectedServices;
 
 
-            Button coursesButton = FindViewById<Button>(Resource.Id.ScheduleButton);
-            coursesButton.Click += NavigateToCoursesView;
+            //Button coursesButton = FindViewById<Button>(Resource.Id.ScheduleButton);
+            //coursesButton.Click += NavigateToCoursesView;
 
-            Button booksButton = FindViewById<Button>(Resource.Id.BooksButton);
-            booksButton.Click += NavigateToBooksView;
+            //Button booksButton = FindViewById<Button>(Resource.Id.BooksButton);
+            //booksButton.Click += NavigateToBooksView;
 
-            Button transitButton = FindViewById<Button>(Resource.Id.TransitButton);
-            transitButton.Click += NavigateToTransitView;
+            //Button transitButton = FindViewById<Button>(Resource.Id.TransitButton);
+            //transitButton.Click += NavigateToTransitView;
 
-            Button mapsButton = FindViewById<Button>(Resource.Id.MapsButton);
-            mapsButton.Click += NavigateToMapsView;
+            //Button mapsButton = FindViewById<Button>(Resource.Id.MapsButton);
+            //mapsButton.Click += NavigateToMapsView;
            
          
 
@@ -69,7 +116,11 @@ namespace SFUAndroid.Activities
         {
             if(CookieService.CookieExists("CASTGC"))
             {
-                mIsLoggedIn = true;
+                
+                //IMenu menu = this.FindViewById<IMenu>(Resource.Menu.main_activity_actions);
+                IMenuItem item = mActionBarMenu.FindItem(Resource.Id.action_login);
+                item.SetTitle("Logout");
+                
                
             }
             base.OnResume();
@@ -77,18 +128,33 @@ namespace SFUAndroid.Activities
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
+            this.mActionBarMenu = menu;
             MenuInflater inflater = this.MenuInflater;
             inflater.Inflate(Resource.Menu.main_activity_actions, menu);
-
+            IMenuItem item = menu.FindItem(Resource.Id.action_login);
+            if(CookieService.CookieExists("CASTGC"))
+            {
+                item.SetTitle("Logout");
+            }
+            
             return base.OnCreateOptionsMenu(menu);
         }
+
+        
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
             {
                 case Resource.Id.action_login:
-                    NavigateToLoginView();
+                    if (CookieService.CookieExists("CASTGC"))
+                    {
+                        LogoutUser();
+                    }
+                    else
+                    {
+                        NavigateToLoginView();
+                    }
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
@@ -107,16 +173,9 @@ namespace SFUAndroid.Activities
 
         void NavigateToLoginView()
         {
-            if (!mIsLoggedIn)
-            {
                 Intent intent = new Intent(this, typeof(LoginActivity));
                 StartActivity(intent);
-            }
-            else //logout
-            {
-                LogoutUser();
-                
-            }
+            
         }
 
         void NavigateToCoursesView(object sender, EventArgs e)
@@ -141,6 +200,36 @@ namespace SFUAndroid.Activities
         {
             Intent intent = new Intent(this, typeof(MapsActivity));
             StartActivity(intent);
+        }
+
+        private void Selection_ItemClick(object sender, Android.Widget.AdapterView.ItemClickEventArgs e)
+        {
+            Selection item = sender as Selection;
+            if(item.Title.Equals("Schedule"))
+            {
+                Intent intent = new Intent(this, typeof(ScheduleActivity));
+                StartActivity(intent);
+            }
+            else if(item.Title.Equals("Maps"))
+            {
+                Intent intent = new Intent(this, typeof(MapsActivity));
+             StartActivity(intent);
+            }
+            else if(item.Title.Equals("Protected \n Services"))
+            {
+                Intent intent = new Intent(this, typeof(ProtectedServicesActivity));
+            StartActivity(intent);
+            }
+            else if(item.Title.Equals("Books"))
+            {
+                Intent intent = new Intent(this, typeof(BooksActivity));
+            StartActivity(intent);
+            }
+            else //Transit
+            {
+                Intent intent = new Intent(this, typeof(TransitActivity));
+            StartActivity(intent);
+            }
         }
 
         /// <summary>
@@ -168,7 +257,8 @@ namespace SFUAndroid.Activities
             editor.PutString("courses", "");
             CookieService.DeleteCookies();
             editor.Commit();
-            mIsLoggedIn = false;
+            IMenuItem menuItem = this.mActionBarMenu.FindItem(Resource.Id.action_login);
+            menuItem.SetTitle("Login");
             /*
             RunOnUiThread(() =>
                 {
@@ -256,7 +346,7 @@ namespace SFUAndroid.Activities
                 CookieService.AddCookie(cookie);
                 if (cookie.Name == "CASTGC")
                 {
-                    mIsLoggedIn = true;
+                    
                     /*
                     RunOnUiThread(() =>
                         {

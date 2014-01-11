@@ -18,27 +18,36 @@ using Newtonsoft.Json.Linq;
 namespace SFUAndroid.Activities
 {
     [Activity(Label = "Transit", ParentActivity=typeof(MainActivity))]
-    public class TransitActivity : Activity
+    public class TransitActivity : Activity, ActionBar.ITabListener
     {
         private static List<string> sStops = new List<string>() { "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
+        private List<BusRoute> mBurnabyBusRoutes;
+        private List<BusRoute> mSurreyBusRoutes;
         private static string apiKey = "AWkVpR4XnN8gmsf31mku";
         private List<BusRoute> mBusRoutes;
         private BusRouteAdapter mBusRouteAdapter;
-
+        private ListView mBusRouteListView;
+        //Burnaby = 53096 52807
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Transit);
 
+            mBurnabyBusRoutes = new List<BusRoute>();
+            mSurreyBusRoutes = new List<BusRoute>();
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
-
+            actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             mBusRoutes = new List<BusRoute>();
-            mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBusRoutes);
-            ListView busRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
-            busRouteListView.Adapter = mBusRouteAdapter;
-            // Create your application here
+            mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
+            mBusRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
+            mBusRouteListView.Adapter = mBusRouteAdapter;
+
+            this.ActionBar.AddTab(actionBar.NewTab().SetText("BURNABY").SetTabListener(this));
+            this.ActionBar.AddTab(actionBar.NewTab().SetText("SURREY").SetTabListener(this));
+
+
             GetBusTimes();
         }
 
@@ -82,12 +91,61 @@ namespace SFUAndroid.Activities
 
             RunOnUiThread(() =>
                 {
-                    mBusRoutes.Add(route);
-                    mBusRouteAdapter.Add(route);
-                    mBusRouteAdapter.NotifyDataSetChanged();
+                    try
+                    {
+                        if (int.Parse(route.RouteNumber) < 300)
+                        {
+                            mBurnabyBusRoutes.Add(route);
+                            mBusRouteAdapter.Add(route);
+                            mBusRouteAdapter.NotifyDataSetChanged();
+                        }
+                        else
+                        {
+                            mSurreyBusRoutes.Add(route);
+
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                    
+                    }
                 });
 
         }
 
+
+        public void OnTabReselected(ActionBar.Tab tab, FragmentTransaction ft)
+        {
+           // throw new NotImplementedException();
+        }
+
+        public void OnTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
+        {
+            switch(tab.Position)
+            {
+                case 0:
+                    if (mBurnabyBusRoutes != null)
+                    {
+                        mBusRouteAdapter.Clear();
+                        mBusRouteAdapter.AddAll(mBurnabyBusRoutes);
+                        mBusRouteAdapter.NotifyDataSetChanged();
+                        
+                    }
+                    break;
+                case 1:
+                    if (mSurreyBusRoutes != null)
+                    {
+                        mBusRouteAdapter.Clear();
+                        mBusRouteAdapter.AddAll(mSurreyBusRoutes);
+                        mBusRouteAdapter.NotifyDataSetChanged();
+                    }
+                    break;
+            }
+        }
+
+        public void OnTabUnselected(ActionBar.Tab tab, FragmentTransaction ft)
+        {
+           // throw new NotImplementedException();
+        }
     }
 }

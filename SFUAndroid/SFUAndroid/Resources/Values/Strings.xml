@@ -12,7 +12,9 @@
   <string name="Transit">Transit</string>
   <string name="Maps">Maps</string>
   <string name="action_schedule_refresh">refresh</string>
-
+  <string name="action_tab_burnaby">BURNABY</string>
+  <string name="action_tab_surrey">SURREY</string>
+  
   <string-array name="surrey_floors_array">
     <item>Surrey</item>
     <item>Galleria 3</item>

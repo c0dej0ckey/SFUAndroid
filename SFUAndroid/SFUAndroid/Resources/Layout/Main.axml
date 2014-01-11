@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridView1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <Button
-        android:id="@+id/ProtectedServicesButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ProtectedServices" />
-    <Button
-        android:id="@+id/ScheduleButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Schedule" />
-    <Button
-        android:id="@+id/BooksButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Books" />
-    <Button
-        android:text="@string/Transit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/TransitButton" />
-    <Button
-        android:text="@string/Maps"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/MapsButton" />
-</LinearLayout>
+    android:layout_height="fill_parent"
+    android:numColumns="3" />
