@@ -7,10 +7,16 @@
         android:text="Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/RouteName" />
+        android:id="@+id/RouteName"
+        android:textSize="18dip" />
     <TextView
         android:text="Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/RouteTimes" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white" />
 </LinearLayout>

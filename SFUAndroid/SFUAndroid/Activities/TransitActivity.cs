@@ -27,7 +27,7 @@ namespace SFUAndroid.Activities
         private List<BusRoute> mBusRoutes;
         private BusRouteAdapter mBusRouteAdapter;
         private ListView mBusRouteListView;
-        //Burnaby = 53096 52807
+        
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -46,7 +46,7 @@ namespace SFUAndroid.Activities
 
             this.ActionBar.AddTab(actionBar.NewTab().SetText("BURNABY").SetTabListener(this));
             this.ActionBar.AddTab(actionBar.NewTab().SetText("SURREY").SetTabListener(this));
-
+            
 
             GetBusTimes();
         }
@@ -113,6 +113,10 @@ namespace SFUAndroid.Activities
 
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+        }
 
         public void OnTabReselected(ActionBar.Tab tab, FragmentTransaction ft)
         {
@@ -126,8 +130,11 @@ namespace SFUAndroid.Activities
                 case 0:
                     if (mBurnabyBusRoutes != null)
                     {
-                        mBusRouteAdapter.Clear();
+                        mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
                         mBusRouteAdapter.AddAll(mBurnabyBusRoutes);
+                        
+                        mBusRouteListView.Adapter = mBusRouteAdapter;
+                        ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
                         mBusRouteAdapter.NotifyDataSetChanged();
                         
                     }
@@ -135,8 +142,10 @@ namespace SFUAndroid.Activities
                 case 1:
                     if (mSurreyBusRoutes != null)
                     {
-                        mBusRouteAdapter.Clear();
+                        mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mSurreyBusRoutes);
                         mBusRouteAdapter.AddAll(mSurreyBusRoutes);
+                        mBusRouteListView.Adapter = mBusRouteAdapter;
+                        ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
                         mBusRouteAdapter.NotifyDataSetChanged();
                     }
                     break;
@@ -147,5 +156,10 @@ namespace SFUAndroid.Activities
         {
            // throw new NotImplementedException();
         }
+
+        
     }
+
+  
+    
 }

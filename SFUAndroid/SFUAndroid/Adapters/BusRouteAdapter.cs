@@ -32,7 +32,7 @@ namespace SFUAndroid.Adapters
             {
                 
                 TextView tx = view.FindViewById<TextView>(Resource.Id.RouteName);
-                tx.Text = busRoute.RouteName;
+                tx.Text = busRoute.RouteNumber + " - " + busRoute.RouteName;
                 tx = view.FindViewById<TextView>(Resource.Id.RouteTimes);
                 tx.Text = busRoute.BusRouteTimes.ToString();
 
