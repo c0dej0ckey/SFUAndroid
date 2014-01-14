@@ -2,20 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-
-  <TextView android:id="@+id/ComputingIdLabel" android:text="@string/ComputingId" android:layout_width="fill_parent"
-    android:layout_height="wrap_content"  />
-  <EditText android:id="@+id/ComputingIdText" android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
-  <TextView android:id="@+id/PasswordLabel" android:text="@string/Password" android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
-  <EditText android:id="@+id/PasswordText" android:inputType="textPassword" android:password="true" android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
-  <Button android:id="@+id/LoginUserButton" android:text="@string/Login" android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
-
-  <ProgressBar android:id="@+id/LoginProgressBar" android:visibility="invisible" android:layout_height="fill_parent" android:layout_width="fill_parent"/>
-  
+    android:layout_height="fill_parent">
+    <TextView
+        android:id="@+id/ComputingIdLabel"
+        android:text="@string/ComputingId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/ComputingIdText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/PasswordLabel"
+        android:text="@string/Password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/PasswordText"
+        android:inputType="textPassword"
+        android:password="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/LoginUserButton"
+        android:text="@string/Login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/LoginProgressBar"
+        android:visibility="invisible"
+        android:layout_height="250dp"
+        android:layout_width="250dp" />
 </LinearLayout>

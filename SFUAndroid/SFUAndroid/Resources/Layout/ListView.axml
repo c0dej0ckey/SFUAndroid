@@ -14,9 +14,10 @@
     <ImageButton
         style="@style/listViewItemButtonStyle"
         android:background="@android:drawable/list_selector_background"
+        android:src="@drawable/ic_details"
         android:id="@+id/button"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentRight="true" />
     <View
         android:id="@+id/vertical_divider"
         style="@style/listViewVerticalDivider"

@@ -20,7 +20,7 @@ using SFUAndroid.Adapters;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Books")]
+    [Activity(Label = "Books", ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class BooksActivity : Activity
     {
         private List<Book> mBooks;

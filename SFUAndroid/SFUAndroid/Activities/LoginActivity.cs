@@ -17,7 +17,7 @@ using System.Threading;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Login", ParentActivity=typeof(MainActivity))]
+    [Activity(Label = "Login", ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class LoginActivity : Activity
     {
         private string mKey;

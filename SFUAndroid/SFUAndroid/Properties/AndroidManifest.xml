@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="17" />
 	<application android:icon="@drawable/sfulogo">
+
+    <receiver android:name=".LoginReceiver " android:enabled="true" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+      </intent-filter>
+    </receiver>
+    <service android:name=".TestService" />
+    
 		<activity android:name=".MainActivity" />
 		<activity android:name=".ProtectedServicesActivity" />
 		<activity android:name=".LoginActivity" />
@@ -11,8 +19,10 @@
 		</activity>
 		<activity android:name=".BooksActivity" />
 		<activity android:name=".TransitActivity"></activity>
+		
 	</application>
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

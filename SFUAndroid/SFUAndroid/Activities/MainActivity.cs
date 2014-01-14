@@ -18,7 +18,7 @@ using SFUAndroid.Entities;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/sfulogo")]
+    [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/sfulogo", Theme="@android:style/Theme.Holo.Light")]
     public class MainActivity : Activity
     {
         private string mKey;
@@ -36,14 +36,16 @@ namespace SFUAndroid.Activities
 
             
 
-            if(!computingId.Equals(string.Empty) && !password.Equals(string.Empty))
-            {
+            //if(!computingId.Equals(string.Empty) && !password.Equals(string.Empty) && !CookieService.CookieExists("CASTGC"))
+            //{
                 
-                TryLoginUser();
-            }
+            //    TryLoginUser();
+            //}
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+
+            
 
             List<Selection> menuSelections = new List<Selection>();
 
@@ -71,42 +73,12 @@ namespace SFUAndroid.Activities
             
             GridView gridView = FindViewById<GridView>(Resource.Id.gridView1);
 
-            mGridAdapter = new MainActivityGridAdapter(this, Resource.Layout.main_activity_option, menuSelections);
+            mGridAdapter = new MainActivityGridAdapter(this, Resource.Layout.MainActivityOption, menuSelections);
             gridView.Adapter = mGridAdapter;
             gridView.ItemClick += Selection_ItemClick;
             mGridAdapter.AddAll(menuSelections);
             mGridAdapter.NotifyDataSetChanged();
-          
-            //RunOnUiThread(() =>
-            //    {
-            //        adapter.Add(sel);
-            //        adapter.NotifyDataSetChanged();
 
-            //    });
-
-//MainActivityGridAdapter adapter = new MainActivityGridAdapter(this, Resource.Menu.main_activity_option, menuSelections);
-            //gridView.Adapter = adapter;
-            //adapter.Add(sel);
-           // adapter.NotifyDataSetChanged();
-
-
-            // Get our button from the layout resource,
-            // and attach an event to it
-            //Button button = FindViewById<Button>(Resource.Id.ProtectedServicesButton);
-            //button.Click += NavigateToProtectedServices;
-
-
-            //Button coursesButton = FindViewById<Button>(Resource.Id.ScheduleButton);
-            //coursesButton.Click += NavigateToCoursesView;
-
-            //Button booksButton = FindViewById<Button>(Resource.Id.BooksButton);
-            //booksButton.Click += NavigateToBooksView;
-
-            //Button transitButton = FindViewById<Button>(Resource.Id.TransitButton);
-            //transitButton.Click += NavigateToTransitView;
-
-            //Button mapsButton = FindViewById<Button>(Resource.Id.MapsButton);
-            //mapsButton.Click += NavigateToMapsView;
            
          
 
@@ -116,15 +88,23 @@ namespace SFUAndroid.Activities
         {
             if(CookieService.CookieExists("CASTGC"))
             {
-                
-                //IMenu menu = this.FindViewById<IMenu>(Resource.Menu.main_activity_actions);
-                IMenuItem item = mActionBarMenu.FindItem(Resource.Id.action_login);
-                item.SetTitle("Logout");
-                
+                RunOnUiThread(() =>
+                    {
+                        //IMenu menu = this.FindViewById<IMenu>(Resource.Menu.main_activity_actions);
+                        if (mActionBarMenu != null)
+                        {
+                            IMenuItem item = mActionBarMenu.FindItem(Resource.Id.action_login);
+                            item.SetTitle("Logout");
+                            ViewGroup vg = FindViewById<ViewGroup>(Resource.Id.gridView1);
+                            vg.Invalidate();
+                        }
+                    });
                
             }
             base.OnResume();
         }
+
+      
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -257,15 +237,19 @@ namespace SFUAndroid.Activities
             editor.PutString("courses", "");
             CookieService.DeleteCookies();
             editor.Commit();
-            IMenuItem menuItem = this.mActionBarMenu.FindItem(Resource.Id.action_login);
-            menuItem.SetTitle("Login");
-            /*
+            
+            
             RunOnUiThread(() =>
                 {
-                    Button loginButton = this.FindViewById<Button>(Resource.Id.LoginButton);
-                    loginButton.Text = "Login";
+                    IMenuItem menuItem = this.mActionBarMenu.FindItem(Resource.Id.action_login);
+                    menuItem.SetTitle("Login");
+                    ViewGroup vg = FindViewById<ViewGroup>(Resource.Id.gridView1);
+                    vg.Invalidate();
                 });
-             * */
+
+            
+
+             
         }
         
 
@@ -346,14 +330,15 @@ namespace SFUAndroid.Activities
                 CookieService.AddCookie(cookie);
                 if (cookie.Name == "CASTGC")
                 {
-                    
-                    /*
                     RunOnUiThread(() =>
-                        {
-                            Button loginButton = this.FindViewById<Button>(Resource.Id.LoginButton);
-                            loginButton.Text = "Logout";
-                        });
-                    */
+                    {
+                        //IMenu menu = this.FindViewById<IMenu>(Resource.Menu.main_activity_actions);
+                        IMenuItem item = mActionBarMenu.FindItem(Resource.Id.action_login);
+                        item.SetTitle("Logout");
+                        ViewGroup vg = FindViewById<ViewGroup>(Resource.Id.gridView1);
+                        vg.Invalidate();
+                    });
+                    
                 }
             }
         }
@@ -381,5 +366,29 @@ namespace SFUAndroid.Activities
         }
 
     }
+
+
+    public class LoginReceiver : BroadcastReceiver
+    {
+        public override void OnReceive(Context context, Intent intent)
+        {
+ 	       
+        }
+    }
+
+
+    public class TestService : Service
+    {
+        public override void OnStart(Intent intent, int startId)
+        {
+            base.OnStart(intent, startId);
+        }
+
+        public override IBinder OnBind(Intent intent)
+        {
+            return null;
+        }
+    }
+
 }
 

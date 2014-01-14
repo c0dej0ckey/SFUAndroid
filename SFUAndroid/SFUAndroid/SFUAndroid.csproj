@@ -127,12 +127,16 @@
     <AndroidResource Include="Resources\Layout\slide_up_right.xml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\ListViewAlignRight.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\Layout\MainActivityOption.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ListViewHeader.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ListView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ListViewAlignRight.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -154,7 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="HtmlAgilityPack.dll" />
-    <Content Include="Properties\AndroidManifest.xml" />
+    <Content Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <AndroidResource Include="Resources\Values\Integers.xml" />
     <AndroidResource Include="Resources\Values\Styles.xml">
       <SubType>Designer</SubType>
@@ -183,9 +189,10 @@
     <AndroidResource Include="Resources\Drawable\proserv.png" />
     <AndroidResource Include="Resources\Drawable\maps.png" />
     <AndroidResource Include="Resources\Drawable\transit.png" />
-    <AndroidResource Include="Resources\Layout\main_activity_option.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Values\Dimens.xml" />
+    <AndroidResource Include="Resources\Values\Colors.xml" />
+    <AndroidResource Include="Resources\Drawable\ic_details.png" />
+    <AndroidResource Include="Resources\Values-v14\Styles.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

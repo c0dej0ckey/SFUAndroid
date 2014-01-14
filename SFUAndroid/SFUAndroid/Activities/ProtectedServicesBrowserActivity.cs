@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Protected Service", ParentActivity=typeof(ProtectedServicesActivity))]
+    [Activity(Label = "Protected Service", ParentActivity=typeof(ProtectedServicesActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class ProtectedServicesBrowserActivity : Activity
     {
         private string mURL;
