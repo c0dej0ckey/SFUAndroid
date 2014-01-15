@@ -102,6 +102,7 @@ namespace SFUAndroid.Activities
                     mBooks.Add(bk);
                     RunOnUiThread(() =>
                         {
+                            mBookAdapter.AddBook(bk);
                             mBookAdapter.Add(bk);
                             mBookAdapter.NotifyDataSetChanged();
                         });
@@ -120,56 +121,62 @@ namespace SFUAndroid.Activities
 
         private void GetBookCoverResponse(IAsyncResult result)
         {
-            HttpWebRequest request = (HttpWebRequest)result.AsyncState;
-            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
-            Stream stream = response.GetResponseStream();
-            using (StreamReader reader = new StreamReader(stream))
+            try
             {
-                string json = reader.ReadToEnd();
-                JObject bookCover = JObject.Parse(json);
-                JArray items = bookCover["items"] as JArray;
-                if (items != null)
+
+
+                HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream stream = response.GetResponseStream();
+                using (StreamReader reader = new StreamReader(stream))
                 {
-                    JObject item = items[0] as JObject;
-                    JObject volumeInfo = item["volumeInfo"] as JObject;
-                    JObject imageLinks = volumeInfo["imageLinks"] as JObject;
-                    string thumbNail = imageLinks["smallThumbnail"].ToString();
-                    WebClient client = new WebClient();
-                   // client.OpenReadCompleted += client_OpenReadCompleted;
-                    client.DownloadDataCompleted += (s, e) =>
+                    string json = reader.ReadToEnd();
+                    JObject bookCover = JObject.Parse(json);
+                    JArray items = bookCover["items"] as JArray;
+                    if (items != null)
                     {
-                        var bytes = e.Result;
-                        Bitmap bmp = null;
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        if (bytes != null)
+                        JObject item = items[0] as JObject;
+                        JObject volumeInfo = item["volumeInfo"] as JObject;
+                        JObject imageLinks = volumeInfo["imageLinks"] as JObject;
+                        string thumbNail = imageLinks["smallThumbnail"].ToString();
+                        WebClient client = new WebClient();
+                        // client.OpenReadCompleted += client_OpenReadCompleted;
+                        client.DownloadDataCompleted += (s, e) =>
                         {
-                            bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length, options);
-                            string isbn = client.Headers["Isbn"];
-                            Book book = mBooks.Where(b => b.Isbn == isbn).FirstOrDefault();
-                            book.Image = bmp;
-
-                            RunOnUiThread(() =>
+                            var bytes = e.Result;
+                            Bitmap bmp = null;
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            if (bytes != null)
                             {
-                                mBookAdapter.NotifyDataSetChanged();
-                            });
-                        }
-                        //string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                        //string localFileName = item.ToString();
-                        //string localPath = Path.Combine(documentsPath, localFileName);
-                        //File.WriteAllBytes(localPath, bytes);
-                    };
-                    client.Headers["Isbn"] = request.RequestUri.OriginalString.Split(':')[2];
-                    client.DownloadDataAsync(new Uri(thumbNail));
-                    //client.OpenReadAsync(new Uri(thumbNail), HttpCompletionOption.ResponseContentRead);
-                   // var file = client.DownloadFile(
+                                bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length, options);
+                                string isbn = client.Headers["Isbn"];
+                                Book book = mBooks.Where(b => b.Isbn == isbn).FirstOrDefault();
+                                book.Image = bmp;
+
+                                RunOnUiThread(() =>
+                                {
+                                    mBookAdapter.NotifyDataSetChanged();
+                                });
+                            }
+                            //string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                            //string localFileName = item.ToString();
+                            //string localPath = Path.Combine(documentsPath, localFileName);
+                            //File.WriteAllBytes(localPath, bytes);
+                        };
+                        client.Headers["Isbn"] = request.RequestUri.OriginalString.Split(':')[2];
+                        client.DownloadDataAsync(new Uri(thumbNail));
+                        //client.OpenReadAsync(new Uri(thumbNail), HttpCompletionOption.ResponseContentRead);
+                        // var file = client.DownloadFile(
 
 
 
 
+
+                    }
 
                 }
-
             }
+            catch (Exception e) { }
         }
 
 

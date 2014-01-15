@@ -19,7 +19,7 @@ using SFUAndroid.Adapters;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Schedule", ParentActivity=typeof(MainActivity))]
+    [Activity(Label = "Schedule", ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class ScheduleActivity : Activity
     {
         private List<Course> mCourses;

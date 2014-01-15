@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "SurreyRoomSelect")]
+    [Activity(Label = "SurreyRoomSelect", ParentActivity = typeof(MapsActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class SurreyRoomSelectActivity : Activity
     {
         private List<Room> mRooms;
@@ -26,17 +26,22 @@ namespace SFUAndroid.Activities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-           // SetContentView(Resource.Layout.SurreyFloorSelect);
+            SetContentView(Resource.Layout.SurreyFloorSelect);
             mRooms = new List<Room>();
+
+            ActionBar actionBar = this.ActionBar;
+            actionBar.SetDisplayHomeAsUpEnabled(true);
 
             Intent intent = base.Intent;
 
             String floor = intent.GetStringExtra("FloorName");
-
-           // var path = @"Assets/Maps/surrey-campus-list.csv";
-            //StreamResourceInfo res = System.Windows.Application.GetResourceStream(new Uri(path, UriKind.Relative));
+            string floorNumber = floor.Split(' ')[1];
 
             StreamReader reader = new StreamReader(Assets.Open("surrey-campus-list.csv"));
+
+            ListView roomListView = this.FindViewById<ListView>(Resource.Id.SurreyRoomListView);
+            
+            roomListView.ItemClick += Room_Selected;
 
             string line = null;
             while ((line = reader.ReadLine()) != null)
@@ -46,7 +51,40 @@ namespace SFUAndroid.Activities
                 mRooms.Add(room);
             }
 
+            //filter here
+            List<Room> roomsOnFloor = mRooms.Where(r => r.Number.First() == floorNumber[0]).ToList<Room>();
+
+            List<string> roomNames = new List<string>();
+            foreach (Room room in roomsOnFloor)
+            {
+                roomNames.Add(room.Name);
+            }
+
+            ArrayAdapter<string> roomAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, roomNames);
+            roomListView.Adapter = roomAdapter;
+            roomAdapter.NotifyDataSetChanged();
+
 
         }
+
+        public void Room_Selected(object sender, EventArgs e)
+        {
+            //string roomName = e.View.Text;
+            Android.Widget.AdapterView.ItemClickEventArgs args = e as Android.Widget.AdapterView.ItemClickEventArgs;
+            TextView textView = args.View as TextView;
+            string roomName = textView.Text;
+            //Room room = mRooms.Where(r => r.Name == roomName);
+            //Intent intent = new Intent(this, typeof(SOMEACTIVITY);
+            //intent.PutExtra("RoomName", room.Name);
+            //intent.PutExtra("RoomNumber", room.Number);
+            //intent.PutExtra("X", room.X);
+            //intent.PutExtra("Y", room.Y);
+
+           // StartActivity(intent, typeof(
+
+
+
+        }
+
     }
 }

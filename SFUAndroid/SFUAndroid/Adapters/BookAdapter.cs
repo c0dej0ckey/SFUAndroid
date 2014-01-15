@@ -16,7 +16,7 @@ namespace SFUAndroid.Adapters
     public class BookAdapter : ArrayAdapter<Book>
     {
         private List<Book> mBooks;
-        private List<object> mHeaders = new List<object>() { "Books" };
+        private List<Book> mHeaders = new List<Book>();
         private static int HDR_POS1 = 0;
         private static int HDR_POS2 = 6;
         private static Java.Lang.Integer LIST_HEADER = new Java.Lang.Integer(0);
@@ -24,7 +24,8 @@ namespace SFUAndroid.Adapters
 
         public BookAdapter(List<Book> books, Context context, int resourceId) : base(context, resourceId)
         {
-            mHeaders.Add(books);
+            mHeaders.Add(new Book("Books", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 0, 0));
+            mHeaders.AddRange(books);
         }
 
         /// <summary>
@@ -37,8 +38,9 @@ namespace SFUAndroid.Adapters
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View view = convertView;
-            var obj = GetHeader(position);
-            if(obj is string)
+            Book obj = GetHeader(position);
+            
+            if(obj != null)
             {
                 if (view == null)
                 {
@@ -48,9 +50,10 @@ namespace SFUAndroid.Adapters
                     view.Tag = LIST_HEADER;
                 }
                 TextView headerTextView = (TextView)view.FindViewById<TextView>(Resource.Id.lv_list_hdr);
-                headerTextView.Text = obj.ToString();
+                headerTextView.Text = obj.ClassName;
                 return view;
             }
+           
             view = convertView;
             if (view == null || convertView.Tag == LIST_HEADER)
             {
@@ -70,9 +73,18 @@ namespace SFUAndroid.Adapters
             return view;
         }
 
-        private object GetHeader(int position)
+        public void AddBook(Book book)
         {
-            return mHeaders[position];
+            mHeaders.Add(book);
+        }
+
+        private Book GetHeader(int position)
+        {
+            if (position == HDR_POS1 || position == HDR_POS2)
+            {
+                return mHeaders[position];
+            }
+            return null;
         }
 
     }

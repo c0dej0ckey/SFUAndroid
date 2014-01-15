@@ -137,6 +137,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\ListViewAlignRight.axml" />
+    <AndroidResource Include="Resources\Layout\BurnabyCampusView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -171,7 +174,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Menu\schedule_activity_actions.xml" />
-    <AndroidResource Include="Resources\Drawable\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable\ic_action_user.png" />
     <AndroidResource Include="Resources\Menu\transit_activity_actions.xml" />
     <AndroidResource Include="Resources\Drawable\card_bg2.9.png" />
@@ -193,8 +195,13 @@
     <AndroidResource Include="Resources\Values\Colors.xml" />
     <AndroidResource Include="Resources\Drawable\ic_details.png" />
     <AndroidResource Include="Resources\Values-v14\Styles.xml" />
+    <AndroidResource Include="Resources\Drawable\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\Drawable\sfu_campus_map.png" />
+    <AndroidResource Include="Resources\Drawable\sfu_campus_mapj.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\Drawable\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
