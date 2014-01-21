@@ -21,7 +21,7 @@ namespace SFUAndroid.Activities
     public class SurreyRoomSelectActivity : Activity
     {
         private List<Room> mRooms;
-
+        private string mFloorNumber;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -36,6 +36,8 @@ namespace SFUAndroid.Activities
 
             String floor = intent.GetStringExtra("FloorName");
             string floorNumber = floor.Split(' ')[1];
+            this.mFloorNumber = floorNumber;
+            
 
             StreamReader reader = new StreamReader(Assets.Open("surrey-campus-list.csv"));
 
@@ -73,14 +75,14 @@ namespace SFUAndroid.Activities
             Android.Widget.AdapterView.ItemClickEventArgs args = e as Android.Widget.AdapterView.ItemClickEventArgs;
             TextView textView = args.View as TextView;
             string roomName = textView.Text;
-            //Room room = mRooms.Where(r => r.Name == roomName);
-            //Intent intent = new Intent(this, typeof(SOMEACTIVITY);
-            //intent.PutExtra("RoomName", room.Name);
-            //intent.PutExtra("RoomNumber", room.Number);
-            //intent.PutExtra("X", room.X);
-            //intent.PutExtra("Y", room.Y);
-
-           // StartActivity(intent, typeof(
+            Room room = mRooms.Where(r => r.Name == roomName).FirstOrDefault();
+            Intent intent = new Intent(this, typeof(SurreyMapActivity));
+            intent.PutExtra("RoomName", room.Name);
+            intent.PutExtra("RoomNumber", room.Number);
+            intent.PutExtra("FloorNumber", mFloorNumber);
+            intent.PutExtra("X", room.X);
+            intent.PutExtra("Y", room.Y);
+            StartActivity(intent);
 
 
 

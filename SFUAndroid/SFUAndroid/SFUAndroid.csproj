@@ -73,6 +73,7 @@
     <Compile Include="Activities\ProtectedServicesActivity.cs" />
     <Compile Include="Activities\ProtectedServicesBrowserActivity.cs" />
     <Compile Include="Activities\ScheduleActivity.cs" />
+    <Compile Include="Activities\SurreyMapActivity.cs" />
     <Compile Include="Activities\SurreyRoomSelectActivity.cs" />
     <Compile Include="Activities\TransitActivity.cs" />
     <Compile Include="Adapters\BookAdapter.cs" />
@@ -144,6 +145,9 @@
     <AndroidResource Include="Resources\Layout\BurnabyCampusView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\SurreyCampusView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -202,6 +206,10 @@
     <AndroidResource Include="Resources\Drawable\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable-nodpi\sfu_campus_mapscaled.png" />
     <AndroidResource Include="Resources\Drawable\pin.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Galleria_3.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Galleria_4.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Galleria_5.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Podium_2.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

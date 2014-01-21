@@ -107,7 +107,7 @@ namespace SFUAndroid.Activities
                     }
                     catch(Exception e)
                     {
-                    
+                        Console.WriteLine(e.StackTrace);
                     }
                 });
 

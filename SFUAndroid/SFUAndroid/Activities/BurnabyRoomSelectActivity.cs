@@ -24,7 +24,7 @@ using UK.CO.Senab.Photoview;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "BurnabyRoomSelect", ParentActivity = typeof(MapsActivity), Theme = "@android:style/Theme.Holo.Light")]
+    [Activity(Label = "Burnaby", ParentActivity = typeof(MapsActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class BurnabyRoomSelectActivity : Activity
     {
 
@@ -39,6 +39,10 @@ namespace SFUAndroid.Activities
         {
             base.OnCreate(bundle);
              SetContentView(Resource.Layout.BurnabyCampusView);
+
+             ActionBar actionBar = this.ActionBar;
+             actionBar.SetDisplayHomeAsUpEnabled(true);
+
              this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
 
              Intent intent = this.Intent;
