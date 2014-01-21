@@ -43,9 +43,15 @@ namespace SFUAndroid.Activities
 
              Intent intent = this.Intent;
 
-            //string floor = intent.GetStringExtra("FloorName");
-            //int x = int.Parse(intent.GetStringExtra("X"));
-            //int y = int.Parse(intent.GetStringExtra("Y"));
+            string floor = intent.GetStringExtra("RoomName");
+            int x = intent.GetIntExtra("X", 0) ;
+            int y = intent.GetIntExtra("Y", 0);
+
+            //map is scaled by 1/2.
+            x = x / 2;
+            y = y / 2;
+
+
              
              ImageView photoView = this.FindViewById<ImageView>(Resource.Id.BurnabyCampusImageView);
 
@@ -65,11 +71,11 @@ namespace SFUAndroid.Activities
                      Color c = new Color(pixelColor);
                      if (c.A == 0 && c.B == 0 && c.R == 0 && c.G == 0)
                      {
-                         mutablebmp.SetPixel(i, j, new Color(bmp.GetPixel(i, j)));
+                         mutablebmp.SetPixel(x + i - 20, y + j - 68, new Color(bmp.GetPixel(x + i - 20, y + j - 68)));
                      }
                      else
                      {
-                         mutablebmp.SetPixel(i, j, c);
+                         mutablebmp.SetPixel(x + i - 20, y + j - 68, c);
                      }
                  }
 
