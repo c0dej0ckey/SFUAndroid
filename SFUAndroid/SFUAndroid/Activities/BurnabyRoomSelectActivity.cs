@@ -63,6 +63,7 @@ namespace SFUAndroid.Activities
              
              var bmp = DecodeSampledBitmapFromResource(Resources, Resource.Drawable.sfu_campus_mapscaled, 1792, 955);
              Bitmap mutablebmp = bmp.Copy(bmp.GetConfig(), true);
+            
              int[,] pixels = new int[bmp.Width, bmp.Height];
              Bitmap pin = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.pin);
              //pin.GetPixels(pixels, 0, pin.Width, 0, 0, pin.Width, pin.Height);
@@ -84,11 +85,11 @@ namespace SFUAndroid.Activities
                  }
 
              }
-
+             
 
              photoView.SetImageBitmap(mutablebmp);
              mAttacher = new PhotoViewAttacher(photoView);
-
+            // bmp.Recycle();
 
 
         }

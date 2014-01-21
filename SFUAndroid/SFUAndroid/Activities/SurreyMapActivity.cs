@@ -52,9 +52,32 @@ namespace SFUAndroid.Activities
                     break;
             }
 
+            Bitmap pin = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.pin);
+            Bitmap muteablebmp = bmp.Copy(bmp.GetConfig(), true);
+           // bmp.Recycle();
 
-            photoView.SetImageBitmap(bmp);
+            for(int i = 0; i < 40; i++)
+            {
+                for(int j = 0; j < 68; j++)
+                {
+                    int pixelColor = pin.GetPixel(i, j);
+                    //Color c = this.Resources.GetColor(pixelColor);
+                    Color c = new Color(pixelColor);
+                    if (c.A == 0 && c.B == 0 && c.R == 0 && c.G == 0)
+                    {
+                        muteablebmp.SetPixel(x + i - 20, y + j - 68, new Color(bmp.GetPixel(x + i - 20, y + j - 68)));
+                    }
+                    else
+                    {
+                        muteablebmp.SetPixel(x + i - 20, y + j - 68, c);
+                    }
+                }
+            }
+
+
+            photoView.SetImageBitmap(muteablebmp);
             mAttacher = new PhotoViewAttacher(photoView);
+            bmp.Recycle();
 
         }
     }
