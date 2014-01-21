@@ -34,8 +34,8 @@ namespace SFUAndroid.Activities
             string computingId = preferences.GetString("ComputingId", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
+           // Bitmap b = BitmapFactory.DecodeResourceAsync(this.Resources, Resource.Drawable.sfu_campus_mapj);
             
-
             //if(!computingId.Equals(string.Empty) && !password.Equals(string.Empty) && !CookieService.CookieExists("CASTGC"))
             //{
                 

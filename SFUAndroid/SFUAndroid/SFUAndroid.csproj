@@ -51,9 +51,13 @@
       <HintPath>C:\Users\iNFiNiTY\Desktop\HtmlAgilityPack.1.4.6\Net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.GoogleMaps" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>References\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SFUAndroid.PhotoView">
+      <HintPath>..\SFUAndroid.PhotoView\bin\Debug\SFUAndroid.PhotoView.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -196,8 +200,8 @@
     <AndroidResource Include="Resources\Drawable\ic_details.png" />
     <AndroidResource Include="Resources\Values-v14\Styles.xml" />
     <AndroidResource Include="Resources\Drawable\ic_action_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\sfu_campus_map.png" />
-    <AndroidResource Include="Resources\Drawable\sfu_campus_mapj.jpg" />
+    <AndroidResource Include="Resources\Drawable-nodpi\sfu_campus_mapscaled.png" />
+    <AndroidResource Include="Resources\Drawable\pin.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />
