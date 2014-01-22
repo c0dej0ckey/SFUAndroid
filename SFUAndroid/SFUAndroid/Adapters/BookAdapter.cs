@@ -16,16 +16,9 @@ namespace SFUAndroid.Adapters
     public class BookAdapter : ArrayAdapter<Book>
     {
         private List<Book> mBooks;
-        private List<Book> mHeaders = new List<Book>();
-        private static int HDR_POS1 = 0;
-        private static int HDR_POS2 = 6;
-        private static Java.Lang.Integer LIST_HEADER = new Java.Lang.Integer(0);
-        private static Java.Lang.Integer LIST_ITEM = new Java.Lang.Integer(1);
-
         public BookAdapter(List<Book> books, Context context, int resourceId) : base(context, resourceId)
         {
-            mHeaders.Add(new Book("Books", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 0, 0));
-            mHeaders.AddRange(books);
+            mBooks = books;
         }
 
         /// <summary>
@@ -37,55 +30,26 @@ namespace SFUAndroid.Adapters
         /// <returns></returns>
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View view = convertView;
-            Book obj = GetHeader(position);
-            
-            if(obj != null)
-            {
-                if (view == null)
-                {
-                    //If the box is too small, make it bigger
-                    LayoutInflater layoutInflator = (LayoutInflater)Context.GetSystemService(Context.LayoutInflaterService);
-                   view =  layoutInflator.Inflate(Resource.Layout.ListViewHeader, null);
-                    view.Tag = LIST_HEADER;
-                }
-                TextView headerTextView = (TextView)view.FindViewById<TextView>(Resource.Id.lv_list_hdr);
-                headerTextView.Text = obj.ClassName;
-                return view;
-            }
            
-            view = convertView;
-            if (view == null || convertView.Tag == LIST_HEADER)
+
+            View view = convertView;
+            if (view == null)
             {
                 //If the box is too small, make it bigger
                 LayoutInflater layoutInflator = (LayoutInflater)Context.GetSystemService(Context.LayoutInflaterService);
                 view = layoutInflator.Inflate(Resource.Layout.Book, null);
-                view.Tag = LIST_ITEM;
             }
-            Book book = (Book)mHeaders.ElementAt(position);
+            Book book = mBooks.ElementAt(position);
             if (book != null)
             {
                 ImageView iv = view.FindViewById<ImageView>(Resource.Id.button);
                 iv.SetImageBitmap(book.Image);
-                TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
-                tx.Text = book.Title;
+                TextView tx = view.FindViewById<TextView>(Resource.Id.lv_list_hdr);
+                tx.Text = "Hats";
             }
             return view;
         }
 
-        public void AddBook(Book book)
-        {
-            mHeaders.Add(book);
-        }
-
-        private Book GetHeader(int position)
-        {
-            if (position == HDR_POS1 || position == HDR_POS2)
-            {
-                return mHeaders[position];
-            }
-            return null;
-        }
 
     }
 }

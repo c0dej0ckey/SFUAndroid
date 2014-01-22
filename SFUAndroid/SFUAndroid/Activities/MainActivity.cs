@@ -24,6 +24,8 @@ namespace SFUAndroid.Activities
         private string mKey;
         private IMenu mActionBarMenu;
         private MainActivityGridAdapter mGridAdapter;
+        private ProgressDialog mDialog;
+
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -36,11 +38,7 @@ namespace SFUAndroid.Activities
 
            // Bitmap b = BitmapFactory.DecodeResourceAsync(this.Resources, Resource.Drawable.sfu_campus_mapj);
             
-            //if(!computingId.Equals(string.Empty) && !password.Equals(string.Empty) && !CookieService.CookieExists("CASTGC"))
-            //{
-                
-            //    TryLoginUser();
-            //}
+            
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -79,7 +77,15 @@ namespace SFUAndroid.Activities
             mGridAdapter.AddAll(menuSelections);
             mGridAdapter.NotifyDataSetChanged();
 
-           
+            if (!computingId.Equals(string.Empty) && !password.Equals(string.Empty) && !CookieService.CookieExists("CASTGC"))
+            {
+                mDialog = new ProgressDialog(this);
+                mDialog.Indeterminate = true;
+                mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                mDialog.SetMessage("Logging In...");
+                mDialog.Show();
+                TryLoginUser();
+            }
          
 
         }
@@ -333,6 +339,7 @@ namespace SFUAndroid.Activities
                     RunOnUiThread(() =>
                     {
                         //IMenu menu = this.FindViewById<IMenu>(Resource.Menu.main_activity_actions);
+                        //mDialog.Cancel();
                         IMenuItem item = mActionBarMenu.FindItem(Resource.Id.action_login);
                         item.SetTitle("Logout");
                         ViewGroup vg = FindViewById<ViewGroup>(Resource.Id.gridView1);
@@ -340,6 +347,12 @@ namespace SFUAndroid.Activities
                     });
                     
                 }
+
+                RunOnUiThread(() =>
+                    {
+                        mDialog.Cancel();
+                    });
+
             }
         }
 

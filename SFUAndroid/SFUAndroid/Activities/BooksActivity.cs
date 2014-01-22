@@ -23,19 +23,62 @@ namespace SFUAndroid.Activities
     [Activity(Label = "Books", ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class BooksActivity : Activity
     {
-        private List<Book> mBooks;
-        private BookAdapter mBookAdapter;
+        private List<Item> mBooks;
+        private BookArrayAdapter mBookAdapter;
+        private ProgressDialog mDialog;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Books);
-            mBooks = new List<Book>();
-            mBookAdapter = new BookAdapter(mBooks, this, Resource.Layout.Book);
+            mBooks = new List<Item>();
+            mBookAdapter = new BookArrayAdapter(this, mBooks);
+            //mBooks.Add(new Header((LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), "Books"));
+           // mBooks.Add(new Book((LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), "hats", "sats", "zomg", "aaa", "sddsd", "s224454", 22, 22));
+            
+            
             ListView bookListView = FindViewById<ListView>(Resource.Id.BooksListView);
             bookListView.Adapter = mBookAdapter;
 
-            GetBooks();
+
+           // mBookAdapter.AddAll(mBooks);
+          
+
+           // mBookAdapter.Add(new Book((LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), "hats", "sats", "zomg", "aaa", "sddsd", "s224454", 22, 22));
+          //  mBookAdapter.NotifyDataSetChanged();
+
+           // GetBooks();
+
+
+            //mBooks = LoadBooks();
+            //if(mBooks == null)
+            //{
+
+            //    List<Course> courses = GetCourses();
+            //    if(courses == null)
+            //    {
+                    
+            //    }
+
+                mBookAdapter.Add(new Header((LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), "Books"));
+                mBookAdapter.NotifyDataSetChanged();
+
+                mDialog = new ProgressDialog(this);
+                mDialog.Indeterminate = true;
+                mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                mDialog.SetMessage("Loading...");
+                mDialog.Show();
+                GetBooks();
+            //}
+            //else
+            //{
+            //   // mBooks = LoadBooks();
+            //    mBookAdapter.AddAll(mBooks);
+            //    mBookAdapter.NotifyDataSetChanged();
+            //}
+
+
+            
         }
 
         private void GetBooks()
@@ -53,6 +96,8 @@ namespace SFUAndroid.Activities
 
         private void GetBookResponse(IAsyncResult result)
         {
+
+
             HttpWebRequest request = (HttpWebRequest)result.AsyncState;
             HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
             Stream stream = response.GetResponseStream();
@@ -98,12 +143,15 @@ namespace SFUAndroid.Activities
                     float.TryParse(newPrice, out newP);
                     float usedP;
                     float.TryParse(usedPrice, out usedP);
-                    Book bk = new Book(className, classNumber, title, author, status, isbn, newP, usedP);
+                    Book bk = new Book((LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), className, classNumber, title, author, status, isbn, newP, usedP);
                     mBooks.Add(bk);
+                   
+                           // mBookAdapter.AddBook(bk);
+
                     RunOnUiThread(() =>
                         {
-                            mBookAdapter.AddBook(bk);
-                            mBookAdapter.Add(bk);
+                            mDialog.Cancel();
+                            mBookAdapter.Add(new Book((LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), className, classNumber, title, author, status, isbn, newP, usedP));
                             mBookAdapter.NotifyDataSetChanged();
                         });
                   
@@ -121,8 +169,7 @@ namespace SFUAndroid.Activities
 
         private void GetBookCoverResponse(IAsyncResult result)
         {
-            try
-            {
+            
 
 
                 HttpWebRequest request = (HttpWebRequest)result.AsyncState;
@@ -150,7 +197,8 @@ namespace SFUAndroid.Activities
                             {
                                 bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length, options);
                                 string isbn = client.Headers["Isbn"];
-                                Book book = mBooks.Where(b => b.Isbn == isbn).FirstOrDefault();
+                                List<Book> books = mBooks.Where(b => b.GetType() == typeof(Book)).Cast<Book>().ToList<Book>();
+                                Book book = books.Where(b => b.Isbn == isbn).FirstOrDefault();
                                 book.Image = bmp;
 
                                 RunOnUiThread(() =>
@@ -175,8 +223,7 @@ namespace SFUAndroid.Activities
                     }
 
                 }
-            }
-            catch (Exception e) { }
+           
         }
 
 
@@ -203,6 +250,30 @@ namespace SFUAndroid.Activities
             string json = JsonConvert.SerializeObject(courses);
             var editor = preferences.Edit();
             editor.PutString("courses", json);
+
+            editor.Commit();
+        }
+
+        private List<Item> LoadBooks()
+        {
+            try
+            {
+                List<Item> books = new List<Item>();
+                var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+                string json = preferences.GetString("books", string.Empty);
+                List<Book> b = JsonConvert.DeserializeObject<List<Book>>(json);
+                books.AddRange(b);
+                return books;
+            }
+            catch (Exception e) { return null; }
+        }
+
+        private void SaveBooks(List<Book> books)
+        {
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            string json = JsonConvert.SerializeObject(books);
+            var editor = preferences.Edit();
+            editor.PutString("books", json);
 
             editor.Commit();
         }

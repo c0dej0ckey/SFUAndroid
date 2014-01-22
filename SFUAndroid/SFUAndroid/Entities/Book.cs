@@ -13,7 +13,7 @@ using Android.Graphics;
 
 namespace SFUAndroid.Entities
 {
-    public class Book
+    public class Book : Item
     {
         private string mClassNumber;
         private string mClassName;
@@ -24,8 +24,10 @@ namespace SFUAndroid.Entities
         private float mNewPrice;
         private float mUsedPrice;
         private Bitmap mImage;
+        private LayoutInflater mInflater;
+        
 
-        public Book(string className, string classNumber, string title, string author, string status, string isbn, float newPrice, float usedPrice)
+        public Book(LayoutInflater inflater, string className, string classNumber, string title, string author, string status, string isbn, float newPrice, float usedPrice)
         {
             this.ClassName = className;
             this.ClassNumber = classNumber;
@@ -35,6 +37,7 @@ namespace SFUAndroid.Entities
             this.Isbn = isbn;
             this.NewPrice = newPrice;
             this.UsedPrice = usedPrice;
+            this.mInflater = inflater;
         }
 
         public string ClassName
@@ -91,5 +94,114 @@ namespace SFUAndroid.Entities
             get { return this.mImage; }
             set { this.mImage = value; }
         }
+
+        public int GetViewType()
+        {
+            return (int)RowType.LIST_ITEM;
+        }
+
+        public View GetView(LayoutInflater inflater, View convertView, ViewGroup parent)
+        {
+
+            View view = null;
+            if (convertView == null)
+            {
+                view = inflater.Inflate(Resource.Layout.Book, parent, false);
+            }
+            else
+            {
+                view = convertView;
+            }
+            if (Image != null)
+            {
+                ImageView iv = view.FindViewById<ImageView>(Resource.Id.button);
+                //Bitmap b = BitmapFactory.DecodeResource(
+                iv.SetImageBitmap(Image);
+            }
+            TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
+            tx.Text = Title;
+            TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
+            tx2.Text = Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + " - " + Isbn;
+            return view;
+        }
     }
+
+    public interface Item
+    {
+         int GetViewType();
+         View GetView(LayoutInflater inflater, View convertView, ViewGroup parent);
+    }
+
+    public enum RowType
+    {
+        LIST_ITEM = 0,
+        HEADER_ITEM = 1
+    }
+
+    public class BookArrayAdapter : ArrayAdapter<Item>
+    {
+        private LayoutInflater mInflater;
+
+        
+
+        public BookArrayAdapter(Context context, List<Item> items) : base(context, 0, items) { mInflater = LayoutInflater.From(context); }
+
+        public override int ViewTypeCount
+        {
+            get
+            {
+                return Enum.GetNames(typeof(RowType)).Length;
+               // return 1;
+            }
+        }
+
+        public override int GetItemViewType(int position)
+        {
+            return GetItem(position).GetViewType();
+        }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            return GetItem(position).GetView(mInflater, convertView, parent);
+        }
+
+    }
+
+    public class Header : Item
+    {
+        private string mName;
+        private LayoutInflater mInflater;
+
+        public Header(LayoutInflater inflater, string name)
+        {
+            this.mName = name;
+            this.mInflater = inflater;
+        }
+
+
+
+
+        public int GetViewType()
+        {
+            return (int)RowType.HEADER_ITEM;
+        }
+
+        public View GetView(LayoutInflater inflater, View convertView, ViewGroup parent)
+        {
+            View view = null;
+            if (convertView == null)
+            {
+                view = inflater.Inflate(Resource.Layout.ListViewHeader, parent, false);
+            }
+            else
+            {
+                view = convertView;
+            }
+            TextView text = (TextView)view.FindViewById(Resource.Id.lv_list_hdr);
+            text.Text = mName;
+            return view;
+        }
+    }
+
+
 }

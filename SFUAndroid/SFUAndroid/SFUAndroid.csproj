@@ -218,6 +218,7 @@
     <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Galleria_5.png" />
     <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Podium_2.png" />
     <AndroidResource Include="Resources\Drawable\selectable_background_cardbank.xml" />
+    <AndroidResource Include="Resources\Drawable\ic_action_cancel.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

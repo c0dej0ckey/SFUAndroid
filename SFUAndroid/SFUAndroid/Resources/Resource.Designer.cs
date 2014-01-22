@@ -738,64 +738,67 @@ namespace SFUAndroid
 			public const int courses2x = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int ic_action_refresh = 2130837517;
+			public const int ic_action_cancel = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int ic_action_user = 2130837518;
+			public const int ic_action_refresh = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int ic_details = 2130837519;
+			public const int ic_action_user = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int Icon = 2130837520;
+			public const int ic_details = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int important = 2130837521;
+			public const int Icon = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int library = 2130837522;
+			public const int important = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int library2x = 2130837523;
+			public const int library = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int maps = 2130837524;
+			public const int library2x = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int maps2x = 2130837525;
+			public const int maps = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int pin = 2130837526;
+			public const int maps2x = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int proserv = 2130837527;
+			public const int pin = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int proserv2x = 2130837528;
+			public const int proserv = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int search_bg_shadow = 2130837529;
+			public const int proserv2x = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int selectable_background_cardbank = 2130837530;
+			public const int search_bg_shadow = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int sfu_campus_mapscaled = 2130837531;
+			public const int selectable_background_cardbank = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int sfulogo = 2130837532;
+			public const int sfu_campus_mapscaled = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int top_shadow = 2130837533;
+			public const int sfulogo = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int transit = 2130837534;
+			public const int top_shadow = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int transit2x = 2130837535;
+			public const int transit = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int wht8c = 2130837536;
+			public const int transit2x = 2130837536;
+			
+			// aapt resource value: 0x7f020021
+			public const int wht8c = 2130837537;
 			
 			static Drawable()
 			{
