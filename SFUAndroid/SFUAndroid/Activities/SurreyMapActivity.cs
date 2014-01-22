@@ -80,5 +80,11 @@ namespace SFUAndroid.Activities
             bmp.Recycle();
 
         }
+
+        protected override void OnDestroy()
+        {
+            mAttacher = null;
+            base.OnDestroy();
+        }
     }
 }

@@ -16,6 +16,9 @@ using System.IO;
 using HtmlAgilityPack;
 using SFUAndroid.Services;
 using SFUAndroid.Adapters;
+using Com.Fima.Cardsui.Views;
+using Com.Fima.Cardsui.Objects;
+using System.Threading;
 
 namespace SFUAndroid.Activities
 {
@@ -24,11 +27,19 @@ namespace SFUAndroid.Activities
     {
         private List<Course> mCourses;
         private CourseAdapter mCourseAdapter;
+        private CardUI mCardView;
+        private ProgressDialog mDialog;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Schedule);
+
+            CardUI mCardView = this.FindViewById<CardUI>(Resource.Id.cardsview);
+            mCardView.SetSwipeable(false);
+            
+
+
 
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
@@ -37,21 +48,36 @@ namespace SFUAndroid.Activities
 
             
         
-            //load courses - if not found request them from GOSFU
+            ////load courses - if not found request them from GOSFU
             mCourses = GetCourses();
-            if(mCourses == null)
+            if (mCourses == null)
             {
+                mDialog = new ProgressDialog(this);
+                mDialog.Indeterminate = true;
+                mDialog.SetMessage("Loading...");
+                mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                mDialog.Show();
                 TryParseCourses();
+
+                
             }
             else
             {
-                mCourseAdapter = new CourseAdapter(this, Resource.Layout.Course, mCourses);
-                ListView CourseListView = FindViewById<ListView>(Resource.Id.CourseListView);
-                CourseListView.Adapter = mCourseAdapter;
-                mCourseAdapter.AddAll(mCourses);
-                mCourseAdapter.NotifyDataSetChanged();
+                foreach(Course course in mCourses)
+                {
+                    CardStack cs = new CardStack();
+                    mCardView.AddStack(cs);
+                    string str = string.Empty;
+                    foreach (CourseOffering offering in course.CourseOfferings)
+                    {
+                        str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\n" + offering.Location + "\n";
+                    }
+
+                    mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+                }
             }
-            
+
+            mCardView.Refresh();
             
             
             
@@ -82,7 +108,12 @@ namespace SFUAndroid.Activities
 
         private void RefreshSchedule()
         {
-            
+            mDialog = new ProgressDialog(this);
+            mDialog.Indeterminate = true;
+            mDialog.SetMessage("Loading...");
+            mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+            mDialog.Show();
+            TryParseCourses();
         }
 
         #region Course Parsing
@@ -279,15 +310,40 @@ namespace SFUAndroid.Activities
 
 
             SaveCourses(courses);
-
-            RunOnUiThread(() =>
+            mCardView = this.FindViewById<CardUI>(Resource.Id.cardsview);
+            foreach(Course course in mCourses)
+            {
+                
+                CardStack cs = new CardStack();
+                mCardView.AddStack(cs);
+                string str = string.Empty;
+                foreach(CourseOffering offering in course.CourseOfferings)
                 {
-                    mCourseAdapter = new CourseAdapter(this, Resource.Layout.Course, mCourses);
-                    ListView CourseListView = FindViewById<ListView>(Resource.Id.CourseListView);
-                    CourseListView.Adapter = mCourseAdapter;
-                    mCourseAdapter.AddAll(mCourses);
-                    mCourseAdapter.NotifyDataSetChanged();
-                });
+                    str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "n"  + offering.Location + "\n";
+                }
+
+                mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+
+                RunOnUiThread(() =>
+                    {
+                        mDialog.Cancel();
+                        mCardView.RefreshDrawableState();
+                        mCardView.Refresh();
+                        
+                    });
+
+                //mCardView.Refresh();
+            }
+
+
+            //RunOnUiThread(() =>
+            //    {
+            //        mCourseAdapter = new CourseAdapter(this, Resource.Layout.Course, mCourses);
+            //        ListView CourseListView = FindViewById<ListView>(Resource.Id.CourseListView);
+            //        CourseListView.Adapter = mCourseAdapter;
+            //        mCourseAdapter.AddAll(mCourses);
+            //        mCourseAdapter.NotifyDataSetChanged();
+            //    });
 
 
         }

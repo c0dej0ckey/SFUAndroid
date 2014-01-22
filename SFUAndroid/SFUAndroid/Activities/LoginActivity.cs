@@ -21,6 +21,7 @@ namespace SFUAndroid.Activities
     public class LoginActivity : Activity
     {
         private string mKey;
+        private ProgressDialog mDialog;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -52,11 +53,16 @@ namespace SFUAndroid.Activities
         /// <param name="e"></param>
         private void TryLoginUser(object sender, EventArgs e)
         {
+
+            mDialog = new ProgressDialog(this);
+            mDialog.Indeterminate = true;
+            mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+            mDialog.SetMessage("Logging In...");
+            mDialog.Show();
+
             EditText computingIdBox = FindViewById<EditText>(Resource.Id.ComputingIdText);
             EditText passwordBox = FindViewById<EditText>(Resource.Id.PasswordText);
 
-            ProgressBar progressBar = FindViewById<ProgressBar>(Resource.Id.LoginProgressBar);
-            progressBar.Visibility = ViewStates.Visible;
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             var editor = preferences.Edit();
@@ -143,17 +149,14 @@ namespace SFUAndroid.Activities
                 CookieService.RemoveCookieWithName("CASTGC");
             }
 
-            RunOnUiThread(() =>
-            {
-                ProgressBar progressBar = FindViewById<ProgressBar>(Resource.Id.LoginProgressBar);
-                progressBar.Visibility = ViewStates.Gone;
-            });
+            
 
             foreach (Cookie cookie in cookies)
             {
                 CookieService.AddCookie(cookie);
                 if (cookie.Name == "CASTGC")
                 {
+                    mDialog.Cancel();
                     Intent.SetClass(this, typeof(MainActivity));
                     Intent.SetFlags(ActivityFlags.ReorderToFront);
                     StartActivity(Intent);
@@ -163,6 +166,7 @@ namespace SFUAndroid.Activities
             //Authentication Failed
             if(!CookieService.CookieExists("CASTGC"))
             {
+                mDialog.Cancel();
                 RunOnUiThread(() => Android.Widget.Toast.MakeText(this, "Invalid Computing Id or Password", Android.Widget.ToastLength.Short).Show());
                 
             }

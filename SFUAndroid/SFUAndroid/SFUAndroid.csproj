@@ -56,6 +56,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>References\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SFUAndroid.CardsUI">
+      <HintPath>..\SFUAndroid.CardsUI\bin\Debug\SFUAndroid.CardsUI.dll</HintPath>
+    </Reference>
     <Reference Include="SFUAndroid.PhotoView">
       <HintPath>..\SFUAndroid.PhotoView\bin\Debug\SFUAndroid.PhotoView.dll</HintPath>
     </Reference>
@@ -82,6 +85,7 @@
     <Compile Include="Adapters\MainActivityGridAdapter.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\BusRoute.cs" />
+    <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\CardLayout.cs" />
     <Compile Include="Entities\Room.cs" />
@@ -148,6 +152,9 @@
     <AndroidResource Include="Resources\Layout\SurreyCampusView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\card_ex.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -210,6 +217,7 @@
     <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Galleria_4.png" />
     <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Galleria_5.png" />
     <AndroidResource Include="Resources\Drawable-nodpi\Campus_Guide_Podium_2.png" />
+    <AndroidResource Include="Resources\Drawable\selectable_background_cardbank.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

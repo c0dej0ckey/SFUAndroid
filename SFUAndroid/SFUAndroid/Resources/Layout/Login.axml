@@ -28,9 +28,4 @@
         android:text="@string/Login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    <ProgressBar
-        android:id="@+id/LoginProgressBar"
-        android:visibility="invisible"
-        android:layout_height="250dp"
-        android:layout_width="250dp" />
 </LinearLayout>
