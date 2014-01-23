@@ -49,12 +49,12 @@ namespace SFUAndroid.Activities
             string computingId = preferences.GetString("ComputingId", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
-            //if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
-            //{
-            //    Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
-            //}
-            //else
-            //{
+            if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
+            {
+                Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
+            }
+            else
+            {
 
                 ////load courses - if not found request them from GOSFU
                 mCourses = GetCourses();
@@ -86,7 +86,7 @@ namespace SFUAndroid.Activities
                 }
 
                 mCardView.Refresh();
-          //  }
+           }
             
             
             
