@@ -36,7 +36,6 @@ namespace SFUAndroid.Activities
 
         private class PSListViewAdapter : BaseAdapter
         {
-            private List<string> mData;
             private List<string> mHeaders = new List<string>() { "Sites", "webct", "go sfu", "sfu connect", "my sfu", "coursys" };
             private List<string> mSites = new List<string>() { null, "access to course related information", "get the lastest enrollment information", "stay updated with latest emails", "book and course information", "check grades" };
             private Context mContext;

@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "SurreyRoomSelect", ParentActivity = typeof(MapsActivity), Theme = "@android:style/Theme.Holo.Light")]
+    [Activity(Label = "Select Room", ParentActivity = typeof(MapsActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class SurreyRoomSelectActivity : Activity
     {
         private List<Room> mRooms;
