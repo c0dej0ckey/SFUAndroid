@@ -33,4 +33,9 @@ using Android.App;
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 [assembly: UsesPermission(Android.Manifest.Permission.WriteExternalStorage)]
 
-[assembly: Application(Icon="@drawable/sfulogo")]
+
+#if DEBUG
+[assembly: Application(Debuggable = true, Icon = "@drawable/sfulogo")]
+#else
+[assembly: Application(Debuggable=false, Icon="@drawable/sfulogo")]
+#endif

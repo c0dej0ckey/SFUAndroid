@@ -26,7 +26,6 @@ namespace SFUAndroid.Activities
     public class ScheduleActivity : Activity
     {
         private List<Course> mCourses;
-        private CourseAdapter mCourseAdapter;
         private CardUI mCardView;
         private ProgressDialog mDialog;
 
@@ -46,38 +45,48 @@ namespace SFUAndroid.Activities
 
             mCourses = new List<Course>();
 
-            
-        
-            ////load courses - if not found request them from GOSFU
-            mCourses = GetCourses();
-            if (mCourses == null)
-            {
-                mDialog = new ProgressDialog(this);
-                mDialog.Indeterminate = true;
-                mDialog.SetMessage("Loading...");
-                mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
-                mDialog.Show();
-                TryParseCourses();
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            string computingId = preferences.GetString("ComputingId", string.Empty);
+            string password = preferences.GetString("Password", string.Empty);
 
-                
+            if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
+            {
+                Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
             }
             else
             {
-                foreach(Course course in mCourses)
+
+                ////load courses - if not found request them from GOSFU
+                mCourses = GetCourses();
+                if (mCourses == null)
                 {
-                    CardStack cs = new CardStack();
-                    mCardView.AddStack(cs);
-                    string str = string.Empty;
-                    foreach (CourseOffering offering in course.CourseOfferings)
-                    {
-                        str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\n" + offering.Location + "\n";
-                    }
+                    mDialog = new ProgressDialog(this);
+                    mDialog.Indeterminate = true;
+                    mDialog.SetMessage("Loading...");
+                    mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                    mDialog.Show();
+                    TryParseCourses();
 
-                    mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+
                 }
-            }
+                else
+                {
+                    foreach (Course course in mCourses)
+                    {
+                        CardStack cs = new CardStack();
+                        mCardView.AddStack(cs);
+                        string str = string.Empty;
+                        foreach (CourseOffering offering in course.CourseOfferings)
+                        {
+                            str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\n" + offering.Location + "\n";
+                        }
 
-            mCardView.Refresh();
+                        mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+                    }
+                }
+
+                mCardView.Refresh();
+            }
             
             
             

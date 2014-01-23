@@ -30,6 +30,16 @@ namespace SFUAndroid.Activities
             PSListViewAdapter lvA = new PSListViewAdapter(this);
             lv.Adapter = lvA;
 
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            string computingId = preferences.GetString("ComputingId", string.Empty);
+            string password = preferences.GetString("Password", string.Empty);
+
+            if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
+            {
+                Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
+            }
+
+
         }
 
 
