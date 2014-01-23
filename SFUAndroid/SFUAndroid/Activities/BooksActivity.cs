@@ -54,11 +54,13 @@ namespace SFUAndroid.Activities
             //if(mBooks == null)
             //{
 
-            //    List<Course> courses = GetCourses();
-            //    if(courses == null)
-            //    {
-                    
-            //    }
+            List<Course> courses = GetCourses();
+            if (courses == null)
+            {
+                Android.Widget.Toast.MakeText(this, "No Books Found. Please Refresh Schedule.", Android.Widget.ToastLength.Long).Show();
+            }
+            else
+            {
 
                 mBookAdapter.Add(new Header((LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), "Books"));
                 mBookAdapter.NotifyDataSetChanged();
@@ -69,6 +71,7 @@ namespace SFUAndroid.Activities
                 mDialog.SetMessage("Loading...");
                 mDialog.Show();
                 GetBooks();
+            }
             //}
             //else
             //{
