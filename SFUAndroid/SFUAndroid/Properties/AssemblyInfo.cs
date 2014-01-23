@@ -35,7 +35,7 @@ using Android.App;
 
 
 #if DEBUG
-[assembly: Application(Debuggable = true, Icon = "@drawable/sfulogo")]
+[assembly: Application(Debuggable = true, Icon = "@drawable/ic_launcher")]
 #else
-[assembly: Application(Debuggable=false, Icon="@drawable/sfulogo")]
+[assembly: Application(Debuggable=false, Icon="@drawable/ic_launcher")]
 #endif

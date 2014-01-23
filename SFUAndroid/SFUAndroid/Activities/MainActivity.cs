@@ -18,7 +18,7 @@ using SFUAndroid.Entities;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/sfulogo", Theme="@android:style/Theme.Holo.Light")]
+    [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/ic_launcher", Theme="@android:style/Theme.Holo.Light")]
     public class MainActivity : Activity
     {
         private string mKey;
@@ -74,16 +74,27 @@ namespace SFUAndroid.Activities
             mGridAdapter.AddAll(menuSelections);
             mGridAdapter.NotifyDataSetChanged();
 
-            if (!computingId.Equals(string.Empty) && !password.Equals(string.Empty) && !CookieService.CookieExists("CASTGC"))
+            Android.Net.ConnectivityManager manager = (Android.Net.ConnectivityManager)this.GetSystemService(Context.ConnectivityService);
+            Android.Net.NetworkInfo network = manager.ActiveNetworkInfo;
+            if ( network != null )
             {
-                mDialog = new ProgressDialog(this);
-                mDialog.Indeterminate = true;
-                mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
-                mDialog.SetMessage("Logging In...");
-                mDialog.Show();
-                TryLoginUser();
+                if (network.IsConnected)
+                {
+                    if (!computingId.Equals(string.Empty) && !password.Equals(string.Empty) && !CookieService.CookieExists("CASTGC"))
+                    {
+                        mDialog = new ProgressDialog(this);
+                        mDialog.Indeterminate = true;
+                        mDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                        mDialog.SetMessage("Logging In...");
+                        mDialog.Show();
+                        TryLoginUser();
+                    }
+                }
             }
-         
+            else
+            {
+                Android.Widget.Toast.MakeText(this, "No Network Connection. Certain parts of app \n won't behave correctly", ToastLength.Long).Show();
+            }
 
         }
 

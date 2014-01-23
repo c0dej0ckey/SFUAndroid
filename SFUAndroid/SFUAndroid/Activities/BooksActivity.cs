@@ -100,67 +100,71 @@ namespace SFUAndroid.Activities
         private void GetBookResponse(IAsyncResult result)
         {
 
-
-            HttpWebRequest request = (HttpWebRequest)result.AsyncState;
-            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
-            Stream stream = response.GetResponseStream();
-            using (StreamReader reader = new StreamReader(stream))
+            try
             {
-                string json = reader.ReadToEnd();
-                JObject jsonClass = JObject.Parse(json);
 
-                JObject course = (JObject)jsonClass["course"];
-
-                JArray bookArray = (JArray)course["books"];
-                foreach (JObject book in bookArray)
+                HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
+                Stream stream = response.GetResponseStream();
+                using (StreamReader reader = new StreamReader(stream))
                 {
-                    string title = book["title"].ToString();
-                    if (title == "No Books Found")
+                    string json = reader.ReadToEnd();
+                    JObject jsonClass = JObject.Parse(json);
+
+                    JObject course = (JObject)jsonClass["course"];
+
+                    JArray bookArray = (JArray)course["books"];
+                    foreach (JObject book in bookArray)
                     {
-                        continue;
-                    }
-                    string className = course["courseAcdeptcode"].ToString();
-                    string classNumber = course["courseClass"].ToString();
-
-                    string author = book["author"].ToString();
-                    string status = book["bookstatus"].ToString();
-                    string isbn = book["isbn"].ToString();
-
-                    GetBookCover(isbn);
-
-                    JArray detailsArray = (JArray)book["details"];
-                    string newPrice = string.Empty;
-                    string usedPrice = string.Empty;
-                    foreach (JObject detail in detailsArray)
-                    {
-                        if (detail["isNew"].ToString() == "1")
+                        string title = book["title"].ToString();
+                        if (title == "No Books Found")
                         {
-                            newPrice = detail["price"].ToString();
+                            continue;
                         }
-                        else if (detail["isUsed"].ToString() == "1")
+                        string className = course["courseAcdeptcode"].ToString();
+                        string classNumber = course["courseClass"].ToString();
+
+                        string author = book["author"].ToString();
+                        string status = book["bookstatus"].ToString();
+                        string isbn = book["isbn"].ToString();
+
+                        GetBookCover(isbn);
+
+                        JArray detailsArray = (JArray)book["details"];
+                        string newPrice = string.Empty;
+                        string usedPrice = string.Empty;
+                        foreach (JObject detail in detailsArray)
                         {
-                            usedPrice = detail["price"].ToString();
+                            if (detail["isNew"].ToString() == "1")
+                            {
+                                newPrice = detail["price"].ToString();
+                            }
+                            else if (detail["isUsed"].ToString() == "1")
+                            {
+                                usedPrice = detail["price"].ToString();
+                            }
                         }
+                        float newP;
+                        float.TryParse(newPrice, out newP);
+                        float usedP;
+                        float.TryParse(usedPrice, out usedP);
+                        Book bk = new Book((LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), className, classNumber, title, author, status, isbn, newP, usedP);
+                        mBooks.Add(bk);
+
+                        // mBookAdapter.AddBook(bk);
+
+                        RunOnUiThread(() =>
+                            {
+                                mDialog.Cancel();
+                                mBookAdapter.Add(new Book((LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), className, classNumber, title, author, status, isbn, newP, usedP));
+                                mBookAdapter.NotifyDataSetChanged();
+                            });
+
+
                     }
-                    float newP;
-                    float.TryParse(newPrice, out newP);
-                    float usedP;
-                    float.TryParse(usedPrice, out usedP);
-                    Book bk = new Book((LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), className, classNumber, title, author, status, isbn, newP, usedP);
-                    mBooks.Add(bk);
-                   
-                           // mBookAdapter.AddBook(bk);
-
-                    RunOnUiThread(() =>
-                        {
-                            mDialog.Cancel();
-                            mBookAdapter.Add(new Book((LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), className, classNumber, title, author, status, isbn, newP, usedP));
-                            mBookAdapter.NotifyDataSetChanged();
-                        });
-                  
-
                 }
             }
+            catch (Exception e) { }
         }
 
         private void GetBookCover(string isbn)
@@ -172,7 +176,8 @@ namespace SFUAndroid.Activities
 
         private void GetBookCoverResponse(IAsyncResult result)
         {
-            
+            try
+            {
 
 
                 HttpWebRequest request = (HttpWebRequest)result.AsyncState;
@@ -226,7 +231,8 @@ namespace SFUAndroid.Activities
                     }
 
                 }
-           
+            }
+            catch (Exception e) { }
         }
 
 

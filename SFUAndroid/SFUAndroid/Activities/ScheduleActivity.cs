@@ -49,12 +49,12 @@ namespace SFUAndroid.Activities
             string computingId = preferences.GetString("ComputingId", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
-            if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
-            {
-                Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
-            }
-            else
-            {
+            //if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
+            //{
+            //    Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
+            //}
+            //else
+            //{
 
                 ////load courses - if not found request them from GOSFU
                 mCourses = GetCourses();
@@ -86,7 +86,7 @@ namespace SFUAndroid.Activities
                 }
 
                 mCardView.Refresh();
-            }
+          //  }
             
             
             
@@ -125,6 +125,22 @@ namespace SFUAndroid.Activities
             TryParseCourses();
         }
 
+
+        public override void OnBackPressed()
+        {
+            //this.Finish();
+            mCardView = null;
+            Intent intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+            FinishAffinity();
+            //base.OnBackPressed();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
         #region Course Parsing
 
         /// <summary>
@@ -157,7 +173,10 @@ namespace SFUAndroid.Activities
         {
             HttpWebRequest request = (HttpWebRequest)asyncResult.AsyncState;
             Stream stream = request.EndGetRequestStream(asyncResult);
-            string loginData = string.Format("user={0}&pwd={1}&userid={2}&Submit=Login", "swa53", "5jun38", "SWA53");
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            string computingId = preferences.GetString("ComputingId", string.Empty);
+            string password = preferences.GetString("Password", string.Empty);
+            string loginData = string.Format("user={0}&pwd={1}&userid={2}&Submit=Login", computingId, password, computingId.ToUpper());
             byte[] bytes = Encoding.UTF8.GetBytes(loginData);
             stream.Write(bytes, 0, loginData.Length);
             stream.Close();
@@ -185,7 +204,7 @@ namespace SFUAndroid.Activities
             foreach (Cookie cookie in cookies)
                 CookieService.AddCookie(cookie);
             //Settings.GetStudentId();
-            string request2String = string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM={0}", "1137"); //SemesterHelper.GetSemesterId());
+            string request2String = string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM={0}", SemesterHelper.GetSemesterId()); //SemesterHelper.GetSemesterId());
             HttpWebRequest request2 = (HttpWebRequest)HttpWebRequest.Create(request2String);
             request2.Method = "GET";
             request2.CookieContainer = new CookieContainer();
@@ -208,7 +227,7 @@ namespace SFUAndroid.Activities
         /// </summary>
         private void GetSIMSResponseWithCookies()
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM=", "1137")); //SemesterHelper.GetSemesterId()));
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM=", SemesterHelper.GetSemesterId())); //SemesterHelper.GetSemesterId()));
 
             request.CookieContainer = new CookieContainer();
             foreach (Cookie cookie in CookieService.GetCookies().Where(c => c.Domain != "cas.sfu.ca"))
