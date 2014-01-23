@@ -329,7 +329,8 @@ namespace SFUAndroid.Activities
                 if (course.Type == "Lecture")
                 {
                     List<CourseOffering> offerings = course.CourseOfferings;
-                    offerings.RemoveAt(offerings.Count - 1);
+                    if(offerings.Count > 0)
+                        offerings.RemoveAt(offerings.Count - 1);
                 }
 
             }

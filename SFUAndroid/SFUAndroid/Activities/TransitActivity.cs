@@ -51,6 +51,17 @@ namespace SFUAndroid.Activities
             GetBusTimes();
         }
 
+        public override void OnBackPressed()
+        {
+            mBusRouteListView = null;
+            Intent intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+            this.FinishAffinity();
+
+            //base.OnBackPressed();
+        }
+
+
         private void GetBusTimes()
         {
             foreach (string stop in sStops)

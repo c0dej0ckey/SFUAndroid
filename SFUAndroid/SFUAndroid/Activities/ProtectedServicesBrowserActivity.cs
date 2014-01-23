@@ -88,12 +88,12 @@ namespace SFUAndroid.Activities
                 if(Regex.IsMatch(url, "https:\\/\\/cas\\.sfu\\.ca.*"))
                 {
 
-                    view.LoadUrl(string.Format("javascript:(function() { document.getElementById('computingId').value='{0}'; document.getElementById('password').value='{1}';document.forms[0].submit(); })()", computingId, password));
+                    view.LoadUrl("javascript:(function() { document.getElementById('computingId').value='" + computingId + "'; document.getElementById('password').value='" + password + "';document.forms[0].submit(); })()");
                     mHasLoggedIn = true;
                 }
                 else if(url == "https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?&" && mHasLoggedIn == false)
                 {
-                    view.LoadUrl(string.Format("javascript:(function() { document.getElementById('user').value='{0}'; document.getElementById('pwd').value='{1}';document.getElementById('userid').value='{2}'; document.forms[0].submit(); })()", computingId, password, computingId.ToUpper()));
+                    view.LoadUrl("javascript:(function() { document.getElementById('user').value='" + computingId + "'; document.getElementById('pwd').value='" + password + "';document.getElementById('userid').value='" + computingId.ToUpper() + "'; document.forms[0].submit(); })()");
                     mHasLoggedIn = true;
                 }
                 else if ((url == WEBCT_URL || url == CONNECT_URL || url == COURSYS_URL || url == SAKAI_URL) && mHasLoggedIn == true)
