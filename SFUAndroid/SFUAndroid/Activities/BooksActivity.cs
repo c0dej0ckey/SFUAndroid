@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Android.Graphics;
 using SFUAndroid.Adapters;
+using SFUAndroid.Services;
 
 namespace SFUAndroid.Activities
 {
@@ -91,7 +92,7 @@ namespace SFUAndroid.Activities
             courses = courses.Where(c => c.Type == "Lecture").ToList();
             foreach (Course course in courses)
             {
-                request = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://sfu.collegestoreonline.com/ePOS?form=shared3/textbooks/json/json_books.html&term={0}&dept={1}&crs={2}&sec={3}&go=Go", "1137", Regex.Split(course.ClassName, @"(\w+)(\d)")[0].Trim().ToLower(), Regex.Split(course.ClassName, @"(\d+)")[1], course.Section));
+                request = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://sfu.collegestoreonline.com/ePOS?form=shared3/textbooks/json/json_books.html&term={0}&dept={1}&crs={2}&sec={3}&go=Go", SemesterHelper.GetSemesterId(), Regex.Split(course.ClassName, @"(\w+)(\d)")[0].Trim().ToLower(), Regex.Split(course.ClassName, @"(\d+)")[1], course.Section));
                 request.Method = "GET";
                 request.BeginGetResponse(new AsyncCallback(GetBookResponse), request);
             }
