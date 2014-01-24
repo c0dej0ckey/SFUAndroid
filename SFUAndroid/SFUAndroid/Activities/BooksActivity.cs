@@ -208,10 +208,14 @@ namespace SFUAndroid.Activities
                                 string isbn = client.Headers["Isbn"];
                                 List<Book> books = mBooks.Where(b => b.GetType() == typeof(Book)).Cast<Book>().ToList<Book>();
                                 Book book = books.Where(b => b.Isbn == isbn).FirstOrDefault();
+
                                 book.Image = bmp;
 
                                 RunOnUiThread(() =>
                                 {
+                                    mBookAdapter.Clear();
+                                    mBookAdapter.NotifyDataSetChanged();
+                                    mBookAdapter.AddAll(books);
                                     mBookAdapter.NotifyDataSetChanged();
                                 });
                             }

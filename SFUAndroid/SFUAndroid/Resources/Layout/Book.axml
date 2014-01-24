@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     tools:context=".MainActivity"
-    style="@style/listViewItem"
+    style="@style/bookViewItem"
     android:background="@android:drawable/list_selector_background">
     <View
         android:id="@+id/item_separator"
@@ -12,7 +12,7 @@
         android:layout_height="@dimen/lvDividerHeight"
         android:background="#E0E0E0" />
     <ImageButton
-        style="@style/listViewItemButtonStyle"
+        style="@style/listViewBookStyle"
         android:background="@android:drawable/list_selector_background"
         android:src="@drawable/ic_action_cancel"
         android:id="@+id/button"
@@ -27,23 +27,23 @@
         android:textIsSelectable="false"
         android:id="@+id/lv_item_header"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         style="@style/listViewPrimaryDetail"
         android:layout_toLeftOf="@id/vertical_divider"
         android:ellipsize="marquee"
+        android:singleLine="false"
         android:layout_alignParentLeft="true" />
     <TextView
         android:textIsSelectable="false"
         android:id="@+id/lv_item_subtext"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/lv_item_header"
         style="@style/listViewSecondaryDetail"
         android:layout_above="@id/item_separator"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/vertical_divider"
         android:ellipsize="marquee"
-        android:singleLine="false"
-        android:maxLines="4" />
+        android:singleLine="false" />
 </RelativeLayout>

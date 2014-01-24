@@ -348,7 +348,7 @@ namespace SFUAndroid.Activities
                 string str = string.Empty;
                 foreach(CourseOffering offering in course.CourseOfferings)
                 {
-                    str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "n"  + offering.Location + "\n";
+                    str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\t"  + offering.Location + "\n";
                 }
 
                 mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));

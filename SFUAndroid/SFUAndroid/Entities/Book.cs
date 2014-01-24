@@ -121,7 +121,7 @@ namespace SFUAndroid.Entities
             TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
             tx.Text = Title;
             TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
-            tx2.Text = Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + " - " + Isbn;
+            tx2.Text ="Author: " +  Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + "\n ISBN: " + Isbn;
             return view;
         }
     }
