@@ -89,5 +89,16 @@ namespace SFUAndroid.Activities
                  StartActivity(intent);
              }
          }
+
+
+         public override void OnBackPressed()
+         {
+             Intent intent = new Intent(this, typeof(MainActivity));
+             StartActivity(intent);
+             Finish();
+
+             //base.OnBackPressed();
+         }
+
     }
 }
