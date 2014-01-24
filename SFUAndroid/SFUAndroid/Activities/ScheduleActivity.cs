@@ -324,6 +324,9 @@ namespace SFUAndroid.Activities
                 courses.Add(course);
 
             }
+
+            courses = courses.Where(c => c.Status != "Dropped").ToList();
+
             foreach (Course course in courses)
             {
                 if (course.Type == "Lecture")
