@@ -33,7 +33,7 @@ namespace SFUAndroid.Activities
             base.OnCreate(bundle);
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
-            string computingId = preferences.GetString("ComputingId", string.Empty);
+            string computingId = preferences.GetString("Computing ID", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
 
@@ -246,7 +246,7 @@ namespace SFUAndroid.Activities
         {
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             var editor = preferences.Edit();
-            editor.PutString("ComputingId", "");
+            editor.PutString("Computing ID", "");
             editor.PutString("Password", "");
             editor.PutString("courses", "");
             CookieService.DeleteCookies();
@@ -312,7 +312,7 @@ namespace SFUAndroid.Activities
             HttpWebRequest request = (HttpWebRequest)asyncResult.AsyncState;
 
             Stream stream = request.EndGetRequestStream(asyncResult);
-            string loginData = "username=" + preferences.GetString("ComputingId", string.Empty) + "&password=" + preferences.GetString("Password", string.Empty) + "&lt=" + mKey;
+            string loginData = "username=" + preferences.GetString("Computing ID", string.Empty) + "&password=" + preferences.GetString("Password", string.Empty) + "&lt=" + mKey;
             byte[] bytes = Encoding.UTF8.GetBytes(loginData);
             stream.Write(bytes, 0, loginData.Length);
             stream.Close();

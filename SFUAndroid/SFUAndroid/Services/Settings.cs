@@ -19,7 +19,7 @@ namespace SFUAndroid.Services
         public static string GetComputingId(Context context)
         {
             var preferences = PreferenceManager.GetDefaultSharedPreferences(context);
-            return preferences.GetString("ComputingId", string.Empty);
+            return preferences.GetString("Computing ID", string.Empty);
         }
 
         public static string GetPassword(Context context)

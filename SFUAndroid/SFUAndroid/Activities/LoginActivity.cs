@@ -32,7 +32,7 @@ namespace SFUAndroid.Activities
             actionBar.SetDisplayHomeAsUpEnabled(true);
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
-            string computingId = preferences.GetString("ComputingId", "");
+            string computingId = preferences.GetString("Computing ID", "");
             string password = preferences.GetString("Password", "");
 
             EditText computingIdBox = FindViewById<EditText>(Resource.Id.ComputingIdText);
@@ -66,7 +66,7 @@ namespace SFUAndroid.Activities
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             var editor = preferences.Edit();
-            editor.PutString("ComputingId", computingIdBox.Text);
+            editor.PutString("Computing ID", computingIdBox.Text);
             editor.PutString("Password", passwordBox.Text);
             editor.Commit();
 
@@ -122,7 +122,7 @@ namespace SFUAndroid.Activities
             HttpWebRequest request = (HttpWebRequest)asyncResult.AsyncState;
 
             Stream stream = request.EndGetRequestStream(asyncResult);
-            string loginData = "username=" + preferences.GetString("ComputingId", string.Empty) + "&password=" + preferences.GetString("Password", string.Empty) + "&lt=" + mKey;
+            string loginData = "username=" + preferences.GetString("Computing ID", string.Empty) + "&password=" + preferences.GetString("Password", string.Empty) + "&lt=" + mKey;
             byte[] bytes = Encoding.UTF8.GetBytes(loginData);
             stream.Write(bytes, 0, loginData.Length);
             stream.Close();

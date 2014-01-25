@@ -46,7 +46,7 @@ namespace SFUAndroid.Activities
             mCourses = new List<Course>();
 
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
-            string computingId = preferences.GetString("ComputingId", string.Empty);
+            string computingId = preferences.GetString("Computing ID", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
             if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
@@ -174,7 +174,7 @@ namespace SFUAndroid.Activities
             HttpWebRequest request = (HttpWebRequest)asyncResult.AsyncState;
             Stream stream = request.EndGetRequestStream(asyncResult);
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
-            string computingId = preferences.GetString("ComputingId", string.Empty);
+            string computingId = preferences.GetString("Computing ID", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
             string loginData = string.Format("user={0}&pwd={1}&userid={2}&Submit=Login", computingId, password, computingId.ToUpper());
             byte[] bytes = Encoding.UTF8.GetBytes(loginData);

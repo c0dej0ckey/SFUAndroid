@@ -2,7 +2,7 @@
 <resources>
     <string name="ProtectedServices">Protected Services</string>
   <string name="Login">Login</string>
-  <string name="ComputingId">ComputingId: </string>
+  <string name="ComputingId">Computing ID: </string>
   <string name="Password">Password: </string>
   <string name="Courses">Courses</string>
     <string name="Library">Library</string>

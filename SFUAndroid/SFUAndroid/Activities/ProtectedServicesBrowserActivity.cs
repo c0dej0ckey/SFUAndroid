@@ -82,7 +82,7 @@ namespace SFUAndroid.Activities
             public override void OnPageFinished(WebView view, string url)
             {
                 var preferences = mContext.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
-                string computingId = preferences.GetString("ComputingId", string.Empty);
+                string computingId = preferences.GetString("Computing ID", string.Empty);
                 string password = preferences.GetString("Password", string.Empty);
 
                 if(Regex.IsMatch(url, "https:\\/\\/cas\\.sfu\\.ca.*"))
