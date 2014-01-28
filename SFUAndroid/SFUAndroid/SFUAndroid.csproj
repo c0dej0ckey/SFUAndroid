@@ -46,7 +46,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkSkip />
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=678cda889909cc4a, processorArchitecture=MSIL">
@@ -56,8 +59,9 @@
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.GoogleMaps" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>References\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\Json50r8\Bin\Net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SFUAndroid.CardsUI">
       <HintPath>..\SFUAndroid.CardsUI\bin\Debug\SFUAndroid.CardsUI.dll</HintPath>

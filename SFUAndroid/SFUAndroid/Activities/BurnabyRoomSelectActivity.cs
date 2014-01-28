@@ -94,6 +94,15 @@ namespace SFUAndroid.Activities
 
         }
 
+        public override void OnBackPressed()
+        {
+            Intent intent = new Intent(this, typeof(MapsActivity));
+            StartActivity(intent);
+            Finish();
+
+            //base.OnBackPressed();
+        }
+
         
 
         public static int CalculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)
