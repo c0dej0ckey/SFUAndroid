@@ -38,7 +38,7 @@ namespace SFUAndroid.Adapters
             {
                 Button b = view.FindViewById<Button>(Resource.Id.MainSelectionButton);
                 b.Click += Selection_ItemClick;
-                b.Text = selection.Title;
+               // b.Text = selection.Title;
                 b.SetCompoundDrawablesRelativeWithIntrinsicBounds(null, new BitmapDrawable(this.Context.Resources,selection.Bitmap), null, null);
 
             }

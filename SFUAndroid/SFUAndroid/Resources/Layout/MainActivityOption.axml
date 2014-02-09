@@ -5,7 +5,5 @@
     <Button
         android:id="@+id/MainSelectionButton"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/Schedule"
-        android:minLines="2" />
+        android:layout_height="fill_parent" />
 </RelativeLayout>

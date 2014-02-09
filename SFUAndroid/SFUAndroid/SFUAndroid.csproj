@@ -199,19 +199,7 @@
     <AndroidResource Include="Resources\Drawable\ic_action_user.png" />
     <AndroidResource Include="Resources\Menu\transit_activity_actions.xml" />
     <AndroidResource Include="Resources\Drawable\card_bg2.9.png" />
-    <AndroidResource Include="Resources\Drawable\books2x.png" />
-    <AndroidResource Include="Resources\Drawable\courses2x.png" />
-    <AndroidResource Include="Resources\Drawable\library2x.png" />
-    <AndroidResource Include="Resources\Drawable\proserv2x.png" />
-    <AndroidResource Include="Resources\Drawable\maps2x.png" />
-    <AndroidResource Include="Resources\Drawable\transit2x.png" />
-    <AndroidResource Include="Resources\Drawable\books.png" />
-    <AndroidResource Include="Resources\Drawable\courses.png" />
     <AndroidResource Include="Resources\Drawable\important.png" />
-    <AndroidResource Include="Resources\Drawable\library.png" />
-    <AndroidResource Include="Resources\Drawable\proserv.png" />
-    <AndroidResource Include="Resources\Drawable\maps.png" />
-    <AndroidResource Include="Resources\Drawable\transit.png" />
     <AndroidResource Include="Resources\Values\Dimens.xml" />
     <AndroidResource Include="Resources\Values\Colors.xml" />
     <AndroidResource Include="Resources\Drawable\ic_details.png" />
@@ -227,8 +215,22 @@
     <AndroidResource Include="Resources\Drawable\ic_action_cancel.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\books.png" />
+    <AndroidResource Include="Resources\Drawable\books2x.png" />
+    <AndroidResource Include="Resources\Drawable\courses.png" />
+    <AndroidResource Include="Resources\Drawable\courses2x.png" />
+    <AndroidResource Include="Resources\Drawable\important2x.png" />
+    <AndroidResource Include="Resources\Drawable\library.png" />
+    <AndroidResource Include="Resources\Drawable\library2x.png" />
+    <AndroidResource Include="Resources\Drawable\proserv.png" />
+    <AndroidResource Include="Resources\Drawable\proserv2x.png" />
+    <AndroidResource Include="Resources\Drawable\maps.png" />
+    <AndroidResource Include="Resources\Drawable\maps2x.png" />
+    <AndroidResource Include="Resources\Drawable\transit.png" />
+    <AndroidResource Include="Resources\Drawable\transit2x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

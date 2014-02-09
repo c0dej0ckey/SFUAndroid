@@ -61,7 +61,7 @@ namespace SFUAndroid.Activities
             sel = new Selection("Maps", mapsIcon);
             menuSelections.Add(sel);
 
-            Bitmap booksIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.library);
+            Bitmap booksIcon = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.books);
             sel = new Selection("Books", booksIcon);
             menuSelections.Add(sel);
 
