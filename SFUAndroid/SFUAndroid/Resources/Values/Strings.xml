@@ -14,6 +14,11 @@
   <string name="action_schedule_refresh">refresh</string>
   <string name="action_tab_burnaby">BURNABY</string>
   <string name="action_tab_surrey">SURREY</string>
+  <string name="CANVAS">CANVAS</string>
+  <string name="SAKAI">SAKAI</string>
+  <string name="COURSYS">COURSYS</string>
+  <string name="GOSFU">GOSFU</string>
+  <string name="SFUCONNECT">SFUCONNECT</string>
   
   <string-array name="surrey_floors_array">
     <item>Surrey</item>

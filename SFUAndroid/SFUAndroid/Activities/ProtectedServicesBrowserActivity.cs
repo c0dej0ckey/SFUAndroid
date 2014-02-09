@@ -20,20 +20,23 @@ namespace SFUAndroid.Activities
     public class ProtectedServicesBrowserActivity : Activity
     {
         private string mURL;
-        private const string WEBCT_URL = "https://webct.sfu.ca/webct/cobaltMainFrame.dowebct?appforward=/webct/viewMyWebCT.dowebct";
+        private const string CANVAS_URL = "https://cas.sfu.ca/cgi-bin/WebObjects/cas.woa/wa/login?service=https%3A%2F%2Fcanvas.sfu.ca%2Flogin%2Fcas";
         private const string COURSYS_URL = "https://courses.cs.sfu.ca/";
-        private const string CONNECT_URL = "https://connect.sfu.ca/zimbra/m/zmain#1";
-        private const string GOSFU_URL = "http://sakai.sfu.ca/portal/login";
+        private const string CONNECT_URL = "https://connect.sfu.ca/zimbra/mail#1";
+        private const string GOSFU_URL = "https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL";
         private const string SAKAI_URL = "http://sakai.sfu.ca/portal/login";
+        
 
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.ProtectedServicesBrowser);
+            
 
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
+            
 
             mURL = this.Intent.GetStringExtra("url");
             WebView view = FindViewById<WebView>(Resource.Id.ps_webView);
@@ -55,7 +58,26 @@ namespace SFUAndroid.Activities
             cookieManager.SetCookie("cas.sfu.ca", cookie.Name + "=" + cookie.Value + "; domain=" + cookie.Domain);
             CookieSyncManager.Instance.Sync();
             view.LoadUrl(mURL);
-            
+            switch(mURL)
+            {
+                case CANVAS_URL:
+                    SetTitle(Resource.String.CANVAS);
+                    break;
+                case SAKAI_URL:
+                    SetTitle(Resource.String.SAKAI);
+                    break;
+                case GOSFU_URL:
+                    SetTitle(Resource.String.GOSFU);
+                    break;
+                case CONNECT_URL:
+                    SetTitle(Resource.String.SFUCONNECT);
+                    break;
+                case COURSYS_URL:
+                    SetTitle(Resource.String.COURSYS);
+                    break;
+                default:
+                    break;
+            }
 
         }
 
@@ -96,7 +118,7 @@ namespace SFUAndroid.Activities
                     view.LoadUrl("javascript:(function() { document.getElementById('user').value='" + computingId + "'; document.getElementById('pwd').value='" + password + "';document.getElementById('userid').value='" + computingId.ToUpper() + "'; document.forms[0].submit(); })()");
                     mHasLoggedIn = true;
                 }
-                else if ((url == WEBCT_URL || url == CONNECT_URL || url == COURSYS_URL || url == SAKAI_URL) && mHasLoggedIn == true)
+                else if ((url == CANVAS_URL || url == CONNECT_URL || url == COURSYS_URL || url == SAKAI_URL) && mHasLoggedIn == true)
                 {
                     view.Visibility = ViewStates.Visible;
                     mHasLoggedIn = false;

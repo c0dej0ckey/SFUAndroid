@@ -46,14 +46,14 @@ namespace SFUAndroid.Activities
 
         private class PSListViewAdapter : BaseAdapter
         {
-            private List<string> mHeaders = new List<string>() { "Sites", "webct", "go sfu", "sfu connect", "my sfu", "coursys" };
+            private List<string> mHeaders = new List<string>() { "Sites", "canvas", "go sfu", "sfu connect", "my sfu", "coursys" };
             private List<string> mSites = new List<string>() { null, "access to course related information", "get the lastest enrollment information", "stay updated with latest emails", "book and course information", "check grades" };
             private Context mContext;
             private static int HDR_POS1 = 0;
             private static int HDR_POS2 = 6;
             private static Java.Lang.Integer LIST_HEADER = new Java.Lang.Integer(0);
             private static Java.Lang.Integer LIST_ITEM = new Java.Lang.Integer(1);
-            private List<string> mURLs = new List<string>() {"https://webct.sfu.ca/webct/urw/ssinboundCAS.siURN:X-WEBCT-VISTA-V1:ae0c1f73-8e3a-65d6-001c-5fd50753fb4e.snWebCT/cobaltMainFrame.dowebct?&allow=sfu,apache&app=WebCT",
+            private List<string> mURLs = new List<string>() {"https://cas.sfu.ca/cgi-bin/WebObjects/cas.woa/wa/login?service=https%3A%2F%2Fcanvas.sfu.ca%2Flogin%2Fcas",
 "https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL", "https://connect.sfu.ca/zimbra/mail#1", "http://sakai.sfu.ca/portal/login", "https://courses.cs.sfu.ca/" };
 
 
