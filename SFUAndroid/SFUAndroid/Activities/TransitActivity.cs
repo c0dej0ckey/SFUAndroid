@@ -18,9 +18,9 @@ using Newtonsoft.Json.Linq;
 namespace SFUAndroid.Activities
 {
     [Activity(Label = "Transit", ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
-    public class TransitActivity : Activity, ActionBar.ITabListener
+    public class TransitActivity : Activity
     {
-        private static List<string> sStops = new List<string>() { "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
+        private static List<string> sStops = new List<string>(); //{ "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
         private List<BusRoute> mBurnabyBusRoutes;
         private List<BusRoute> mSurreyBusRoutes;
         private static string apiKey = "AWkVpR4XnN8gmsf31mku";
@@ -31,6 +31,10 @@ namespace SFUAndroid.Activities
 
         protected override void OnCreate(Bundle bundle)
         {
+            //load stop ids and times
+            //make card view swipeable
+            //if swipeable remove the stop
+
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Transit);
 
@@ -38,17 +42,81 @@ namespace SFUAndroid.Activities
             mSurreyBusRoutes = new List<BusRoute>();
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
-            actionBar.NavigationMode = ActionBarNavigationMode.Tabs;
             mBusRoutes = new List<BusRoute>();
             mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
             mBusRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
             mBusRouteListView.Adapter = mBusRouteAdapter;
+            if(mBusRouteListView.Count == 0)
+            {
+                mBusRouteListView.Visibility = ViewStates.Invisible;
+            }
+            Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
+            button.Click += AddStop_ButtonClick;
 
-            this.ActionBar.AddTab(actionBar.NewTab().SetText("BURNABY").SetTabListener(this));
-            this.ActionBar.AddTab(actionBar.NewTab().SetText("SURREY").SetTabListener(this));
+            //this.ActionBar.AddTab(actionBar.NewTab().SetText("BURNABY").SetTabListener(this));
+            //this.ActionBar.AddTab(actionBar.NewTab().SetText("SURREY").SetTabListener(this));
             
 
-            GetBusTimes();
+            //GetBusTimes();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater inflater = this.MenuInflater;
+            inflater.Inflate(Resource.Menu.transit_activity_actions, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public void AddStop_ButtonClick(object sender, EventArgs e)
+        {
+            EditText editText = this.FindViewById<EditText>(Resource.Id.BusStopIdEditText);
+            if(editText.Text.Length != 5)
+            {
+                RunOnUiThread(() =>
+                    {
+                        Android.Widget.Toast.MakeText(this, "Stop Id not recognized", Android.Widget.ToastLength.Long).Show();
+                    });
+            }
+            else
+            {
+                //get request
+                //save stop id
+
+            }
+            editText.Visibility = ViewStates.Invisible;
+            Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
+            button.Visibility = ViewStates.Invisible;
+            TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
+            textView.Visibility = ViewStates.Invisible;
+
+
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.action_add_stop:
+                    AddStop();
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+
+            }
+
+
+        }
+
+
+        private void AddStop()
+        {
+            EditText editText = this.FindViewById<EditText>(Resource.Id.BusStopIdEditText);
+            editText.Visibility = ViewStates.Visible;
+            Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
+            button.Visibility = ViewStates.Visible;
+            TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
+            textView.Visibility = ViewStates.Visible;
         }
 
         public override void OnBackPressed()
@@ -134,34 +202,34 @@ namespace SFUAndroid.Activities
            // throw new NotImplementedException();
         }
 
-        public void OnTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
-        {
-            switch(tab.Position)
-            {
-                case 0:
-                    if (mBurnabyBusRoutes != null)
-                    {
-                        mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
-                        mBusRouteAdapter.AddAll(mBurnabyBusRoutes);
+        //public void OnTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
+        //{
+        //    switch(tab.Position)
+        //    {
+        //        case 0:
+        //            if (mBurnabyBusRoutes != null)
+        //            {
+        //                mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
+        //                mBusRouteAdapter.AddAll(mBurnabyBusRoutes);
                         
-                        mBusRouteListView.Adapter = mBusRouteAdapter;
-                        ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
-                        mBusRouteAdapter.NotifyDataSetChanged();
+        //                mBusRouteListView.Adapter = mBusRouteAdapter;
+        //                ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
+        //                mBusRouteAdapter.NotifyDataSetChanged();
                         
-                    }
-                    break;
-                case 1:
-                    if (mSurreyBusRoutes != null)
-                    {
-                        mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mSurreyBusRoutes);
-                        mBusRouteAdapter.AddAll(mSurreyBusRoutes);
-                        mBusRouteListView.Adapter = mBusRouteAdapter;
-                        ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
-                        mBusRouteAdapter.NotifyDataSetChanged();
-                    }
-                    break;
-            }
-        }
+        //            }
+        //            break;
+        //        case 1:
+        //            if (mSurreyBusRoutes != null)
+        //            {
+        //                mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mSurreyBusRoutes);
+        //                mBusRouteAdapter.AddAll(mSurreyBusRoutes);
+        //                mBusRouteListView.Adapter = mBusRouteAdapter;
+        //                ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
+        //                mBusRouteAdapter.NotifyDataSetChanged();
+        //            }
+        //            break;
+        //    }
+        //}
 
         public void OnTabUnselected(ActionBar.Tab tab, FragmentTransaction ft)
         {

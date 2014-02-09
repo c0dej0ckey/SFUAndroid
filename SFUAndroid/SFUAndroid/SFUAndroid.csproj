@@ -231,6 +231,10 @@
     <AndroidResource Include="Resources\Drawable\maps2x.png" />
     <AndroidResource Include="Resources\Drawable\transit.png" />
     <AndroidResource Include="Resources\Drawable\transit2x.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_action_new.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_action_new.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_action_new.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\ic_action_new.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

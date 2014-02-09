@@ -5,6 +5,25 @@
     android:layout_height="fill_parent"
     android:minWidth="25px"
     android:minHeight="25px">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BusStopIdTextView"
+        android:text="Bus Stop ID: "
+        android:visibility="invisible" />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BusStopIdEditText"
+        android:visibility="invisible" />
+    <Button
+        android:id="@+id/AddStopButton"
+        android:maxHeight="50px"
+        android:maxWidth="75px"
+        android:text="Submit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"
