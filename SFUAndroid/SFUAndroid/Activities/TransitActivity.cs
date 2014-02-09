@@ -27,6 +27,7 @@ namespace SFUAndroid.Activities
         private List<BusRoute> mBusRoutes;
         private BusRouteAdapter mBusRouteAdapter;
         private ListView mBusRouteListView;
+        private IMenuItem mAddStopMenu;
         
 
         protected override void OnCreate(Bundle bundle)
@@ -64,7 +65,7 @@ namespace SFUAndroid.Activities
         {
             MenuInflater inflater = this.MenuInflater;
             inflater.Inflate(Resource.Menu.transit_activity_actions, menu);
-
+            mAddStopMenu = menu.FindItem(Resource.Id.action_add_stop);
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -112,11 +113,25 @@ namespace SFUAndroid.Activities
         private void AddStop()
         {
             EditText editText = this.FindViewById<EditText>(Resource.Id.BusStopIdEditText);
-            editText.Visibility = ViewStates.Visible;
-            Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
-            button.Visibility = ViewStates.Visible;
-            TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
-            textView.Visibility = ViewStates.Visible;
+
+            if (editText.Visibility == ViewStates.Visible)
+            { //cancel adding
+                editText.Visibility = ViewStates.Invisible;
+                Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
+                button.Visibility = ViewStates.Invisible;
+                TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
+                textView.Visibility = ViewStates.Invisible;
+                RunOnUiThread(() => mAddStopMenu.SetIcon(Resource.Drawable.ic_action_new));
+            }
+            else
+            {
+                editText.Visibility = ViewStates.Visible;
+                Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
+                button.Visibility = ViewStates.Visible;
+                TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
+                textView.Visibility = ViewStates.Visible;
+                RunOnUiThread(() => mAddStopMenu.SetIcon(Resource.Drawable.ic_action_cancel));
+            }
         }
 
         public override void OnBackPressed()
