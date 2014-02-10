@@ -24,10 +24,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
+    <com.fima.cardsui.views.CardUI
+        android:id="@+id/BusRouteCardUI"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BusRoutesListView" />
+        android:layout_height="match_parent" />
 </LinearLayout>

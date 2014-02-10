@@ -17,12 +17,14 @@ namespace SFUAndroid.Entities
         private string mRouteNumber;
         private string mRouteName;
         private List<string> mBusRouteTimes;
+        private string mStopId;
 
-        public BusRoute(string routeNumber, string routeName)
+        public BusRoute(string routeNumber, string routeName, string stopId)
         {
             this.mBusRouteTimes = new List<string>();
             this.mRouteName = routeName;
             this.mRouteNumber = routeNumber;
+            this.mStopId = stopId;
         }
 
         public string RouteNumber
@@ -35,6 +37,12 @@ namespace SFUAndroid.Entities
         {
             get { return this.mRouteName; }
             set { this.mRouteName = value; }
+        }
+
+        public string StopId
+        {
+            get { return this.mStopId; }
+            set { this.mStopId = value; }
         }
 
         public string BusRouteTimes

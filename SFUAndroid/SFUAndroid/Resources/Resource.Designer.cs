@@ -829,7 +829,7 @@ namespace SFUAndroid
 			public const int BurnabyCampusImageView = 2131427334;
 			
 			// aapt resource value: 0x7f0b002b
-			public const int BusRoutesListView = 2131427371;
+			public const int BusRouteCardUI = 2131427371;
 			
 			// aapt resource value: 0x7f0b0029
 			public const int BusStopIdEditText = 2131427369;

@@ -267,8 +267,11 @@ namespace SFUAndroid.Activities
             int detailsIndex = 0;
             int profCount = 0;
             List<Course> courses = new List<Course>();
+            HtmlNode mainNode = null;
             while (document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + classIndex) != null)
             {
+                mainNode = document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + classIndex);
+
                 HtmlNode classDescription = document.GetElementbyId("win1divDERIVED_SSE_DSP_CLASS_DESCR$" + classIndex);
 
                 string className = classDescription.FirstChild.InnerText;
@@ -277,47 +280,60 @@ namespace SFUAndroid.Activities
                 string type = document.GetElementbyId("PSXLATITEM_XLATSHORTNAME$95$$" + classIndex).InnerText;
                 string credits = document.GetElementbyId("STDNT_ENRL_SSVW_UNT_TAKEN$" + classIndex).InnerText;
                 string classStatus = document.GetElementbyId("PSXLATITEM_XLATSHORTNAME$" + classIndex).InnerText;
-                string profName = string.Empty;
+                
 
 
 
-                try
+               
+                Course course = new Course(className, section, credits, classStatus, string.Empty, type);
+
+                //HtmlNode node = document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + (classIndex + 1));
+                if (mainNode != null)
                 {
-                    profName = document.GetElementbyId("PERSONAL_VW_NAME$135$$" + profCount).InnerText;
-                }
-                catch (NullReferenceException) { }
-
-                Course course = new Course(className, section, credits, classStatus, profName, type);
-
-                if (!string.IsNullOrEmpty(profName))
-                {
-                    profCount++;
-                }
-                HtmlNode node = document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + (classIndex + 1));
-                if (node != null)
-                {
-                    while (document.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex) != null && document.GetElementbyId("win1divCLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex).Line < document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + (classIndex + 1)).Line)
-                    {
-                        string startTime = string.Empty;
-                        string endTime = string.Empty;
-                        string location = string.Empty;
-                        string days = string.Empty;
-                        string date = string.Empty;
-                        try
+                    HtmlNode detailsNode = document.GetElementbyId(string.Format("ACE_$ICField110${0}", classIndex));
+                    HtmlDocument detailsDocument = new HtmlDocument();
+                    detailsDocument.LoadHtml(detailsNode.InnerHtml);
+                    while (detailsDocument.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex) != null) //&& document.GetElementbyId("win1divCLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex).Line < document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + (classIndex + 1)).Line)
                         {
-                            startTime = document.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex).InnerText;
-                            endTime = document.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_END$" + detailsIndex).InnerText;
-                            location = document.GetElementbyId("DERIVED_SSE_DSP_DESCR40$" + detailsIndex).InnerText;
-                            days = document.GetElementbyId("DERIVED_SSE_DSP_CLASS_MTG_DAYS$" + detailsIndex).InnerText;
-                            date = document.GetElementbyId("DERIVED_SSE_DSP_START_DT$" + detailsIndex).InnerText;
+                            string startTime = string.Empty;
+                            string endTime = string.Empty;
+                            string location = string.Empty;
+                            string days = string.Empty;
+                            string date = string.Empty;
+                            string profName = string.Empty;
+                            
+                            try
+                            {
+
+                                startTime = detailsDocument.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex).InnerText;
+                                endTime = detailsDocument.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_END$" + detailsIndex).InnerText;
+                                location = detailsDocument.GetElementbyId("DERIVED_SSE_DSP_DESCR40$" + detailsIndex).InnerText;
+                                days = detailsDocument.GetElementbyId("DERIVED_SSE_DSP_CLASS_MTG_DAYS$" + detailsIndex).InnerText;
+                                date = detailsDocument.GetElementbyId("DERIVED_SSE_DSP_START_DT$" + detailsIndex).InnerText;
+                            }
+                            catch (NullReferenceException) { }
+
+                            CourseOffering courseOffering = new CourseOffering(startTime, endTime, location, days, date);
+                            course.AddCourseOffering(courseOffering);
+
+                            try
+                            {
+                                profName = detailsDocument.GetElementbyId("PERSONAL_VW_NAME$135$$" + profCount).InnerText;
+                            }
+                            catch (NullReferenceException) { }
+
+
+
+                            if (!string.IsNullOrEmpty(profName))
+                            {
+                                course.Instructor = profName;
+                                profCount++;
+                            }
+
+
+                            detailsIndex++;
                         }
-                        catch (NullReferenceException) { }
-
-                        CourseOffering courseOffering = new CourseOffering(startTime, endTime, location, days, date);
-                        course.AddCourseOffering(courseOffering);
-
-                        detailsIndex++;
-                    }
+                    
 
                 }
                 classIndex++;
@@ -325,16 +341,16 @@ namespace SFUAndroid.Activities
 
             }
 
-            courses = courses.Where(c => c.Status != "Dropped").ToList();
+            courses = courses.Where(c => c.Status == "Enrolled").ToList();
 
             foreach (Course course in courses)
             {
-                if (course.Type == "Lecture")
-                {
+                //if (course.Type == "Lecture")
+                //{
                     List<CourseOffering> offerings = course.CourseOfferings;
                     if(offerings.Count > 0)
                         offerings.RemoveAt(offerings.Count - 1);
-                }
+                //}
 
             }
             mCourses = new List<Course>(courses);

@@ -14,6 +14,7 @@ using SFUAndroid.Adapters;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Com.Fima.Cardsui.Views;
 
 namespace SFUAndroid.Activities
 {
@@ -21,10 +22,8 @@ namespace SFUAndroid.Activities
     public class TransitActivity : Activity
     {
         private static List<string> sStops = new List<string>(); //{ "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
-        private List<BusRoute> mBurnabyBusRoutes;
-        private List<BusRoute> mSurreyBusRoutes;
-        private static string apiKey = "AWkVpR4XnN8gmsf31mku";
         private List<BusRoute> mBusRoutes;
+        private static string apiKey = "AWkVpR4XnN8gmsf31mku";
         private BusRouteAdapter mBusRouteAdapter;
         private ListView mBusRouteListView;
         private IMenuItem mAddStopMenu;
@@ -39,26 +38,32 @@ namespace SFUAndroid.Activities
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Transit);
 
-            mBurnabyBusRoutes = new List<BusRoute>();
-            mSurreyBusRoutes = new List<BusRoute>();
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
             mBusRoutes = new List<BusRoute>();
-            mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
-            mBusRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
-            mBusRouteListView.Adapter = mBusRouteAdapter;
-            if(mBusRouteListView.Count == 0)
+            mBusRoutes = LoadBuses();
+           // mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
+            //mBusRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
+           // mBusRouteListView.Adapter = mBusRouteAdapter;
+            //if(mBusRouteListView.Count == 0)
+            //{
+            //    mBusRouteListView.Visibility = ViewStates.Invisible;
+            //}
+            CardUI mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
+            mCardView.SetSwipeable(true);
+            
+
+            if(mBusRoutes != null)
             {
-                mBusRouteListView.Visibility = ViewStates.Invisible;
+                foreach(BusRoute busRoute in mBusRoutes)
+                {
+                    //GetBusTimeFromStopId(busRoute.Id)
+                }
             }
+
             Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
             button.Click += AddStop_ButtonClick;
 
-            //this.ActionBar.AddTab(actionBar.NewTab().SetText("BURNABY").SetTabListener(this));
-            //this.ActionBar.AddTab(actionBar.NewTab().SetText("SURREY").SetTabListener(this));
-            
-
-            //GetBusTimes();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -175,7 +180,7 @@ namespace SFUAndroid.Activities
             string routeNo = stopObject[0]["RouteNo"].ToString();
             string routeName = stopObject[0]["RouteName"].ToString();
 
-            BusRoute route = new BusRoute(routeNo, routeName);
+            BusRoute route = new BusRoute(routeNo, routeName, "");
             JArray times = stopObject[0]["Schedules"] as JArray;
             foreach (JObject obj in times)
             {
@@ -183,73 +188,40 @@ namespace SFUAndroid.Activities
                 route.AddRouteTime(time);
             }
 
-            RunOnUiThread(() =>
-                {
-                    try
-                    {
-                        if (int.Parse(route.RouteNumber) < 300)
-                        {
-                            mBurnabyBusRoutes.Add(route);
-                            mBusRouteAdapter.Add(route);
-                            mBusRouteAdapter.NotifyDataSetChanged();
-                        }
-                        else
-                        {
-                            mSurreyBusRoutes.Add(route);
+            //RunOnUiThread(() =>
+            //    {
+            //        try
+            //        {
+            //            if (int.Parse(route.RouteNumber) < 300)
+            //            {
+            //                mBurnabyBusRoutes.Add(route);
+            //                mBusRouteAdapter.Add(route);
+            //                mBusRouteAdapter.NotifyDataSetChanged();
+            //            }
+            //            else
+            //            {
+            //                mSurreyBusRoutes.Add(route);
 
-                        }
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine(e.StackTrace);
-                    }
-                });
+            //            }
+            //        }
+            //        catch(Exception e)
+            //        {
+            //            Console.WriteLine(e.StackTrace);
+            //        }
+            //    });
 
         }
 
-        protected override void OnResume()
+        private List<BusRoute> LoadBuses()
         {
-            base.OnResume();
+            return null;
         }
 
-        public void OnTabReselected(ActionBar.Tab tab, FragmentTransaction ft)
+        private void SaveBuses(List<BusRoute> busRoutes)
         {
-           // throw new NotImplementedException();
+            
         }
-
-        //public void OnTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
-        //{
-        //    switch(tab.Position)
-        //    {
-        //        case 0:
-        //            if (mBurnabyBusRoutes != null)
-        //            {
-        //                mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
-        //                mBusRouteAdapter.AddAll(mBurnabyBusRoutes);
-                        
-        //                mBusRouteListView.Adapter = mBusRouteAdapter;
-        //                ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
-        //                mBusRouteAdapter.NotifyDataSetChanged();
-                        
-        //            }
-        //            break;
-        //        case 1:
-        //            if (mSurreyBusRoutes != null)
-        //            {
-        //                mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mSurreyBusRoutes);
-        //                mBusRouteAdapter.AddAll(mSurreyBusRoutes);
-        //                mBusRouteListView.Adapter = mBusRouteAdapter;
-        //                ((BaseAdapter)mBusRouteListView.Adapter).NotifyDataSetChanged();
-        //                mBusRouteAdapter.NotifyDataSetChanged();
-        //            }
-        //            break;
-        //    }
-        //}
-
-        public void OnTabUnselected(ActionBar.Tab tab, FragmentTransaction ft)
-        {
-           // throw new NotImplementedException();
-        }
+        
 
         
     }
