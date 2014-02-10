@@ -163,6 +163,9 @@
     <AndroidResource Include="Resources\Layout\card_ex.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\AddStopDialog.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -195,9 +198,13 @@
     <AndroidResource Include="Resources\Menu\main_activity_actions.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Menu\schedule_activity_actions.xml" />
+    <AndroidResource Include="Resources\Menu\schedule_activity_actions.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Drawable\ic_action_user.png" />
-    <AndroidResource Include="Resources\Menu\transit_activity_actions.xml" />
+    <AndroidResource Include="Resources\Menu\transit_activity_actions.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Drawable\card_bg2.9.png" />
     <AndroidResource Include="Resources\Drawable\important.png" />
     <AndroidResource Include="Resources\Values\Dimens.xml" />

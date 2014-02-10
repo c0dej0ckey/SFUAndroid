@@ -6,4 +6,12 @@
         android:showAsAction="ifRoom"
         
         />
+
+  <item android:id="@+id/action_refresh_transit"
+        android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_schedule_refresh"
+        
+        />
+
 </menu>

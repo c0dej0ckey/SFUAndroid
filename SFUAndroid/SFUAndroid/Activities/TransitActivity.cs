@@ -15,6 +15,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Com.Fima.Cardsui.Views;
+using Com.Fima.Cardsui.Objects;
 
 namespace SFUAndroid.Activities
 {
@@ -27,6 +28,7 @@ namespace SFUAndroid.Activities
         private BusRouteAdapter mBusRouteAdapter;
         private ListView mBusRouteListView;
         private IMenuItem mAddStopMenu;
+        private CardUI mCardView;
         
 
         protected override void OnCreate(Bundle bundle)
@@ -42,126 +44,62 @@ namespace SFUAndroid.Activities
             actionBar.SetDisplayHomeAsUpEnabled(true);
             mBusRoutes = new List<BusRoute>();
             mBusRoutes = LoadBuses();
-           // mBusRouteAdapter = new BusRouteAdapter(this, Resource.Layout.BusRoute, mBurnabyBusRoutes);
-            //mBusRouteListView = FindViewById<ListView>(Resource.Id.BusRoutesListView);
-           // mBusRouteListView.Adapter = mBusRouteAdapter;
-            //if(mBusRouteListView.Count == 0)
-            //{
-            //    mBusRouteListView.Visibility = ViewStates.Invisible;
-            //}
-            CardUI mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
+           
+            mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
             mCardView.SetSwipeable(true);
+
+            foreach(BusRoute route in mBusRoutes)
+            {
+                CardStack cs = new CardStack();
+                mCardView.AddStack(cs);
+                MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
+                mCardView.AddCard(card);
+            }
+
             
 
-            if(mBusRoutes != null)
-            {
-                foreach(BusRoute busRoute in mBusRoutes)
-                {
-                    //GetBusTimeFromStopId(busRoute.Id)
-                }
-            }
-
-            Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
-            button.Click += AddStop_ButtonClick;
 
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater inflater = this.MenuInflater;
-            inflater.Inflate(Resource.Menu.transit_activity_actions, menu);
-            mAddStopMenu = menu.FindItem(Resource.Id.action_add_stop);
-            return base.OnCreateOptionsMenu(menu);
-        }
-
-        public void AddStop_ButtonClick(object sender, EventArgs e)
-        {
-            EditText editText = this.FindViewById<EditText>(Resource.Id.BusStopIdEditText);
-            if(editText.Text.Length != 5)
-            {
-                RunOnUiThread(() =>
-                    {
-                        Android.Widget.Toast.MakeText(this, "Stop Id not recognized", Android.Widget.ToastLength.Long).Show();
-                    });
-            }
-            else
-            {
-                //get request
-                //save stop id
-
-            }
-            editText.Visibility = ViewStates.Invisible;
-            Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
-            button.Visibility = ViewStates.Invisible;
-            TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
-            textView.Visibility = ViewStates.Invisible;
-
-
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.action_add_stop:
-                    AddStop();
-                    return true;
-                default:
-                    return base.OnOptionsItemSelected(item);
-
-            }
-
-
-        }
 
 
         private void AddStop()
         {
-            EditText editText = this.FindViewById<EditText>(Resource.Id.BusStopIdEditText);
 
-            if (editText.Visibility == ViewStates.Visible)
-            { //cancel adding
-                editText.Visibility = ViewStates.Invisible;
-                Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
-                button.Visibility = ViewStates.Invisible;
-                TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
-                textView.Visibility = ViewStates.Invisible;
-                RunOnUiThread(() => mAddStopMenu.SetIcon(Resource.Drawable.ic_action_new));
-            }
-            else
-            {
-                editText.Visibility = ViewStates.Visible;
-                Button button = this.FindViewById<Button>(Resource.Id.AddStopButton);
-                button.Visibility = ViewStates.Visible;
-                TextView textView = this.FindViewById<TextView>(Resource.Id.BusStopIdTextView);
-                textView.Visibility = ViewStates.Visible;
-                RunOnUiThread(() => mAddStopMenu.SetIcon(Resource.Drawable.ic_action_cancel));
-            }
+            AddStopDialogFragment fragment = new AddStopDialogFragment();
+            fragment.Show(FragmentManager, "Add Stop");
+            
         }
 
-        public override void OnBackPressed()
+        private void Refresh()
         {
-            mBusRouteListView = null;
-            Intent intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
-            this.FinishAffinity();
+            RunOnUiThread(() =>
+                {
+                    mCardView.ClearCards();
+                });
 
-            //base.OnBackPressed();
-        }
+            List<string> routes = mBusRoutes.Select(b => b.StopId).ToList();
+            mBusRoutes.Clear();
 
-
-        private void GetBusTimes()
-        {
-            foreach (string stop in sStops)
+            foreach(string route in routes)
             {
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://api.translink.ca/RTTIAPI/V1/stops/{0}/estimates?apiKey={1}", stop, apiKey));
-                request.Method = "GET";
-                request.Accept = "application/json";
-                request.BeginGetResponse(new AsyncCallback(GetBurnabyStopResponse), request);
+                GetStop(route.StopId);
             }
+
         }
 
-        private void GetBurnabyStopResponse(IAsyncResult result)
+       
+
+        public void GetStop(string stopId)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("http://api.translink.ca/RTTIAPI/V1/stops/{0}/estimates?apiKey={1}", stopId, apiKey));
+            request.Method = "GET";
+            request.Accept = "application/json";
+            request.BeginGetResponse(new AsyncCallback(GetStopResponse), request);
+        }
+
+
+        private void GetStopResponse(IAsyncResult result)
         {
             string json = string.Empty;
             try
@@ -188,44 +126,111 @@ namespace SFUAndroid.Activities
                 route.AddRouteTime(time);
             }
 
-            //RunOnUiThread(() =>
-            //    {
-            //        try
-            //        {
-            //            if (int.Parse(route.RouteNumber) < 300)
-            //            {
-            //                mBurnabyBusRoutes.Add(route);
-            //                mBusRouteAdapter.Add(route);
-            //                mBusRouteAdapter.NotifyDataSetChanged();
-            //            }
-            //            else
-            //            {
-            //                mSurreyBusRoutes.Add(route);
+            RunOnUiThread(() =>
+                {
+                    CardStack cs = new CardStack();
+                    mCardView.AddStack(cs);
+                    MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
+                    mCardView.AddCard(card);
+                });
 
-            //            }
-            //        }
-            //        catch(Exception e)
-            //        {
-            //            Console.WriteLine(e.StackTrace);
-            //        }
-            //    });
 
+            mBusRoutes.Add(route);
+            SaveBuses(mBusRoutes);
         }
+
+      
 
         private List<BusRoute> LoadBuses()
         {
-            return null;
+            List<BusRoute> buses = new List<BusRoute>();
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            string json = preferences.GetString("buses", string.Empty);
+            buses = JsonConvert.DeserializeObject<List<BusRoute>>(json);
+            return buses;
         }
 
         private void SaveBuses(List<BusRoute> busRoutes)
         {
-            
+            var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
+            string json = JsonConvert.SerializeObject(busRoutes);
+            var editor = preferences.Edit();
+            editor.PutString("buses", json);
+
+            editor.Commit();
         }
-        
+
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater inflater = this.MenuInflater;
+            inflater.Inflate(Resource.Menu.transit_activity_actions, menu);
+            mAddStopMenu = menu.FindItem(Resource.Id.action_add_stop);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.action_add_stop:
+                    AddStop();
+                    return true;
+                case Resource.Id.action_refresh_transit:
+                    Refresh();
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+
+            }
+
+
+        }
+
+        public override void OnBackPressed()
+        {
+            mBusRouteListView = null;
+            Intent intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+            this.FinishAffinity();
+
+        }
 
         
     }
 
+    public class AddStopDialogFragment : DialogFragment
+    {
+
+
+        public override Dialog OnCreateDialog(Bundle savedInstanceState)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            LayoutInflater inflater = Activity.LayoutInflater;
+            builder.SetView(inflater.Inflate(Resource.Layout.AddStopDialog, null));
+            builder.SetPositiveButton("Add", AddStop_Click);
+            builder.SetNegativeButton("Cancel", Cancel_Click);
+
+            return builder.Create();
+        }
+
+
+        public void AddStop_Click(object sender, EventArgs e)
+        {
+            AlertDialog dialog = sender as AlertDialog;
+            EditText stopText = dialog.FindViewById<EditText>(Resource.Id.AddStopEditText);
+            string stopId = stopText.Text;
+            TransitActivity activity = (TransitActivity)Activity;
+            activity.GetStop(stopId);
+        }
+
+        public void Cancel_Click(object sender, EventArgs e)
+        {
+            this.Dismiss();
+        }
+        
+    }
   
     
 }

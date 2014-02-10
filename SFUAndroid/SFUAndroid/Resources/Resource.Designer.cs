@@ -816,146 +816,152 @@ namespace SFUAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0b002a
-			public const int AddStopButton = 2131427370;
-			
-			// aapt resource value: 0x7f0b0005
-			public const int BooksListView = 2131427333;
-			
-			// aapt resource value: 0x7f0b0022
-			public const int BurnabyBuildingSpinner = 2131427362;
-			
-			// aapt resource value: 0x7f0b0006
-			public const int BurnabyCampusImageView = 2131427334;
-			
 			// aapt resource value: 0x7f0b002b
-			public const int BusRouteCardUI = 2131427371;
-			
-			// aapt resource value: 0x7f0b0029
-			public const int BusStopIdEditText = 2131427369;
-			
-			// aapt resource value: 0x7f0b0028
-			public const int BusStopIdTextView = 2131427368;
-			
-			// aapt resource value: 0x7f0b0012
-			public const int ClassTimeListView = 2131427346;
-			
-			// aapt resource value: 0x7f0b001a
-			public const int ComputingIdLabel = 2131427354;
-			
-			// aapt resource value: 0x7f0b001b
-			public const int ComputingIdText = 2131427355;
-			
-			// aapt resource value: 0x7f0b0011
-			public const int CourseInstructor = 2131427345;
-			
-			// aapt resource value: 0x7f0b000f
-			public const int CourseName = 2131427343;
-			
-			// aapt resource value: 0x7f0b0010
-			public const int CourseSection = 2131427344;
-			
-			// aapt resource value: 0x7f0b001e
-			public const int LoginUserButton = 2131427358;
-			
-			// aapt resource value: 0x7f0b0020
-			public const int MainSelectionButton = 2131427360;
-			
-			// aapt resource value: 0x7f0b001c
-			public const int PasswordLabel = 2131427356;
-			
-			// aapt resource value: 0x7f0b001d
-			public const int PasswordText = 2131427357;
-			
-			// aapt resource value: 0x7f0b0007
-			public const int RouteName = 2131427335;
-			
-			// aapt resource value: 0x7f0b0008
-			public const int RouteTimes = 2131427336;
-			
-			// aapt resource value: 0x7f0b000d
-			public const int ScrollView1 = 2131427341;
-			
-			// aapt resource value: 0x7f0b0026
-			public const int SurreyCampusImageView = 2131427366;
-			
-			// aapt resource value: 0x7f0b0021
-			public const int SurreyFloorSpinner = 2131427361;
-			
-			// aapt resource value: 0x7f0b0027
-			public const int SurreyRoomListView = 2131427367;
-			
-			// aapt resource value: 0x7f0b002e
-			public const int action_add_stop = 2131427374;
-			
-			// aapt resource value: 0x7f0b002c
-			public const int action_login = 2131427372;
-			
-			// aapt resource value: 0x7f0b002d
-			public const int action_refresh = 2131427373;
-			
-			// aapt resource value: 0x7f0b0001
-			public const int button = 2131427329;
-			
-			// aapt resource value: 0x7f0b0015
-			public const int cardContent = 2131427349;
-			
-			// aapt resource value: 0x7f0b0025
-			public const int cardsview = 2131427365;
-			
-			// aapt resource value: 0x7f0b000a
-			public const int description = 2131427338;
-			
-			// aapt resource value: 0x7f0b0013
-			public const int footer = 2131427347;
-			
-			// aapt resource value: 0x7f0b001f
-			public const int gridView1 = 2131427359;
+			public const int AddStopButton = 2131427371;
 			
 			// aapt resource value: 0x7f0b0000
-			public const int item_separator = 2131427328;
+			public const int AddStopEditText = 2131427328;
 			
-			// aapt resource value: 0x7f0b000b
-			public const int listView = 2131427339;
+			// aapt resource value: 0x7f0b0006
+			public const int BooksListView = 2131427334;
 			
 			// aapt resource value: 0x7f0b0023
-			public const int listview = 2131427363;
+			public const int BurnabyBuildingSpinner = 2131427363;
 			
-			// aapt resource value: 0x7f0b0003
-			public const int lv_item_header = 2131427331;
+			// aapt resource value: 0x7f0b0007
+			public const int BurnabyCampusImageView = 2131427335;
 			
-			// aapt resource value: 0x7f0b0004
-			public const int lv_item_subtext = 2131427332;
+			// aapt resource value: 0x7f0b002c
+			public const int BusRouteCardUI = 2131427372;
 			
-			// aapt resource value: 0x7f0b0019
-			public const int lv_list_hdr = 2131427353;
+			// aapt resource value: 0x7f0b002a
+			public const int BusStopIdEditText = 2131427370;
 			
-			// aapt resource value: 0x7f0b0014
-			public const int placeholder = 2131427348;
+			// aapt resource value: 0x7f0b0029
+			public const int BusStopIdTextView = 2131427369;
 			
-			// aapt resource value: 0x7f0b0024
-			public const int ps_webView = 2131427364;
+			// aapt resource value: 0x7f0b0013
+			public const int ClassTimeListView = 2131427347;
 			
-			// aapt resource value: 0x7f0b0018
-			public const int stackContainer = 2131427352;
+			// aapt resource value: 0x7f0b001b
+			public const int ComputingIdLabel = 2131427355;
 			
-			// aapt resource value: 0x7f0b0016
-			public const int stackRoot = 2131427350;
+			// aapt resource value: 0x7f0b001c
+			public const int ComputingIdText = 2131427356;
 			
-			// aapt resource value: 0x7f0b0017
-			public const int stackTitle = 2131427351;
+			// aapt resource value: 0x7f0b0012
+			public const int CourseInstructor = 2131427346;
 			
-			// aapt resource value: 0x7f0b000c
-			public const int sticky = 2131427340;
+			// aapt resource value: 0x7f0b0010
+			public const int CourseName = 2131427344;
 			
-			// aapt resource value: 0x7f0b000e
-			public const int tableLayout = 2131427342;
+			// aapt resource value: 0x7f0b0011
+			public const int CourseSection = 2131427345;
+			
+			// aapt resource value: 0x7f0b001f
+			public const int LoginUserButton = 2131427359;
+			
+			// aapt resource value: 0x7f0b0021
+			public const int MainSelectionButton = 2131427361;
+			
+			// aapt resource value: 0x7f0b001d
+			public const int PasswordLabel = 2131427357;
+			
+			// aapt resource value: 0x7f0b001e
+			public const int PasswordText = 2131427358;
+			
+			// aapt resource value: 0x7f0b0008
+			public const int RouteName = 2131427336;
 			
 			// aapt resource value: 0x7f0b0009
-			public const int title = 2131427337;
+			public const int RouteTimes = 2131427337;
+			
+			// aapt resource value: 0x7f0b000e
+			public const int ScrollView1 = 2131427342;
+			
+			// aapt resource value: 0x7f0b0027
+			public const int SurreyCampusImageView = 2131427367;
+			
+			// aapt resource value: 0x7f0b0022
+			public const int SurreyFloorSpinner = 2131427362;
+			
+			// aapt resource value: 0x7f0b0028
+			public const int SurreyRoomListView = 2131427368;
+			
+			// aapt resource value: 0x7f0b002f
+			public const int action_add_stop = 2131427375;
+			
+			// aapt resource value: 0x7f0b002d
+			public const int action_login = 2131427373;
+			
+			// aapt resource value: 0x7f0b002e
+			public const int action_refresh = 2131427374;
+			
+			// aapt resource value: 0x7f0b0030
+			public const int action_refresh_transit = 2131427376;
 			
 			// aapt resource value: 0x7f0b0002
-			public const int vertical_divider = 2131427330;
+			public const int button = 2131427330;
+			
+			// aapt resource value: 0x7f0b0016
+			public const int cardContent = 2131427350;
+			
+			// aapt resource value: 0x7f0b0026
+			public const int cardsview = 2131427366;
+			
+			// aapt resource value: 0x7f0b000b
+			public const int description = 2131427339;
+			
+			// aapt resource value: 0x7f0b0014
+			public const int footer = 2131427348;
+			
+			// aapt resource value: 0x7f0b0020
+			public const int gridView1 = 2131427360;
+			
+			// aapt resource value: 0x7f0b0001
+			public const int item_separator = 2131427329;
+			
+			// aapt resource value: 0x7f0b000c
+			public const int listView = 2131427340;
+			
+			// aapt resource value: 0x7f0b0024
+			public const int listview = 2131427364;
+			
+			// aapt resource value: 0x7f0b0004
+			public const int lv_item_header = 2131427332;
+			
+			// aapt resource value: 0x7f0b0005
+			public const int lv_item_subtext = 2131427333;
+			
+			// aapt resource value: 0x7f0b001a
+			public const int lv_list_hdr = 2131427354;
+			
+			// aapt resource value: 0x7f0b0015
+			public const int placeholder = 2131427349;
+			
+			// aapt resource value: 0x7f0b0025
+			public const int ps_webView = 2131427365;
+			
+			// aapt resource value: 0x7f0b0019
+			public const int stackContainer = 2131427353;
+			
+			// aapt resource value: 0x7f0b0017
+			public const int stackRoot = 2131427351;
+			
+			// aapt resource value: 0x7f0b0018
+			public const int stackTitle = 2131427352;
+			
+			// aapt resource value: 0x7f0b000d
+			public const int sticky = 2131427341;
+			
+			// aapt resource value: 0x7f0b000f
+			public const int tableLayout = 2131427343;
+			
+			// aapt resource value: 0x7f0b000a
+			public const int title = 2131427338;
+			
+			// aapt resource value: 0x7f0b0003
+			public const int vertical_divider = 2131427331;
 			
 			static Id()
 			{
@@ -987,94 +993,97 @@ namespace SFUAndroid
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Book = 2130903040;
+			public const int AddStopDialog = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Books = 2130903041;
+			public const int Book = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int BurnabyCampusView = 2130903042;
+			public const int Books = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int BusRoute = 2130903043;
+			public const int BurnabyCampusView = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int card_ex = 2130903044;
+			public const int BusRoute = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int cards_view = 2130903045;
+			public const int card_ex = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int cards_view_multicolumn = 2130903046;
+			public const int cards_view = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int Course = 2130903047;
+			public const int cards_view_multicolumn = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int footer_fragment = 2130903048;
+			public const int Course = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int header = 2130903049;
+			public const int footer_fragment = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int item_card = 2130903050;
+			public const int header = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int item_card_empty_first = 2130903051;
+			public const int item_card = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int item_card_empty_last = 2130903052;
+			public const int item_card_empty_first = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int item_play_card_empty_first = 2130903053;
+			public const int item_card_empty_last = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int item_stack = 2130903054;
+			public const int item_play_card_empty_first = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int ListView = 2130903055;
+			public const int item_stack = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int ListViewAlignRight = 2130903056;
+			public const int ListView = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int ListViewHeader = 2130903057;
+			public const int ListViewAlignRight = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int Login = 2130903058;
+			public const int ListViewHeader = 2130903058;
 			
 			// aapt resource value: 0x7f030013
-			public const int Main = 2130903059;
+			public const int Login = 2130903059;
 			
 			// aapt resource value: 0x7f030014
-			public const int MainActivityOption = 2130903060;
+			public const int Main = 2130903060;
 			
 			// aapt resource value: 0x7f030015
-			public const int Maps = 2130903061;
+			public const int MainActivityOption = 2130903061;
 			
 			// aapt resource value: 0x7f030016
-			public const int ProtectedServices = 2130903062;
+			public const int Maps = 2130903062;
 			
 			// aapt resource value: 0x7f030017
-			public const int ProtectedServicesBrowser = 2130903063;
+			public const int ProtectedServices = 2130903063;
 			
 			// aapt resource value: 0x7f030018
-			public const int Schedule = 2130903064;
+			public const int ProtectedServicesBrowser = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int slide_up_left = 2130903065;
+			public const int Schedule = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int slide_up_right = 2130903066;
+			public const int slide_up_left = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int SurreyCampusView = 2130903067;
+			public const int slide_up_right = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int SurreyFloorSelect = 2130903068;
+			public const int SurreyCampusView = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int Transit = 2130903069;
+			public const int SurreyFloorSelect = 2130903069;
+			
+			// aapt resource value: 0x7f03001e
+			public const int Transit = 2130903070;
 			
 			static Layout()
 			{
@@ -1129,6 +1138,9 @@ namespace SFUAndroid
 			// aapt resource value: 0x7f080004
 			public const int Courses = 2131230724;
 			
+			// aapt resource value: 0x7f080014
+			public const int EnterStopIdString = 2131230740;
+			
 			// aapt resource value: 0x7f080011
 			public const int GOSFU = 2131230737;
 			
@@ -1155,6 +1167,9 @@ namespace SFUAndroid
 			
 			// aapt resource value: 0x7f080007
 			public const int Schedule = 2131230727;
+			
+			// aapt resource value: 0x7f080013
+			public const int StopIdExample = 2131230739;
 			
 			// aapt resource value: 0x7f080009
 			public const int Transit = 2131230729;

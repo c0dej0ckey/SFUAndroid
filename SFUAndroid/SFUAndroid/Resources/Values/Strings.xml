@@ -19,6 +19,8 @@
   <string name="COURSYS">COURSYS</string>
   <string name="GOSFU">GOSFU</string>
   <string name="SFUCONNECT">SFUCONNECT</string>
+  <string name="StopIdExample">52806</string>
+  <string name="EnterStopIdString">Enter a Stop Number:</string>
   
   <string-array name="surrey_floors_array">
     <item>Surrey</item>
