@@ -30,6 +30,7 @@ namespace SFUAndroid.Activities
         private ListView mBusRouteListView;
         private IMenuItem mAddStopMenu;
         private CardUI mCardView;
+        private bool mRemoving = false;
         
 
         protected override void OnCreate(Bundle bundle)
@@ -47,7 +48,7 @@ namespace SFUAndroid.Activities
             mBusRoutes = LoadBuses();
            
             mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
-            mCardView.SetSwipeable(true);
+            mCardView.SetSwipeable(false);
 
             if (mBusRoutes != null)
             {
@@ -56,6 +57,8 @@ namespace SFUAndroid.Activities
                     CardStack cs = new CardStack();
                     mCardView.AddStack(cs);
                     MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
+                    
+                    //card.CardSwiped += OnCardSwiped;
                     mCardView.AddCard(card);
                     
                 }
@@ -69,6 +72,7 @@ namespace SFUAndroid.Activities
 
 
         }
+
 
 
 
@@ -97,6 +101,62 @@ namespace SFUAndroid.Activities
 
         }
 
+        private void RemoveStop()
+        {
+            RunOnUiThread(() =>
+                {
+                    mCardView.ClearCards();
+                    foreach(BusRoute route in mBusRoutes)
+                    {
+                        CardStack cs = new CardStack();
+                        ImageCard card = new ImageCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes, this);
+                        mCardView.AddCard(card);
+                    }
+
+                    mCardView.Refresh();
+                });
+        }
+
+        public void RemoveRoute(ImageCard card)
+        {
+            string stopId = card.Title.Split('\t')[2];
+            BusRoute route = mBusRoutes.Where(b => b.StopId == stopId).FirstOrDefault();
+            mBusRoutes.Remove(route);
+
+            RunOnUiThread(() =>
+                {
+                    mCardView.ClearCards();
+
+                    foreach(BusRoute rt in mBusRoutes)
+                    {
+                        CardStack cs = new CardStack();
+                        ImageCard crd = new ImageCard(rt.RouteNumber + "\t" + rt.RouteName + "\t" + rt.StopId, rt.BusRouteTimes, this);
+                        mCardView.AddCard(crd);
+                    }
+
+                    mCardView.Refresh();
+
+                });
+
+        }
+
+        private void CancelRemove()
+        {
+            RunOnUiThread(() =>
+            {
+                mCardView.ClearCards();
+
+                foreach (BusRoute rt in mBusRoutes)
+                {
+                    CardStack cs = new CardStack();
+                    MyCard crd = new MyCard(rt.RouteNumber + "\t" + rt.RouteName + "\t" + rt.StopId, rt.BusRouteTimes);
+                    mCardView.AddCard(crd);
+                }
+
+                mCardView.Refresh();
+
+            });
+        }
        
 
         public void GetStop(string stopId)
@@ -188,10 +248,36 @@ namespace SFUAndroid.Activities
             switch (item.ItemId)
             {
                 case Resource.Id.action_add_stop:
+                    if(mRemoving)
+                    {
+                        CancelRemove();
+                        mRemoving = false;
+                        item.SetTitle("Edit");
+                    }
                     AddStop();
                     return true;
                 case Resource.Id.action_refresh_transit:
+                    if(mRemoving)
+                    {
+                        CancelRemove();
+                        mRemoving = false;
+                        item.SetTitle("Edit");
+                    }
                     Refresh();
+                    return true;
+                case Resource.Id.action_remove_stop:
+                    if (mRemoving)
+                    {
+                        item.SetTitle("Edit");
+                        CancelRemove();
+                        mRemoving = false;
+                    }
+                    else
+                    {
+                        item.SetTitle("Done");
+                        RemoveStop();
+                        mRemoving = true;
+                    }
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
@@ -210,7 +296,7 @@ namespace SFUAndroid.Activities
 
         }
 
-        
+
     }
 
     public class AddStopDialogFragment : DialogFragment
