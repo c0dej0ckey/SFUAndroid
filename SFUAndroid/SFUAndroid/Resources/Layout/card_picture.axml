@@ -44,6 +44,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:ellipsize="end"
-            android:maxLines="7" />
+            android:maxLines="32" />
     </LinearLayout>
 </LinearLayout>

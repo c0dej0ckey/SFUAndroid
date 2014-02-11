@@ -12,19 +12,41 @@ using Android.Widget;
 
 namespace SFUAndroid.Entities
 {
+    public class Stop
+    {
+        private string mStopId;
+        private List<BusRoute> mRoutes;
+
+        public Stop(string stopId)
+        {
+            this.mStopId = stopId;
+            mRoutes = new List<BusRoute>();
+        }
+
+        public string StopId
+        {
+            get { return mStopId; }
+            set { mStopId = value; }
+        }
+
+        public List<BusRoute> Routes
+        {
+            get { return mRoutes; }
+            set { mRoutes = value; }
+        }
+    }
+
     public class BusRoute
     {
         private string mRouteNumber;
         private string mRouteName;
         private List<string> mBusRouteTimes;
-        private string mStopId;
 
-        public BusRoute(string routeNumber, string routeName, string stopId)
+        public BusRoute(string routeNumber, string routeName)
         {
             this.mBusRouteTimes = new List<string>();
             this.mRouteName = routeName;
             this.mRouteNumber = routeNumber;
-            this.mStopId = stopId;
         }
 
         public string RouteNumber
@@ -39,11 +61,6 @@ namespace SFUAndroid.Entities
             set { this.mRouteName = value; }
         }
 
-        public string StopId
-        {
-            get { return this.mStopId; }
-            set { this.mStopId = value; }
-        }
 
         public string BusRouteTimes
         {

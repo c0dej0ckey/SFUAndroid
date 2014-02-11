@@ -24,11 +24,12 @@ namespace SFUAndroid.Activities
     public class TransitActivity : Activity
     {
         private static List<string> sStops = new List<string>(); //{ "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
-        private List<BusRoute> mBusRoutes;
+        private List<Stop> mStops;
         private static string apiKey = "AWkVpR4XnN8gmsf31mku";
         private BusRouteAdapter mBusRouteAdapter;
         private ListView mBusRouteListView;
         private IMenuItem mAddStopMenu;
+        private IMenu mActionBarMenu;
         private CardUI mCardView;
         private bool mRemoving = false;
         
@@ -45,27 +46,32 @@ namespace SFUAndroid.Activities
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
             
-            mBusRoutes = LoadBuses();
+            mStops = LoadBuses();
            
             mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
             mCardView.SetSwipeable(false);
 
-            if (mBusRoutes != null)
+            if (mStops != null)
             {
-                foreach (BusRoute route in mBusRoutes)
+                foreach (Stop stop in mStops)
                 {
                     CardStack cs = new CardStack();
                     mCardView.AddStack(cs);
-                    MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
-                    
-                    //card.CardSwiped += OnCardSwiped;
+
+                    string routeString = string.Empty;
+                    foreach (BusRoute route in stop.Routes)
+                    {
+                        routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                    }
+
+                    MyCard card = new MyCard(stop.StopId, routeString);
                     mCardView.AddCard(card);
                     
                 }
             }
             else
             {
-                mBusRoutes = new List<BusRoute>();
+                mStops = new List<Stop>();
             }
 
             RunOnUiThread(() => mCardView.Refresh());
@@ -91,8 +97,8 @@ namespace SFUAndroid.Activities
                     mCardView.ClearCards();
                 });
 
-            List<string> routes = mBusRoutes.Select(b => b.StopId).ToList();
-            mBusRoutes.Clear();
+            List<string> routes = mStops.Select(b => b.StopId).ToList();
+            mStops.Clear();
 
             foreach(string route in routes)
             {
@@ -106,10 +112,21 @@ namespace SFUAndroid.Activities
             RunOnUiThread(() =>
                 {
                     mCardView.ClearCards();
-                    foreach(BusRoute route in mBusRoutes)
+                    
+
+                    foreach (Stop stop in mStops)
                     {
                         CardStack cs = new CardStack();
-                        ImageCard card = new ImageCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes, this);
+                        mCardView.AddStack(cs);
+
+
+                        string routeString = string.Empty;
+                        foreach (BusRoute route in stop.Routes)
+                        {
+                            routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                        }
+
+                        ImageCard card = new ImageCard(stop.StopId, routeString, this);
                         mCardView.AddCard(card);
                     }
 
@@ -119,19 +136,27 @@ namespace SFUAndroid.Activities
 
         public void RemoveRoute(ImageCard card)
         {
-            string stopId = card.Title.Split('\t')[2];
-            BusRoute route = mBusRoutes.Where(b => b.StopId == stopId).FirstOrDefault();
-            mBusRoutes.Remove(route);
+            string stopId = card.Title;
+            Stop st = mStops.Where(b => b.StopId == stopId).FirstOrDefault();
+            mStops.Remove(st);
 
             RunOnUiThread(() =>
                 {
                     mCardView.ClearCards();
 
-                    foreach(BusRoute rt in mBusRoutes)
+                    foreach (Stop stop in mStops)
                     {
                         CardStack cs = new CardStack();
-                        ImageCard crd = new ImageCard(rt.RouteNumber + "\t" + rt.RouteName + "\t" + rt.StopId, rt.BusRouteTimes, this);
-                        mCardView.AddCard(crd);
+                        mCardView.AddStack(cs);
+
+
+                        string routeString = string.Empty;
+                        foreach (BusRoute route in stop.Routes)
+                        {
+                            routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                        }
+                        ImageCard c = new ImageCard(stop.StopId, routeString, this);
+                        mCardView.AddCard(c);
                     }
 
                     mCardView.Refresh();
@@ -146,11 +171,19 @@ namespace SFUAndroid.Activities
             {
                 mCardView.ClearCards();
 
-                foreach (BusRoute rt in mBusRoutes)
+                foreach (Stop stop in mStops)
                 {
                     CardStack cs = new CardStack();
-                    MyCard crd = new MyCard(rt.RouteNumber + "\t" + rt.RouteName + "\t" + rt.StopId, rt.BusRouteTimes);
-                    mCardView.AddCard(crd);
+                    mCardView.AddStack(cs);
+
+
+                    string routeString = string.Empty;
+                    foreach (BusRoute route in stop.Routes)
+                    {
+                        routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                    }
+                    MyCard card = new MyCard(stop.StopId, routeString);
+                    mCardView.AddCard(card);
                 }
 
                 mCardView.Refresh();
@@ -185,45 +218,62 @@ namespace SFUAndroid.Activities
                 return;
             }
             JArray stopObject = JArray.Parse(json);
-            string routeNo = stopObject[0]["RouteNo"].ToString();
-            string routeName = stopObject[0]["RouteName"].ToString();
 
             string stopId = request.RequestUri.OriginalString.Split('/')[6];
-            BusRoute route = new BusRoute(routeNo, routeName, stopId);
-            JArray times = stopObject[0]["Schedules"] as JArray;
-            foreach (JObject obj in times)
+            Stop stop = new Stop(stopId);
+
+            foreach(JObject s in stopObject)
             {
-                string time = obj["ExpectedLeaveTime"].ToString();
-                route.AddRouteTime(time);
+                string routeNo = s["RouteNo"].ToString();
+                string routeName = s["RouteName"].ToString();
+
+                
+                BusRoute route = new BusRoute(routeNo, routeName);
+                JArray times = s["Schedules"] as JArray;
+                foreach (JObject obj in times)
+                {
+                    string time = obj["ExpectedLeaveTime"].ToString();
+                    route.AddRouteTime(time);
+                }
+
+                stop.Routes.Add(route);
             }
+            
 
             RunOnUiThread(() =>
                 {
                     CardStack cs = new CardStack();
                     mCardView.AddStack(cs);
-                    MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
+
+                    string routeString = string.Empty;
+                    foreach(BusRoute route in stop.Routes)
+                    {
+                        routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                    }
+
+                    MyCard card = new MyCard(stop.StopId, routeString);
                     mCardView.AddCard(card);
                     
                 });
 
 
-            mBusRoutes.Add(route);
-            SaveBuses(mBusRoutes);
+            mStops.Add(stop);
+            SaveBuses(mStops);
             RunOnUiThread(() => mCardView.Refresh());
         }
 
-      
 
-        private List<BusRoute> LoadBuses()
+
+        private List<Stop> LoadBuses()
         {
-            List<BusRoute> buses = new List<BusRoute>();
+            List<Stop> buses = new List<Stop>();
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             string json = preferences.GetString("buses", string.Empty);
-            buses = JsonConvert.DeserializeObject<List<BusRoute>>(json);
+            buses = JsonConvert.DeserializeObject<List<Stop>>(json);
             return buses;
         }
 
-        private void SaveBuses(List<BusRoute> busRoutes)
+        private void SaveBuses(List<Stop> busRoutes)
         {
             var preferences = this.GetSharedPreferences("sfuandroid-settings", FileCreationMode.Private);
             string json = JsonConvert.SerializeObject(busRoutes);
@@ -238,6 +288,7 @@ namespace SFUAndroid.Activities
         {
             MenuInflater inflater = this.MenuInflater;
             inflater.Inflate(Resource.Menu.transit_activity_actions, menu);
+            mActionBarMenu = menu;
             mAddStopMenu = menu.FindItem(Resource.Id.action_add_stop);
             return base.OnCreateOptionsMenu(menu);
         }
@@ -252,7 +303,8 @@ namespace SFUAndroid.Activities
                     {
                         CancelRemove();
                         mRemoving = false;
-                        item.SetTitle("Edit");
+                        IMenuItem stopItem = mActionBarMenu.FindItem(Resource.Id.action_remove_stop);
+                        stopItem.SetTitle("Edit");
                     }
                     AddStop();
                     return true;
@@ -261,14 +313,16 @@ namespace SFUAndroid.Activities
                     {
                         CancelRemove();
                         mRemoving = false;
-                        item.SetTitle("Edit");
+                        IMenuItem stopItem = mActionBarMenu.FindItem(Resource.Id.action_remove_stop);
+                        stopItem.SetTitle("Edit");
                     }
                     Refresh();
                     return true;
                 case Resource.Id.action_remove_stop:
                     if (mRemoving)
                     {
-                        item.SetTitle("Edit");
+                        IMenuItem stopItem = mActionBarMenu.FindItem(Resource.Id.action_remove_stop);
+                        stopItem.SetTitle("Edit");
                         CancelRemove();
                         mRemoving = false;
                     }
