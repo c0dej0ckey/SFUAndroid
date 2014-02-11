@@ -12,6 +12,7 @@ using Android.Widget;
 using SFUAndroid.Entities;
 using Android.Graphics.Drawables;
 using SFUAndroid.Activities;
+using Android.Graphics;
 
 namespace SFUAndroid.Adapters
 {
@@ -38,7 +39,7 @@ namespace SFUAndroid.Adapters
             {
                 Button b = view.FindViewById<Button>(Resource.Id.MainSelectionButton);
                 b.Click += Selection_ItemClick;
-                b.Text = selection.Title;
+                b.Tag = selection.Title;
                 b.SetCompoundDrawablesRelativeWithIntrinsicBounds(null, new BitmapDrawable(this.Context.Resources,selection.Bitmap), null, null);
 
             }
@@ -51,22 +52,22 @@ namespace SFUAndroid.Adapters
         public void Selection_ItemClick(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            if (button.Text.Equals("Schedule"))
+            if (button.Tag.Equals("Schedule"))
             {
                 Intent intent = new Intent(this.Context, typeof(ScheduleActivity));
                 this.Context.StartActivity(intent);
             }
-            else if (button.Text.Equals("Maps"))
+            else if (button.Tag.Equals("Maps"))
             {
                 Intent intent = new Intent(this.Context, typeof(MapsActivity));
                 this.Context.StartActivity(intent);
             }
-            else if (button.Text.Equals("Protected \n Services"))
+            else if (button.Tag.Equals("Protected \n Services"))
             {
                 Intent intent = new Intent(this.Context, typeof(ProtectedServicesActivity));
                 this.Context.StartActivity(intent);
             }
-            else if (button.Text.Equals("Books"))
+            else if (button.Tag.Equals("Books"))
             {
                 Intent intent = new Intent(this.Context, typeof(BooksActivity));
                 this.Context.StartActivity(intent);

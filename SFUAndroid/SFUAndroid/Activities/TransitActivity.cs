@@ -16,6 +16,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Com.Fima.Cardsui.Views;
 using Com.Fima.Cardsui.Objects;
+using Newtonsoft.Json;
 
 namespace SFUAndroid.Activities
 {
@@ -48,12 +49,15 @@ namespace SFUAndroid.Activities
             mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
             mCardView.SetSwipeable(true);
 
-            foreach(BusRoute route in mBusRoutes)
+            if (mBusRoutes != null)
             {
-                CardStack cs = new CardStack();
-                mCardView.AddStack(cs);
-                MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
-                mCardView.AddCard(card);
+                foreach (BusRoute route in mBusRoutes)
+                {
+                    CardStack cs = new CardStack();
+                    mCardView.AddStack(cs);
+                    MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
+                    mCardView.AddCard(card);
+                }
             }
 
             
@@ -83,7 +87,7 @@ namespace SFUAndroid.Activities
 
             foreach(string route in routes)
             {
-                GetStop(route.StopId);
+                GetStop(route);
             }
 
         }
@@ -110,7 +114,7 @@ namespace SFUAndroid.Activities
                 StreamReader reader = new StreamReader(stream);
                 json = reader.ReadToEnd();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return;
             }
