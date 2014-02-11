@@ -43,7 +43,7 @@ namespace SFUAndroid.Activities
 
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
-            mBusRoutes = new List<BusRoute>();
+            
             mBusRoutes = LoadBuses();
            
             mCardView = this.FindViewById<CardUI>(Resource.Id.BusRouteCardUI);
@@ -57,10 +57,15 @@ namespace SFUAndroid.Activities
                     mCardView.AddStack(cs);
                     MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
                     mCardView.AddCard(card);
+                    
                 }
             }
+            else
+            {
+                mBusRoutes = new List<BusRoute>();
+            }
 
-            
+            RunOnUiThread(() => mCardView.Refresh());
 
 
         }
@@ -106,9 +111,10 @@ namespace SFUAndroid.Activities
         private void GetStopResponse(IAsyncResult result)
         {
             string json = string.Empty;
+            HttpWebRequest request = null;
             try
             {
-                HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+                request = (HttpWebRequest)result.AsyncState;
                 HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(result);
                 Stream stream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(stream);
@@ -122,7 +128,8 @@ namespace SFUAndroid.Activities
             string routeNo = stopObject[0]["RouteNo"].ToString();
             string routeName = stopObject[0]["RouteName"].ToString();
 
-            BusRoute route = new BusRoute(routeNo, routeName, "");
+            string stopId = request.RequestUri.OriginalString.Split('/')[6];
+            BusRoute route = new BusRoute(routeNo, routeName, stopId);
             JArray times = stopObject[0]["Schedules"] as JArray;
             foreach (JObject obj in times)
             {
@@ -136,11 +143,13 @@ namespace SFUAndroid.Activities
                     mCardView.AddStack(cs);
                     MyCard card = new MyCard(route.RouteNumber + "\t" + route.RouteName + "\t" + route.StopId, route.BusRouteTimes);
                     mCardView.AddCard(card);
+                    
                 });
 
 
             mBusRoutes.Add(route);
             SaveBuses(mBusRoutes);
+            RunOnUiThread(() => mCardView.Refresh());
         }
 
       

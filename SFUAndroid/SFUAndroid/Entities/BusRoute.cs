@@ -59,6 +59,12 @@ namespace SFUAndroid.Entities
             }
         }
 
+        public List<string> BusRouteTime2
+        {
+            get { return this.mBusRouteTimes; }
+            set { this.mBusRouteTimes = value; }
+        }
+
         public void AddRouteTime(string time)
         {
             mBusRouteTimes.Add(time);

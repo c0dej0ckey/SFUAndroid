@@ -816,9 +816,6 @@ namespace SFUAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0b002b
-			public const int AddStopButton = 2131427371;
-			
 			// aapt resource value: 0x7f0b0000
 			public const int AddStopEditText = 2131427328;
 			
@@ -831,14 +828,8 @@ namespace SFUAndroid
 			// aapt resource value: 0x7f0b0007
 			public const int BurnabyCampusImageView = 2131427335;
 			
-			// aapt resource value: 0x7f0b002c
-			public const int BusRouteCardUI = 2131427372;
-			
-			// aapt resource value: 0x7f0b002a
-			public const int BusStopIdEditText = 2131427370;
-			
 			// aapt resource value: 0x7f0b0029
-			public const int BusStopIdTextView = 2131427369;
+			public const int BusRouteCardUI = 2131427369;
 			
 			// aapt resource value: 0x7f0b0013
 			public const int ClassTimeListView = 2131427347;
@@ -888,17 +879,17 @@ namespace SFUAndroid
 			// aapt resource value: 0x7f0b0028
 			public const int SurreyRoomListView = 2131427368;
 			
-			// aapt resource value: 0x7f0b002f
-			public const int action_add_stop = 2131427375;
+			// aapt resource value: 0x7f0b002c
+			public const int action_add_stop = 2131427372;
+			
+			// aapt resource value: 0x7f0b002a
+			public const int action_login = 2131427370;
+			
+			// aapt resource value: 0x7f0b002b
+			public const int action_refresh = 2131427371;
 			
 			// aapt resource value: 0x7f0b002d
-			public const int action_login = 2131427373;
-			
-			// aapt resource value: 0x7f0b002e
-			public const int action_refresh = 2131427374;
-			
-			// aapt resource value: 0x7f0b0030
-			public const int action_refresh_transit = 2131427376;
+			public const int action_refresh_transit = 2131427373;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int button = 2131427330;
