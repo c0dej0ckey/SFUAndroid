@@ -18,7 +18,7 @@ using SFUAndroid.Entities;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "SFU", MainLauncher = true, Icon = "@drawable/ic_launcher", Theme="@android:style/Theme.Holo.Light")]
+    [Activity(Label = "SFU",  MainLauncher = true, Icon = "@drawable/ic_launcher", Theme="@android:style/Theme.Holo.Light")]
     public class MainActivity : Activity
     {
         private string mKey;

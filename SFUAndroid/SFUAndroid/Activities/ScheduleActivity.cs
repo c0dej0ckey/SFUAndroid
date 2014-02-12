@@ -37,7 +37,7 @@ namespace SFUAndroid.Activities
             CardUI mCardView = this.FindViewById<CardUI>(Resource.Id.cardsview);
             mCardView.SetSwipeable(false);
             
-
+            ///Distance Ed
 
 
             ActionBar actionBar = this.ActionBar;
@@ -117,6 +117,10 @@ namespace SFUAndroid.Activities
 
         private void RefreshSchedule()
         {
+            mCourses = new List<Course>();
+
+            RunOnUiThread(() => mCardView.ClearCards());
+
             mDialog = new ProgressDialog(this);
             mDialog.Indeterminate = true;
             mDialog.SetMessage("Loading...");
@@ -227,7 +231,7 @@ namespace SFUAndroid.Activities
         /// </summary>
         private void GetSIMSResponseWithCookies()
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM=", SemesterHelper.GetSemesterId())); //SemesterHelper.GetSemesterId()));
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(string.Format("https://sims-prd.sfu.ca/psc/csprd_1/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SS_ES_STUDY_LIST.GBL?Page=SS_ES_STUDY_LIST&Action=U&ACAD_CAREER=UGRD&EMPLID=&INSTITUTION=SFUNV&STRM={0}", SemesterHelper.GetSemesterId())); //SemesterHelper.GetSemesterId()));
 
             request.CookieContainer = new CookieContainer();
             foreach (Cookie cookie in CookieService.GetCookies().Where(c => c.Domain != "cas.sfu.ca"))
@@ -361,24 +365,31 @@ namespace SFUAndroid.Activities
             mCardView = this.FindViewById<CardUI>(Resource.Id.cardsview);
             foreach(Course course in mCourses)
             {
-                
-                CardStack cs = new CardStack();
-                mCardView.AddStack(cs);
-                string str = string.Empty;
-                foreach(CourseOffering offering in course.CourseOfferings)
+                if (course.Type != "Distance Ed")
                 {
-                    str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\t"  + offering.Location + "\n";
+                    CardStack cs = new CardStack();
+                    mCardView.AddStack(cs);
+                    string str = string.Empty;
+                    foreach (CourseOffering offering in course.CourseOfferings)
+                    {
+                        str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\t" + offering.Location + "\n";
+                    }
+
+                    mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+
+                    RunOnUiThread(() =>
+                        {
+                            mDialog.Cancel();
+                            mCardView.RefreshDrawableState();
+                            mCardView.Refresh();
+
+                        });
+                }
+                else
+                {
+                    
                 }
 
-                mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
-
-                RunOnUiThread(() =>
-                    {
-                        mDialog.Cancel();
-                        mCardView.RefreshDrawableState();
-                        mCardView.Refresh();
-                        
-                    });
 
                 //mCardView.Refresh();
             }

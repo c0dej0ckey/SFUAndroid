@@ -9,9 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 
 namespace SFUAndroid.Entities
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Stop
     {
         private string mStopId;
@@ -23,12 +25,14 @@ namespace SFUAndroid.Entities
             mRoutes = new List<BusRoute>();
         }
 
+        [JsonProperty]
         public string StopId
         {
             get { return mStopId; }
             set { mStopId = value; }
         }
 
+        [JsonProperty]
         public List<BusRoute> Routes
         {
             get { return mRoutes; }
@@ -36,6 +40,7 @@ namespace SFUAndroid.Entities
         }
     }
 
+    [JsonObject(MemberSerialization.OptIn)]
     public class BusRoute
     {
         private string mRouteNumber;
@@ -49,12 +54,14 @@ namespace SFUAndroid.Entities
             this.mRouteNumber = routeNumber;
         }
 
+        [JsonProperty]
         public string RouteNumber
         {
             get { return this.mRouteNumber; }
             set { this.mRouteNumber = value; }
         }
 
+        [JsonProperty]
         public string RouteName
         {
             get { return this.mRouteName; }
@@ -76,6 +83,7 @@ namespace SFUAndroid.Entities
             }
         }
 
+        [JsonProperty]
         public List<string> BusRouteTime2
         {
             get { return this.mBusRouteTimes; }

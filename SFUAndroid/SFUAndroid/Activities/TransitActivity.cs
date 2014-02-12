@@ -15,23 +15,25 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Com.Fima.Cardsui.Views;
-using Com.Fima.Cardsui.Objects;
 using Newtonsoft.Json;
+using Com.Fima.Cardsui.Objects;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "Transit", ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
+    [Activity(Label = "Transit",  ParentActivity = typeof(MainActivity), Theme = "@android:style/Theme.Holo.Light")]
     public class TransitActivity : Activity
     {
         private static List<string> sStops = new List<string>(); //{ "53096", "51861", "52998", "52807", "55836", "55738", "61035", "55070", "61787", "55210", "55713", "54993", "55714", "56406", "55441", "55612" };
         private List<Stop> mStops;
         private static string apiKey = "AWkVpR4XnN8gmsf31mku";
-        private BusRouteAdapter mBusRouteAdapter;
-        private ListView mBusRouteListView;
         private IMenuItem mAddStopMenu;
         private IMenu mActionBarMenu;
         private CardUI mCardView;
         private bool mRemoving = false;
+        /// <summary>
+        /// parse data issue
+        /// </summary>
+        /// <param name="bundle"></param>
         
 
         protected override void OnCreate(Bundle bundle)
@@ -74,7 +76,7 @@ namespace SFUAndroid.Activities
                 mStops = new List<Stop>();
             }
 
-            RunOnUiThread(() => mCardView.Refresh());
+            mCardView.Refresh();
 
 
         }
@@ -92,10 +94,8 @@ namespace SFUAndroid.Activities
 
         private void Refresh()
         {
-            RunOnUiThread(() =>
-                {
-                    mCardView.ClearCards();
-                });
+            
+            mCardView.ClearCards();
 
             List<string> routes = mStops.Select(b => b.StopId).ToList();
             mStops.Clear();
@@ -109,29 +109,30 @@ namespace SFUAndroid.Activities
 
         private void RemoveStop()
         {
-            RunOnUiThread(() =>
-                {
-                    mCardView.ClearCards();
+            
+            mCardView.ClearCards();
                     
 
-                    foreach (Stop stop in mStops)
-                    {
-                        CardStack cs = new CardStack();
-                        mCardView.AddStack(cs);
+            foreach (Stop stop in mStops)
+            {
+                CardStack cs = new CardStack();
+                mCardView.AddStack(cs);
 
 
-                        string routeString = string.Empty;
-                        foreach (BusRoute route in stop.Routes)
-                        {
-                            routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
-                        }
+                string routeString = string.Empty;
+                foreach (BusRoute route in stop.Routes)
+                {
+                    routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                }
 
-                        ImageCard card = new ImageCard(stop.StopId, routeString, this);
-                        mCardView.AddCard(card);
-                    }
+                ImageCard card = new ImageCard(stop.StopId, routeString, this);
+                mCardView.AddCard(card);
+            }
+            RunOnUiThread(() =>
+            {
 
-                    mCardView.Refresh();
-                });
+                mCardView.Refresh();
+             });
         }
 
         public void RemoveRoute(ImageCard card)
@@ -140,35 +141,36 @@ namespace SFUAndroid.Activities
             Stop st = mStops.Where(b => b.StopId == stopId).FirstOrDefault();
             mStops.Remove(st);
 
-            RunOnUiThread(() =>
+            
+            mCardView.ClearCards();
+
+            foreach (Stop stop in mStops)
+            {
+                CardStack cs = new CardStack();
+                mCardView.AddStack(cs);
+
+
+                string routeString = string.Empty;
+                foreach (BusRoute route in stop.Routes)
                 {
-                    mCardView.ClearCards();
+                    routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+                }
+                ImageCard c = new ImageCard(stop.StopId, routeString, this);
+                mCardView.AddCard(c);
+            }
 
-                    foreach (Stop stop in mStops)
-                    {
-                        CardStack cs = new CardStack();
-                        mCardView.AddStack(cs);
+            RunOnUiThread(() =>
+            {
 
+            mCardView.Refresh();
 
-                        string routeString = string.Empty;
-                        foreach (BusRoute route in stop.Routes)
-                        {
-                            routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
-                        }
-                        ImageCard c = new ImageCard(stop.StopId, routeString, this);
-                        mCardView.AddCard(c);
-                    }
-
-                    mCardView.Refresh();
-
-                });
+            });
 
         }
 
         private void CancelRemove()
         {
-            RunOnUiThread(() =>
-            {
+          
                 mCardView.ClearCards();
 
                 foreach (Stop stop in mStops)
@@ -186,6 +188,8 @@ namespace SFUAndroid.Activities
                     mCardView.AddCard(card);
                 }
 
+            RunOnUiThread(() =>
+            {
                 mCardView.Refresh();
 
             });
@@ -238,28 +242,31 @@ namespace SFUAndroid.Activities
 
                 stop.Routes.Add(route);
             }
-            
-
-            RunOnUiThread(() =>
-                {
-                    CardStack cs = new CardStack();
-                    mCardView.AddStack(cs);
-
-                    string routeString = string.Empty;
-                    foreach(BusRoute route in stop.Routes)
-                    {
-                        routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
-                    }
-
-                    MyCard card = new MyCard(stop.StopId, routeString);
-                    mCardView.AddCard(card);
-                    
-                });
-
 
             mStops.Add(stop);
             SaveBuses(mStops);
-            RunOnUiThread(() => mCardView.Refresh());
+
+            
+            CardStack cs = new CardStack();
+            mCardView.AddStack(cs);
+
+            string routeString = string.Empty;
+            foreach(BusRoute route in stop.Routes)
+            {
+                routeString += route.RouteNumber + "\t" + route.RouteName + "\n" + route.BusRouteTimes + "\n";
+            }
+
+            MyCard card = new MyCard(stop.StopId, routeString);
+            mCardView.AddCard(card);
+
+            RunOnUiThread(() =>
+            {
+
+                mCardView.Refresh();
+            });
+
+
+            
         }
 
 
@@ -343,10 +350,9 @@ namespace SFUAndroid.Activities
 
         public override void OnBackPressed()
         {
-            mBusRouteListView = null;
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
-            this.FinishAffinity();
+            this.Finish();
 
         }
 

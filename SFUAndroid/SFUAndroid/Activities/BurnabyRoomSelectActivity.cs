@@ -19,7 +19,6 @@ using Android.Graphics.Drawables;
 using Java.IO;
 using Android.Content.Res;
 using Android.Util;
-using Android.GoogleMaps;
 using UK.CO.Senab.Photoview;
 
 namespace SFUAndroid.Activities
@@ -144,47 +143,7 @@ namespace SFUAndroid.Activities
     }
 
 
-    public class MapOverlay : Overlay
-    {
-
-        GeoPoint _gp;
-        private Bitmap _bitmap;
-        private Resources resource;
-
-        public MapOverlay(GeoPoint gp, Bitmap bitmap, Resources resources)
-        {
-            _gp = gp;
-            this._bitmap = bitmap;
-            this.resource = resources;
-        }
-
-
-
-        public override void Draw(Android.Graphics.Canvas canvas,
-               MapView mapView, bool shadow)
-        {
-            base.Draw(canvas, mapView, shadow);
-
-            //var paint = new Paint();
-            //paint.AntiAlias = true;
-            //paint.Color = Color.Transparent;
-            //paint.Alpha = 50;
-
-
-
-
-
-            var pt = mapView.Projection.ToPixels(_gp, null);
-            float distance =
-                    mapView.Projection.MetersToEquatorPixels(200);
-
-           // canvas.DrawBitmap(_bitmap, new Rect(0,0, _bitmap.Width, _bitmap.Height);
-
-
-          //  canvas.DrawRect(pt.X, pt.Y, pt.X + distance, pt.Y +
-               //     distance, paint);
-        }
-    }
+   
 
     public class MyView : View
     {
