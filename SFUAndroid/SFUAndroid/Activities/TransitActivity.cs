@@ -140,6 +140,7 @@ namespace SFUAndroid.Activities
             string stopId = card.Title;
             Stop st = mStops.Where(b => b.StopId == stopId).FirstOrDefault();
             mStops.Remove(st);
+            SaveBuses(mStops);
 
             
             mCardView.ClearCards();
