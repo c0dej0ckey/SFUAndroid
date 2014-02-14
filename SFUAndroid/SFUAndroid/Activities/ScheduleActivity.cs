@@ -19,6 +19,7 @@ using SFUAndroid.Adapters;
 using Com.Fima.Cardsui.Views;
 using Com.Fima.Cardsui.Objects;
 using System.Threading;
+using System.Globalization;
 
 namespace SFUAndroid.Activities
 {
@@ -49,15 +50,19 @@ namespace SFUAndroid.Activities
             string computingId = preferences.GetString("Computing ID", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
-            if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
-            {
-                Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
-            }
-            else
-            {
+            //if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
+            //{
+            //    Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
+            //}
+            //else
+            //{
 
                 ////load courses - if not found request them from GOSFU
                 mCourses = GetCourses();
+                //remove
+                mCourses = new List<Course>();
+                mCourses.Add(new Course("Cmpt345" , "asdasd", "asdas", "asdasd", "asdasd", "asdasd"));
+                mCourses[0].Exam = new Exam("sadas", "asdasd", DateTime.Now);
                 if (mCourses == null)
                 {
                     mDialog = new ProgressDialog(this);
@@ -81,12 +86,19 @@ namespace SFUAndroid.Activities
                             str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\n" + offering.Location + "\n";
                         }
 
-                        mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+                        if (course.Exam != null)
+                        {
+                            mCardView.AddCard(new ClickableCard(course.ClassName, course.Instructor + "\n" + str, "", "", new Java.Lang.Boolean(true), new Java.Lang.Boolean(true), this));
+                        }
+                        else
+                        {
+                            mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+                        }
                     }
                 }
 
                 mCardView.Refresh();
-           }
+          // }
             
             
             
@@ -129,6 +141,17 @@ namespace SFUAndroid.Activities
             TryParseCourses();
         }
 
+        public void OpenExtraInfo(ClickableCard card)
+        {
+            Course course = mCourses[0];
+            Intent intent = new Intent(this, typeof(CourseDetailActivity));
+
+            intent.PutExtra("ExamStartTime", course.Exam.StartTime);
+            intent.PutExtra("ExamEndTime", course.Exam.EndTime);
+            intent.PutExtra("ExamDate", course.Exam.Date.ToString());
+            StartActivity(intent);
+        }
+
 
         public override void OnBackPressed()
         {
@@ -136,7 +159,7 @@ namespace SFUAndroid.Activities
             mCardView = null;
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
-            FinishAffinity();
+            Finish();
             //base.OnBackPressed();
         }
 
@@ -352,8 +375,11 @@ namespace SFUAndroid.Activities
                 //if (course.Type == "Lecture")
                 //{
                     List<CourseOffering> offerings = course.CourseOfferings;
-                    if(offerings.Count > 0)
-                        offerings.RemoveAt(offerings.Count - 1);
+                    CourseOffering exam = course.CourseOfferings.Where(c => c.Location == "Location:&nbsp; See &#039; View My Exam Schedule &#039;").FirstOrDefault();
+                    if(exam != null)
+                    {
+                        course.Exam = new Exam(exam.StartTime, exam.EndTime, DateTime.ParseExact(exam.Date, "yyyy/mm/dd", new CultureInfo("en-US")));
+                    }
                 //}
 
             }
@@ -375,8 +401,14 @@ namespace SFUAndroid.Activities
                         str = str + offering.Days + "\t" + offering.StartTime + " - " + offering.EndTime + "\t" + offering.Location + "\n";
                     }
 
-                    mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
-
+                    if (course.Exam != null)
+                    {
+                        mCardView.AddCard(new ClickableCard(course.ClassName, course.Instructor + "\n" + str, "", "", new Java.Lang.Boolean(true), new Java.Lang.Boolean(true), this));
+                    }
+                    else
+                    {
+                        mCardView.AddCard(new MyCard(course.ClassName, course.Instructor + "\n" + str));
+                    }
                     RunOnUiThread(() =>
                         {
                             mDialog.Cancel();
@@ -407,6 +439,9 @@ namespace SFUAndroid.Activities
 
         }
         #endregion
+
+
+
 
         /// <summary>
         /// Load courses from disk

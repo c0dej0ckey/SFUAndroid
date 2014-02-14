@@ -60,6 +60,43 @@ namespace SFUAndroid.Entities
 
     }
 
+    public class ClickableCard : RecyclableCard
+    {
+        private ScheduleActivity scheduleActivity;
+
+        public ClickableCard(string title, string description, string color, string titleColor, Java.Lang.Boolean hasOverflow, Java.Lang.Boolean isClickable, ScheduleActivity scheduleActivity) :
+            base(title, description, color, titleColor, hasOverflow, isClickable) { this.scheduleActivity = scheduleActivity; }
+
+        protected override int CardLayoutId
+        {
+            get { return Resource.Layout.card_play; }
+        }
+
+        protected override void ApplyTo(View p0)
+        {
+            ((TextView)p0.FindViewById(Resource.Id.title)).Text = TitlePlay;
+            ((TextView)p0.FindViewById(Resource.Id.description)).Text = Description;
+
+            ImageView overflow = p0.FindViewById<ImageView>(Resource.Id.overflow);
+
+            if (HasOverflow.BooleanValue() == true)
+                ((ImageView)p0.FindViewById(Resource.Id.overflow)).Visibility = ViewStates.Visible;
+            else
+                ((ImageView)p0.FindViewById(Resource.Id.overflow)).Visibility = ViewStates.Gone;
+
+            overflow.Click += overflow_Click;
+
+        }
+
+        public void overflow_Click(object sender, EventArgs e)
+        {
+            scheduleActivity.OpenExtraInfo(this);
+        }
+
+
+
+    }
+
     
 
 

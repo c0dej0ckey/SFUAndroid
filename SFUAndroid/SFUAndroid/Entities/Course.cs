@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 namespace SFUAndroid.Entities
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class Course
+    public class Course 
     {
         private string mClassName;
         private string mSection;
@@ -23,8 +23,9 @@ namespace SFUAndroid.Entities
         private string mInstructor;
         private string mType;
         private List<CourseOffering> mCourseOfferings;
+        private Exam mExam;
 
-        public Course(string className, string section, string credits, string status, string instructor, string type)
+        public Course(string className, string section, string credits, string status, string instructor, string type) : base()
         {
             this.ClassName = className;
             this.Section = section;
@@ -82,6 +83,13 @@ namespace SFUAndroid.Entities
         {
             get { return this.mCourseOfferings; }
             set { this.mCourseOfferings = value; }
+        }
+
+        [JsonProperty]
+        public Exam Exam
+        {
+            get { return this.mExam; }
+            set { this.mExam = value; }
         }
 
         public void AddCourseOffering(CourseOffering courseOffering)
@@ -144,4 +152,48 @@ namespace SFUAndroid.Entities
             set { this.mDate = value; }
         }
     }
+
+    public class ExamDetail : Item
+    {
+        private string mStartTime;
+        private string mEndTime;
+        private string mDate;
+        private LayoutInflater mInflater;
+
+
+        public ExamDetail(string startTime, string endTime, string date, LayoutInflater layoutInflater)
+        {
+            this.mStartTime = startTime;
+            this.mEndTime = endTime;
+            this.mDate = date;
+            this.mInflater = layoutInflater;
+        }
+
+    
+        public int GetViewType()
+        {
+            return (int)RowType.LIST_ITEM;
+        }
+
+        public View GetView(LayoutInflater inflater, View convertView, ViewGroup parent)
+        {
+            View view = null;
+            if (convertView == null)
+            {
+                view = inflater.Inflate(Resource.Layout.Exam, parent, false);
+            }
+            else
+            {
+                view = convertView;
+            }
+            
+            TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
+            tx.Text = mStartTime;
+            TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
+            tx2.Text = mEndTime;
+           // tx2.Text = "Author: " + Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + "\n ISBN: " + Isbn;
+            return view;
+        }
+}
+
 }

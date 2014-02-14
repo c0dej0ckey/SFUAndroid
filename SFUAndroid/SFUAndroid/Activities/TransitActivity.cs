@@ -169,6 +169,8 @@ namespace SFUAndroid.Activities
 
         }
 
+        
+
         private void CancelRemove()
         {
           

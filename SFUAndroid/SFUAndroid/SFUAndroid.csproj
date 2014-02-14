@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Activities\BooksActivity.cs" />
     <Compile Include="Activities\BurnabyRoomSelectActivity.cs" />
+    <Compile Include="Activities\CourseDetailActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\MapsActivity.cs" />
@@ -94,11 +95,13 @@
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\CardLayout.cs" />
+    <Compile Include="Entities\Exam.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Entities\Selection.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CookieService.cs" />
+    <Compile Include="Services\CoursysParser.cs" />
     <Compile Include="Services\SemesterHelper.cs" />
     <Compile Include="Services\Settings.cs" />
   </ItemGroup>
@@ -166,6 +169,15 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\card_picture.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\card_play.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\CourseDetail.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Exam.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -244,6 +256,7 @@
     <AndroidResource Include="Resources\Drawable-mdpi\ic_action_new.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_action_new.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\ic_action_new.png" />
+    <AndroidResource Include="Resources\Drawable\ic_menu_moreoverflow_normal_holo_light.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

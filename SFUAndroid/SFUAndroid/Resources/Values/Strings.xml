@@ -22,6 +22,8 @@
   <string name="StopIdExample">52806</string>
   <string name="EnterStopIdString">Enter a Stop Number:</string>
   <string name="RemoveStopText">Remove</string>
+  <string name="ColorStripe">Color Stripe</string>
+  <string name="Overflow">Overflow</string>
   
   <string-array name="surrey_floors_array">
     <item>Surrey</item>
