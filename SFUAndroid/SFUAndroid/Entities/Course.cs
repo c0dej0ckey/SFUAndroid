@@ -10,6 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Android.Graphics;
+using Java.IO;
+using Android.Graphics.Drawables;
 
 namespace SFUAndroid.Entities
 {
@@ -25,7 +28,7 @@ namespace SFUAndroid.Entities
         private List<CourseOffering> mCourseOfferings;
         private Exam mExam;
 
-        public Course(string className, string section, string credits, string status, string instructor, string type) : base()
+        public Course(string className, string section, string credits, string status, string instructor, string type) 
         {
             this.ClassName = className;
             this.Section = section;
@@ -96,6 +99,7 @@ namespace SFUAndroid.Entities
         {
             mCourseOfferings.Add(courseOffering);
         }
+
 
     }
 
@@ -194,6 +198,111 @@ namespace SFUAndroid.Entities
            // tx2.Text = "Author: " + Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + "\n ISBN: " + Isbn;
             return view;
         }
-}
+    }
+
+    public class CourseOfferingDetail : Item
+    {
+
+        private string mStartTime;
+        private string mEndTime;
+        private string mLocation;
+        private string mDays;
+        private string mDate;
+        private LayoutInflater mInflater;
+        private Context mContext;
+
+        public CourseOfferingDetail(string start, string end, string loc, string days, string date, LayoutInflater inflater, Context context)
+        {
+            this.mStartTime = start;
+            this.mEndTime = end;
+            this.mLocation = loc;
+            this.mDays = days;
+            this.mDate = date;
+            this.mInflater = inflater;
+            this.mContext = context;
+        }
+
+        public int GetViewType()
+        {
+            return (int)RowType.LIST_ITEM;
+        }
+
+        public View GetView(LayoutInflater inflater, View convertView, ViewGroup parent)
+        {
+            View view = null;
+            if (convertView == null)
+            {
+                view = inflater.Inflate(Resource.Layout.CourseOffering, parent, false);
+            }
+            else
+            {
+                view = convertView;
+            }
+
+            TextView tx= view.FindViewById<TextView>(Resource.Id.lv_item_header);
+            tx.Text = mLocation;
+
+            ImageView img = view.FindViewById<ImageView>(Resource.Id.button);
+
+            string days = string.Empty;
+            string[] daysArray = mDays.Split(',');
+            foreach(string s in daysArray)
+            {
+                days += s;
+            }
+            days = days.ToLower();
+
+
+            Drawable b = mContext.Resources.GetDrawable(mContext.Resources.GetIdentifier(days + "2x", "drawable", mContext.PackageName));
+            img.SetImageDrawable(b);
+            
+            // tx2.Text = "Author: " + Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + "\n ISBN: " + Isbn;
+            return view;
+        }
+    }
+
+    public class CourseDetail : Item
+    {
+
+        private string mClassName;
+        private string mSection;
+        private string mCredits;
+        private string mStatus;
+        private string mInstructor;
+        private string mType;
+
+        public CourseDetail(string className, string section, string credits, string status, string instructor, string type) 
+        {
+            this.mClassName = className;
+            this.mSection = section;
+            this.mStatus = status;
+            this.mCredits = credits;
+            this.mInstructor = instructor;
+        }
+
+        public int GetViewType()
+        {
+            return (int)RowType.LIST_ITEM;
+        }
+
+        public View GetView(LayoutInflater inflater, View convertView, ViewGroup parent)
+        {
+            View view = null;
+            if (convertView == null)
+            {
+                view = inflater.Inflate(Resource.Layout.CourseExtraInfo, parent, false);
+            }
+            else
+            {
+                view = convertView;
+            }
+
+            TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
+            tx.Text = mClassName;
+            TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
+            tx2.Text = mInstructor;
+            return view;
+        }
+    }
 
 }

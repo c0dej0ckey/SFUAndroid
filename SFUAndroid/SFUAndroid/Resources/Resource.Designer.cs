@@ -738,73 +738,133 @@ namespace SFUAndroid
 			public const int courses2x = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int ic_action_cancel = 2130837517;
+			public const int fri = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int ic_action_new = 2130837518;
+			public const int fri2x = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int ic_action_refresh = 2130837519;
+			public const int ic_action_cancel = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int ic_action_user = 2130837520;
+			public const int ic_action_new = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int ic_details = 2130837521;
+			public const int ic_action_refresh = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int ic_launcher = 2130837522;
+			public const int ic_action_user = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int ic_menu_moreoverflow_normal_holo_light = 2130837523;
+			public const int ic_details = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int Icon = 2130837524;
+			public const int ic_launcher = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int important = 2130837525;
+			public const int ic_menu_moreoverflow_normal_holo_light = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int important2x = 2130837526;
+			public const int Icon = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int library = 2130837527;
+			public const int important = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int library2x = 2130837528;
+			public const int important2x = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int maps = 2130837529;
+			public const int library = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int maps2x = 2130837530;
+			public const int library2x = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int pin = 2130837531;
+			public const int maps = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int proserv = 2130837532;
+			public const int maps2x = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int proserv2x = 2130837533;
+			public const int mon = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int search_bg_shadow = 2130837534;
+			public const int mon2x = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int selectable_background_cardbank = 2130837535;
+			public const int monfri = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int sfu_campus_mapscaled = 2130837536;
+			public const int monfri2x = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int top_shadow = 2130837537;
+			public const int monwed = 2130837537;
 			
 			// aapt resource value: 0x7f020022
-			public const int transit = 2130837538;
+			public const int monwed2x = 2130837538;
 			
 			// aapt resource value: 0x7f020023
-			public const int transit2x = 2130837539;
+			public const int monwedfri = 2130837539;
+			
+			// aapt resource value: 0x7f020024
+			public const int monwedfri2x = 2130837540;
+			
+			// aapt resource value: 0x7f020025
+			public const int pin = 2130837541;
+			
+			// aapt resource value: 0x7f020026
+			public const int proserv = 2130837542;
+			
+			// aapt resource value: 0x7f020027
+			public const int proserv2x = 2130837543;
+			
+			// aapt resource value: 0x7f020028
+			public const int search_bg_shadow = 2130837544;
+			
+			// aapt resource value: 0x7f020029
+			public const int selectable_background_cardbank = 2130837545;
+			
+			// aapt resource value: 0x7f02002a
+			public const int sfu_campus_mapscaled = 2130837546;
+			
+			// aapt resource value: 0x7f02002b
+			public const int thurs = 2130837547;
+			
+			// aapt resource value: 0x7f02002c
+			public const int thurs2x = 2130837548;
+			
+			// aapt resource value: 0x7f02002d
+			public const int top_shadow = 2130837549;
+			
+			// aapt resource value: 0x7f02002e
+			public const int transit = 2130837550;
+			
+			// aapt resource value: 0x7f02002f
+			public const int transit2x = 2130837551;
+			
+			// aapt resource value: 0x7f020030
+			public const int tues2x = 2130837552;
+			
+			// aapt resource value: 0x7f020031
+			public const int tuesthurs = 2130837553;
+			
+			// aapt resource value: 0x7f020032
+			public const int tuesthurs2x = 2130837554;
+			
+			// aapt resource value: 0x7f020033
+			public const int ues = 2130837555;
+			
+			// aapt resource value: 0x7f020034
+			public const int wed = 2130837556;
+			
+			// aapt resource value: 0x7f020035
+			public const int wed2x = 2130837557;
+			
+			// aapt resource value: 0x7f020036
+			public const int wedfri = 2130837558;
+			
+			// aapt resource value: 0x7f020037
+			public const int wedfri2x = 2130837559;
 			
 			static Drawable()
 			{
@@ -1038,73 +1098,79 @@ namespace SFUAndroid
 			public const int CourseDetail = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int Exam = 2130903052;
+			public const int CourseExtraInfo = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int footer_fragment = 2130903053;
+			public const int CourseOffering = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int header = 2130903054;
+			public const int Exam = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int item_card = 2130903055;
+			public const int footer_fragment = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int item_card_empty_first = 2130903056;
+			public const int header = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int item_card_empty_last = 2130903057;
+			public const int item_card = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int item_play_card_empty_first = 2130903058;
+			public const int item_card_empty_first = 2130903058;
 			
 			// aapt resource value: 0x7f030013
-			public const int item_stack = 2130903059;
+			public const int item_card_empty_last = 2130903059;
 			
 			// aapt resource value: 0x7f030014
-			public const int ListView = 2130903060;
+			public const int item_play_card_empty_first = 2130903060;
 			
 			// aapt resource value: 0x7f030015
-			public const int ListViewAlignRight = 2130903061;
+			public const int item_stack = 2130903061;
 			
 			// aapt resource value: 0x7f030016
-			public const int ListViewHeader = 2130903062;
+			public const int ListView = 2130903062;
 			
 			// aapt resource value: 0x7f030017
-			public const int Login = 2130903063;
+			public const int ListViewAlignRight = 2130903063;
 			
 			// aapt resource value: 0x7f030018
-			public const int Main = 2130903064;
+			public const int ListViewHeader = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int MainActivityOption = 2130903065;
+			public const int Login = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int Maps = 2130903066;
+			public const int Main = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int ProtectedServices = 2130903067;
+			public const int MainActivityOption = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int ProtectedServicesBrowser = 2130903068;
+			public const int Maps = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int Schedule = 2130903069;
+			public const int ProtectedServices = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int slide_up_left = 2130903070;
+			public const int ProtectedServicesBrowser = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int slide_up_right = 2130903071;
+			public const int Schedule = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int SurreyCampusView = 2130903072;
+			public const int slide_up_left = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int SurreyFloorSelect = 2130903073;
+			public const int slide_up_right = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int Transit = 2130903074;
+			public const int SurreyCampusView = 2130903074;
+			
+			// aapt resource value: 0x7f030023
+			public const int SurreyFloorSelect = 2130903075;
+			
+			// aapt resource value: 0x7f030024
+			public const int Transit = 2130903076;
 			
 			static Layout()
 			{

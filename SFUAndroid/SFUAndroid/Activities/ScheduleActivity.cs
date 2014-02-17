@@ -63,6 +63,9 @@ namespace SFUAndroid.Activities
                 mCourses = new List<Course>();
                 mCourses.Add(new Course("Cmpt345" , "asdasd", "asdas", "asdasd", "asdasd", "asdasd"));
                 mCourses[0].Exam = new Exam("sadas", "asdasd", DateTime.Now);
+                mCourses[0].CourseOfferings.Add(new CourseOffering("rwererw", "adasdad", "qwe3245", "2423432", "rtewtwe"));
+                mCourses[0].CourseOfferings.Add(new CourseOffering("1233123", "54325342", "zxczx", "saddsads", "gsdffdg"));
+
                 if (mCourses == null)
                 {
                     mDialog = new ProgressDialog(this);
@@ -145,6 +148,25 @@ namespace SFUAndroid.Activities
         {
             Course course = mCourses[0];
             Intent intent = new Intent(this, typeof(CourseDetailActivity));
+
+           // intent.PutExtra("Course", course);
+
+            intent.PutExtra("CourseName", course.ClassName);
+            intent.PutExtra("Section", course.Section);
+            intent.PutExtra("Credits", course.Credits);
+            intent.PutExtra("Status", course.Status );
+            intent.PutExtra("Instructor", course.Instructor );
+            intent.PutExtra("Type", course.Type );
+            intent.PutExtra("OfferingCount", course.CourseOfferings.Count);
+
+            for(int i = 0; i < course.CourseOfferings.Count; i++)
+            {
+                intent.PutExtra("StartTime" + i, course.CourseOfferings[i].StartTime );
+                intent.PutExtra("EndTime" + i, course.CourseOfferings[i].EndTime);
+                intent.PutExtra("Location" + i, course.CourseOfferings[i].Location);
+                intent.PutExtra("Days" + i, course.CourseOfferings[i].Days);
+                intent.PutExtra("Date" + i, course.CourseOfferings[i].Date);
+            }
 
             intent.PutExtra("ExamStartTime", course.Exam.StartTime);
             intent.PutExtra("ExamEndTime", course.Exam.EndTime);

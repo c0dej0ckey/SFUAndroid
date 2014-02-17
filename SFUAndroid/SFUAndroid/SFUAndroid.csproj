@@ -180,6 +180,12 @@
     <AndroidResource Include="Resources\Layout\Exam.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\CourseExtraInfo.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\CourseOffering.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -257,6 +263,26 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_action_new.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\ic_action_new.png" />
     <AndroidResource Include="Resources\Drawable\ic_menu_moreoverflow_normal_holo_light.png" />
+    <AndroidResource Include="Resources\Drawable\fri2x.png" />
+    <AndroidResource Include="Resources\Drawable\fri.png" />
+    <AndroidResource Include="Resources\Drawable\mon2x.png" />
+    <AndroidResource Include="Resources\Drawable\monfri2x.png" />
+    <AndroidResource Include="Resources\Drawable\monfri.png" />
+    <AndroidResource Include="Resources\Drawable\monwed2x.png" />
+    <AndroidResource Include="Resources\Drawable\monwedfri2x.png" />
+    <AndroidResource Include="Resources\Drawable\monwedfri.png" />
+    <AndroidResource Include="Resources\Drawable\monwed.png" />
+    <AndroidResource Include="Resources\Drawable\mon.png" />
+    <AndroidResource Include="Resources\Drawable\thurs2x.png" />
+    <AndroidResource Include="Resources\Drawable\thurs.png" />
+    <AndroidResource Include="Resources\Drawable\tues2x.png" />
+    <AndroidResource Include="Resources\Drawable\tuesthurs2x.png" />
+    <AndroidResource Include="Resources\Drawable\tuesthurs.png" />
+    <AndroidResource Include="Resources\Drawable\ues.png" />
+    <AndroidResource Include="Resources\Drawable\wed2x.png" />
+    <AndroidResource Include="Resources\Drawable\wedfri2x.png" />
+    <AndroidResource Include="Resources\Drawable\wedfri.png" />
+    <AndroidResource Include="Resources\Drawable\wed.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

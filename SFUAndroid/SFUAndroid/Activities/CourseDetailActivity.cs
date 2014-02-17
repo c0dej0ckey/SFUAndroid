@@ -13,31 +13,73 @@ using SFUAndroid.Entities;
 
 namespace SFUAndroid.Activities
 {
-    [Activity(Label = "", Theme = "@android:style/Theme.Holo.Light", ParentActivity=typeof(ScheduleActivity))]
+    [Activity(Label = "Extra Information", Theme = "@android:style/Theme.Holo.Light", ParentActivity=typeof(ScheduleActivity))]
     public class CourseDetailActivity : Activity
     {
         private List<Item> mInformation;
+        private Course mCourse;
 
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            
             SetContentView(Resource.Layout.CourseDetail);
 
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
 
-            string x = Intent.GetStringExtra("ExamStartTime");
-            string y = Intent.GetStringExtra("ExamEndTime");
-            string z = Intent.GetStringExtra("ExamDate");
 
+
+            string courseName = Intent.GetStringExtra("CourseName");
+            string section = Intent.GetStringExtra("Section");
+            string credits = Intent.GetStringExtra("Credits");
+            string status = Intent.GetStringExtra("Status");
+            string instructor = Intent.GetStringExtra("Instructor");
+            string type = Intent.GetStringExtra("Type");
+            int offeringCount = Intent.GetIntExtra("OfferingCount", 0);
+
+
+            mCourse = new Course(courseName, section, credits, status, instructor, type);
+
+            for (int i = 0; i < offeringCount; i++)
+            {
+
+                string startTime = Intent.GetStringExtra("StartTime" + i);
+                string endTime = Intent.GetStringExtra("EndTime" + i);
+                string location = Intent.GetStringExtra("Location" + i);
+                string days = Intent.GetStringExtra("Days" + i);
+                string date = Intent.GetStringExtra("Date" + i);
+                CourseOffering offering = new CourseOffering(startTime, endTime, location, days, date);
+                mCourse.AddCourseOffering(offering);
+            }
+
+            string examStartTime = Intent.GetStringExtra("ExamStartTime");
+            string examEndTime = Intent.GetStringExtra("ExamEndTime");
+            string examDate = Intent.GetStringExtra("ExamDate");
+
+            Exam exam = new Exam(examStartTime, examEndTime, DateTime.Now);
+            mCourse.Exam = exam;
             
 
             mInformation = new List<Item>();
+
+            CourseDetail detail = new CourseDetail("qweqwe", "23123", "23213", "32432", "2343425", "sadasd");
+            mInformation.Add(detail);
+
+            Header time = new Header(this.LayoutInflater, "Time & Location");
+            mInformation.Add(time);
+
+            CourseOfferingDetail offeringDetail = new CourseOfferingDetail("sadasd", "asdasd", "SUR3340 \n 12:30 - 1:20", "Mon,Wed", "asdasd", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
+            mInformation.Add(offeringDetail);
+
             Header header = new Header(this.LayoutInflater, "Exam");
             ExamDetail ex = new ExamDetail("asdasda", "asdasd", "asdasd", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
             mInformation.Add(header);
             mInformation.Add(ex);
+
+            
+
             Header gradesHeader = new Header(this.LayoutInflater, "Grades");
             mInformation.Add(gradesHeader);
             ListView courseDetailListView = this.FindViewById<ListView>(Resource.Id.CourseDetailListView);
@@ -49,6 +91,10 @@ namespace SFUAndroid.Activities
 
             // Create your application here
         }
+
+
+
+
     }
 
     public class CourseDetailAdapter : ArrayAdapter<Item>
