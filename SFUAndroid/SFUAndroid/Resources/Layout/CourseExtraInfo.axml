@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     tools:context=".MainActivity"
-    style="@style/bookViewItem"
+    style="@style/courseListViewItem"
     android:background="@android:drawable/list_selector_background">
     <View
         android:id="@+id/item_separator"
@@ -16,22 +16,51 @@
         android:id="@+id/lv_item_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         style="@style/listViewPrimaryDetail"
-        android:layout_toLeftOf="@id/vertical_divider"
         android:ellipsize="marquee"
         android:singleLine="false"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:text="@string/RemoveStopText" />
     <TextView
-        android:textIsSelectable="false"
         android:id="@+id/lv_item_subtext"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lv_item_header"
-        style="@style/listViewSecondaryDetail"
-        android:layout_above="@id/item_separator"
+        android:layout_height="30dp"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/vertical_divider"
+        android:layout_below="@id/lv_item_header"
+        android:layout_gravity="left"
         android:ellipsize="marquee"
-        android:singleLine="false" />
+        android:singleLine="false"
+        android:textIsSelectable="false"
+        style="@style/listViewSecondaryDetail" />
+    <TextView
+        android:textIsSelectable="false"
+        android:id="@+id/lv_item_subtext2"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/lv_item_header"
+        android:layout_toRightOf="@id/lv_item_subtext"
+        android:ellipsize="marquee"
+        android:singleLine="false"
+        style="@style/listViewSecondaryDetail" />
+    <TextView
+        android:textIsSelectable="false"
+        android:id="@+id/lv_item_subtext3"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/lv_item_subtext"
+        android:layout_above="@id/item_separator"
+        android:ellipsize="marquee"
+        android:singleLine="false"
+        style="@style/listViewSecondaryDetail" />
+    <TextView
+        android:textIsSelectable="false"
+        android:id="@+id/lv_item_subtext4"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/lv_item_subtext2"
+        android:layout_above="@id/item_separator"
+        android:layout_toRightOf="@id/lv_item_subtext3"
+        android:ellipsize="marquee"
+        android:singleLine="false"
+        style="@style/listViewSecondaryDetail" />
 </RelativeLayout>

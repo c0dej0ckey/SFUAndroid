@@ -301,6 +301,12 @@ namespace SFUAndroid.Entities
             tx.Text = mClassName;
             TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
             tx2.Text = mInstructor;
+            TextView tx3 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext2);
+            tx3.Text = mStatus;
+            TextView tx4 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext3);
+            tx4.Text = mCredits;
+            TextView tx5 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext4);
+            tx5.Text = mType;
             return view;
         }
     }

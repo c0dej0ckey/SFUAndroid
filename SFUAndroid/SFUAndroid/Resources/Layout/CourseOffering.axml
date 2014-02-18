@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="40dp"
     tools:context=".MainActivity"
-    style="@style/bookViewItem"
-    android:background="@android:drawable/list_selector_background">
+    android:background="@android:drawable/list_selector_background"
+    android:clickable="false">
     <View
         android:id="@+id/item_separator"
         android:layout_alignParentBottom="true"
@@ -12,21 +13,23 @@
         android:layout_height="@dimen/lvDividerHeight"
         android:background="#E0E0E0" />
     <ImageView
-        style="@style/listViewBookStyle"
         android:background="@android:drawable/list_selector_background"
         android:id="@+id/button"
         android:layout_alignParentLeft="true"
-        android:layout_height="30dp"
-        android:layout_width="180dp" />
+        android:layout_above="@id/item_separator"
+        android:layout_height="40dp"
+        android:layout_width="180dp"
+        android:gravity="center" />
     <TextView
         android:textIsSelectable="false"
         android:id="@+id/lv_item_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        style="@style/listViewPrimaryDetail"
+        android:textColor="#333333"
+        android:textSize="18sp"
         android:layout_toRightOf="@id/button"
         android:ellipsize="marquee"
         android:singleLine="false"
+        android:gravity="right"
         android:layout_alignParentRight="true" />
 </RelativeLayout>

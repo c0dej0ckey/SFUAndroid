@@ -23,8 +23,16 @@ namespace SFUAndroid.Activities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
             
+
+            
+
             SetContentView(Resource.Layout.CourseDetail);
+
+            
+            
+
 
             ActionBar actionBar = this.ActionBar;
             actionBar.SetDisplayHomeAsUpEnabled(true);
@@ -32,6 +40,7 @@ namespace SFUAndroid.Activities
 
 
             string courseName = Intent.GetStringExtra("CourseName");
+            this.Window.SetTitle(courseName);
             string section = Intent.GetStringExtra("Section");
             string credits = Intent.GetStringExtra("Credits");
             string status = Intent.GetStringExtra("Status");
@@ -64,17 +73,20 @@ namespace SFUAndroid.Activities
 
             mInformation = new List<Item>();
 
-            CourseDetail detail = new CourseDetail("qweqwe", "23123", "23213", "32432", "2343425", "sadasd");
+            CourseDetail detail = new CourseDetail("CMPT 354", "D200", "3.00", "Enrolled", "John Edgar", "Lecture");
             mInformation.Add(detail);
 
             Header time = new Header(this.LayoutInflater, "Time & Location");
             mInformation.Add(time);
 
-            CourseOfferingDetail offeringDetail = new CourseOfferingDetail("sadasd", "asdasd", "SUR3340 \n 12:30 - 1:20", "Mon,Wed", "asdasd", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
+            CourseOfferingDetail offeringDetail = new CourseOfferingDetail("1230", "120", "SUR3340 \n 12:30 - 1:20", "Mon,Wed", "10-1-2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
             mInformation.Add(offeringDetail);
 
+            CourseOfferingDetail offeringDetail2 = new CourseOfferingDetail("530", "820", "SUR5560 \n 5:30 - 8:20", "Mon,Wed,Fri", "10-1-2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
+            mInformation.Add(offeringDetail2);
+
             Header header = new Header(this.LayoutInflater, "Exam");
-            ExamDetail ex = new ExamDetail("asdasda", "asdasd", "asdasd", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
+            ExamDetail ex = new ExamDetail("330", "630", "6/1/2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
             mInformation.Add(header);
             mInformation.Add(ex);
 
@@ -92,7 +104,11 @@ namespace SFUAndroid.Activities
             // Create your application here
         }
 
-
+        public override void OnAttachedToWindow()
+        {
+            base.OnAttachedToWindow();
+            Window.SetTitle(mCourse.ClassName);
+        }
 
 
     }
