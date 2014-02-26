@@ -15,6 +15,7 @@ using Android.Graphics;
 using SFUAndroid.Adapters;
 using System.Collections.Generic;
 using SFUAndroid.Entities;
+using Android.Graphics.Drawables;
 
 namespace SFUAndroid.Activities
 {
@@ -65,6 +66,12 @@ namespace SFUAndroid.Activities
             sel = new Selection("Books", booksIcon);
             menuSelections.Add(sel);
 
+            Button infoButton = this.FindViewById<Button>(Resource.Id.infoButton);
+            Bitmap infoButtonBitmap = BitmapFactory.DecodeResource(this.Resources, Resource.Drawable.infobutton);
+            BitmapDrawable bd = new BitmapDrawable(infoButtonBitmap);
+            infoButton.SetBackgroundDrawable(bd);
+            infoButton.Click += infoButton_Click;
+
             
             GridView gridView = FindViewById<GridView>(Resource.Id.gridView1);
 
@@ -96,6 +103,12 @@ namespace SFUAndroid.Activities
                 Android.Widget.Toast.MakeText(this, "No Network Connection. Certain parts of app \n won't behave correctly", ToastLength.Long).Show();
             }
 
+        }
+
+        void infoButton_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(InfoActivity));
+            StartActivity(intent);
         }
 
         protected override void OnResume()
