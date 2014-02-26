@@ -86,7 +86,7 @@ namespace SFUAndroid.Activities
             mInformation.Add(offeringDetail2);
 
             Header header = new Header(this.LayoutInflater, "Exam");
-            ExamDetail ex = new ExamDetail("330", "630", "6/1/2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
+            ExamDetail ex = new ExamDetail("3:30", "6:30", "6/1/2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
             mInformation.Add(header);
             mInformation.Add(ex);
 

@@ -192,10 +192,9 @@ namespace SFUAndroid.Entities
             }
             
             TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
-            tx.Text = mStartTime;
+            tx.Text = mStartTime + " - " + mEndTime;
             TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
-            tx2.Text = mEndTime;
-           // tx2.Text = "Author: " + Author + " New Price: " + NewPrice + " Used Price: " + UsedPrice + "\n ISBN: " + Isbn;
+            tx2.Text = mDate;
             return view;
         }
     }
