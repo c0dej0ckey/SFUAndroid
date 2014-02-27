@@ -24,6 +24,11 @@
   <string name="RemoveStopText">Remove</string>
   <string name="ColorStripe">Color Stripe</string>
   <string name="Overflow">Overflow</string>
+  <string name="SFUVersion">SFU 1.0.1.3</string>
+  <string name="ScottInfo">Scott Williams\nDeveloper</string>
+  <string name="FarhanInfo">Farhan Patel\nDeveloper\n(Team iOS)</string>
+  <string name="ChennyInfo">Chenny Xia\nDesigner\n(Team iOS)</string>
+  <string name="StudentInfo">The SFU Android app is an unofficial creation by an SFU Student like you. Be kind and leave a review, follow us on Twitter, or see what\'s new in the app.</string>
   
   <string-array name="surrey_floors_array">
     <item>Surrey</item>

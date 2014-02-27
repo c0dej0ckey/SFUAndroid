@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Activities\BooksActivity.cs" />
     <Compile Include="Activities\BurnabyRoomSelectActivity.cs" />
+    <Compile Include="Activities\ChangeLogActivity.cs" />
     <Compile Include="Activities\CourseDetailActivity.cs" />
     <Compile Include="Activities\InfoActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
@@ -190,6 +191,9 @@
     <AndroidResource Include="Resources\Layout\Info.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ChangeLog.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml">
@@ -288,6 +292,8 @@
     <AndroidResource Include="Resources\Drawable\wedfri.png" />
     <AndroidResource Include="Resources\Drawable\wed.png" />
     <AndroidResource Include="Resources\Drawable-nodpi\infobutton.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\chenny.png" />
+    <AndroidResource Include="Resources\Drawable-nodpi\farhan.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Drawable\" />

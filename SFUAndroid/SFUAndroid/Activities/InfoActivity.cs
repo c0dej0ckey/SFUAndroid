@@ -33,10 +33,10 @@ namespace SFUAndroid.Activities
 
             mItems = new List<Item>();
 
-            InfoItem reviewItem = new InfoItem("Write a Review", (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService));
-            InfoItem twitterItem = new InfoItem("Twitter", (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService));
+            InfoItem reviewItem = new InfoItem("Write a Review", (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), this);
+            InfoItem twitterItem = new InfoItem("Twitter", (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), this);
             Header header = new Header((LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), "ChangeLog");
-            InfoItem changes = new InfoItem("ChangeLog", (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService));
+            InfoItem changes = new InfoItem("ChangeLog", (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService), this);
             mItems.Add(reviewItem);
             mItems.Add(twitterItem);
             
@@ -58,6 +58,31 @@ namespace SFUAndroid.Activities
 
 
         }
+
+        public void GetOption(string text)
+        {
+            if (text == "Write a Review")
+            {
+                try
+                {
+                    StartActivity(new Intent(Intent.ActionView, Android.Net.Uri.Parse("market://details?id=com.xamarin.sfuandroid")));
+                }
+                catch
+                {
+                    StartActivity(new Intent(Intent.ActionView, Android.Net.Uri.Parse("http://play.google.com/store/apps/details?id=com.xamarin.sfuandroid")));
+                }
+            }
+            else if (text == "Twitter")
+            {
+                StartActivity(new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://twitter.com/c0dej0ckey")));
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(ChangeLogActivity));
+                StartActivity(intent);
+            }
+        }
+
     }
 
     public class InfoAdapter : ArrayAdapter<Item>
@@ -93,12 +118,13 @@ namespace SFUAndroid.Activities
     {
         private string mText;
         private LayoutInflater mInflater;
+        private InfoActivity mInfoActivity;
 
-        public InfoItem(string text, LayoutInflater layoutInflater)
+        public InfoItem(string text, LayoutInflater layoutInflater, InfoActivity infoActivity)
         {
             mText = text;
             mInflater = layoutInflater;
-
+            mInfoActivity = infoActivity;
         }
 
         public int GetViewType()
@@ -121,9 +147,20 @@ namespace SFUAndroid.Activities
             TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
             tx.Text = mText;
 
+            view.Click += view_Click;
 
+            ViewGroup.LayoutParams par = (ViewGroup.LayoutParams)view.LayoutParameters;
+            par.Height = 80;
+            view.LayoutParameters = par;
 
             return view;
+        }
+
+        void view_Click(object sender, EventArgs e)
+        {
+            View view = sender as View;
+            TextView txtView = view.FindViewById<TextView>(Resource.Id.lv_item_header);
+            mInfoActivity.GetOption(txtView.Text);
         }
     }
 
