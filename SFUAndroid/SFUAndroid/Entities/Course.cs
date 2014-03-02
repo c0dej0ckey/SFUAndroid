@@ -192,9 +192,9 @@ namespace SFUAndroid.Entities
             }
             
             TextView tx = view.FindViewById<TextView>(Resource.Id.lv_item_header);
-            tx.Text = mStartTime + " - " + mEndTime;
+            tx.Text = mStartTime + " - " + mEndTime + "\t";
             TextView tx2 = view.FindViewById<TextView>(Resource.Id.lv_item_subtext);
-            tx2.Text = mDate;
+            tx2.Text = mDate.Split(' ')[0];
             return view;
         }
     }
@@ -239,7 +239,7 @@ namespace SFUAndroid.Entities
             }
 
             TextView tx= view.FindViewById<TextView>(Resource.Id.lv_item_header);
-            tx.Text = mLocation;
+            tx.Text = mStartTime + " - " + mEndTime + "\n" + mLocation;
 
             ImageView img = view.FindViewById<ImageView>(Resource.Id.button);
 

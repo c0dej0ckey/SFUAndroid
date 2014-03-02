@@ -50,21 +50,21 @@ namespace SFUAndroid.Activities
             string computingId = preferences.GetString("Computing ID", string.Empty);
             string password = preferences.GetString("Password", string.Empty);
 
-            //if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
-            //{
-            //    Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
-            //}
-            //else
-            //{
+            if (string.IsNullOrEmpty(computingId) && string.IsNullOrEmpty(password))
+            {
+                Android.Widget.Toast.MakeText(this, "Please Login First", ToastLength.Long).Show();
+            }
+            else
+            {
 
                 ////load courses - if not found request them from GOSFU
                 mCourses = GetCourses();
                 //remove
-                mCourses = new List<Course>();
-                mCourses.Add(new Course("Cmpt345" , "asdasd", "asdas", "asdasd", "asdasd", "asdasd"));
-                mCourses[0].Exam = new Exam("sadas", "asdasd", DateTime.Now);
-                mCourses[0].CourseOfferings.Add(new CourseOffering("rwererw", "adasdad", "qwe3245", "2423432", "rtewtwe"));
-                mCourses[0].CourseOfferings.Add(new CourseOffering("1233123", "54325342", "zxczx", "saddsads", "gsdffdg"));
+                //mCourses = new List<Course>();
+                //mCourses.Add(new Course("Cmpt345" , "asdasd", "asdas", "asdasd", "asdasd", "asdasd"));
+                //mCourses[0].Exam = new Exam("sadas", "asdasd", DateTime.Now);
+                //mCourses[0].CourseOfferings.Add(new CourseOffering("rwererw", "adasdad", "qwe3245", "2423432", "rtewtwe"));
+                //mCourses[0].CourseOfferings.Add(new CourseOffering("1233123", "54325342", "zxczx", "saddsads", "gsdffdg"));
 
                 if (mCourses == null)
                 {
@@ -101,7 +101,7 @@ namespace SFUAndroid.Activities
                 }
 
                 mCardView.Refresh();
-          // }
+           }
             
             
             
@@ -146,7 +146,9 @@ namespace SFUAndroid.Activities
 
         public void OpenExtraInfo(ClickableCard card)
         {
-            Course course = mCourses[0];
+            Course course = mCourses.Where(c => c.ClassName == card.TitlePlay).FirstOrDefault();
+            if (course == null)
+                return;
             Intent intent = new Intent(this, typeof(CourseDetailActivity));
 
            // intent.PutExtra("Course", course);
@@ -326,7 +328,7 @@ namespace SFUAndroid.Activities
                 string className = classDescription.FirstChild.InnerText;
 
                 string section = document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + classIndex).InnerText;
-                string type = document.GetElementbyId("PSXLATITEM_XLATSHORTNAME$95$$" + classIndex).InnerText;
+                string type = document.GetElementbyId("PSXLATITEM_XLATSHORTNAME$102$$" + classIndex).InnerText;
                 string credits = document.GetElementbyId("STDNT_ENRL_SSVW_UNT_TAKEN$" + classIndex).InnerText;
                 string classStatus = document.GetElementbyId("PSXLATITEM_XLATSHORTNAME$" + classIndex).InnerText;
                 
@@ -339,7 +341,7 @@ namespace SFUAndroid.Activities
                 //HtmlNode node = document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + (classIndex + 1));
                 if (mainNode != null)
                 {
-                    HtmlNode detailsNode = document.GetElementbyId(string.Format("ACE_$ICField110${0}", classIndex));
+                    HtmlNode detailsNode = document.GetElementbyId(string.Format("ACE_$ICField117${0}", classIndex));
                     HtmlDocument detailsDocument = new HtmlDocument();
                     detailsDocument.LoadHtml(detailsNode.InnerHtml);
                     while (detailsDocument.GetElementbyId("CLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex) != null) //&& document.GetElementbyId("win1divCLASS_MTG_VW_MEETING_TIME_START$" + detailsIndex).Line < document.GetElementbyId("CLASS_TBL_VW_CLASS_SECTION$" + (classIndex + 1)).Line)
@@ -367,7 +369,7 @@ namespace SFUAndroid.Activities
 
                             try
                             {
-                                profName = detailsDocument.GetElementbyId("PERSONAL_VW_NAME$135$$" + profCount).InnerText;
+                                profName = detailsDocument.GetElementbyId("PERSONAL_VW_NAME$142$$" + profCount).InnerText;
                             }
                             catch (NullReferenceException) { }
 
@@ -400,8 +402,9 @@ namespace SFUAndroid.Activities
                     CourseOffering exam = course.CourseOfferings.Where(c => c.Location == "Location:&nbsp; See &#039; View My Exam Schedule &#039;").FirstOrDefault();
                     if(exam != null)
                     {
-                        course.Exam = new Exam(exam.StartTime, exam.EndTime, DateTime.ParseExact(exam.Date, "yyyy/mm/dd", new CultureInfo("en-US")));
+                        course.Exam = new Exam(exam.StartTime, exam.EndTime, " View My Exam Schedule", DateTime.ParseExact(exam.Date, "yyyy/mm/dd", new CultureInfo("en-US")));
                     }
+                    course.CourseOfferings.RemoveAt(course.CourseOfferings.Count - 1);
                 //}
 
             }

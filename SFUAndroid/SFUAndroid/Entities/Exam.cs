@@ -19,12 +19,14 @@ namespace SFUAndroid.Entities
         private string mStartTime;
         private string mEndTime;
         private DateTime mDate;
+        private string mLocation;
 
-        public Exam(string startTime, string  endTime, DateTime date)
+        public Exam(string startTime, string  endTime, string location, DateTime date)
         {
             this.mStartTime = startTime;
             this.mEndTime = endTime;
             this.mDate = date;
+            this.mLocation = location;
         }
 
         [JsonProperty]
@@ -32,6 +34,13 @@ namespace SFUAndroid.Entities
         {
             get { return mStartTime; }
             set { mStartTime = value; }
+        }
+
+        [JsonProperty]
+        public string Location
+        {
+            get { return mLocation; }
+            set { mLocation = value; }
         }
 
         [JsonProperty]

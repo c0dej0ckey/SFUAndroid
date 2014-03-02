@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using SFUAndroid.Entities;
+using System.Globalization;
 
 namespace SFUAndroid.Activities
 {
@@ -67,33 +68,40 @@ namespace SFUAndroid.Activities
             string examEndTime = Intent.GetStringExtra("ExamEndTime");
             string examDate = Intent.GetStringExtra("ExamDate");
 
-            Exam exam = new Exam(examStartTime, examEndTime, DateTime.Now);
+            string[] examDateSplit = examDate.Split(' ');
+
+            Exam exam = new Exam(examStartTime, examEndTime, "View Exam Schedule", DateTime.Parse(examDate));
             mCourse.Exam = exam;
             
 
             mInformation = new List<Item>();
 
-            CourseDetail detail = new CourseDetail("CMPT 354", "D200", "3.00", "Enrolled", "John Edgar", "Lecture");
+            CourseDetail detail = new CourseDetail(mCourse.ClassName, mCourse.Section, mCourse.Credits, mCourse.Status, mCourse.Instructor, mCourse.Type);
             mInformation.Add(detail);
 
             Header time = new Header(this.LayoutInflater, "Time & Location");
             mInformation.Add(time);
 
-            CourseOfferingDetail offeringDetail = new CourseOfferingDetail("1230", "120", "SUR3340 \n 12:30 - 1:20", "Mon,Wed", "10-1-2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
-            mInformation.Add(offeringDetail);
+            foreach(CourseOffering offering in mCourse.CourseOfferings)
+            {
+                CourseOfferingDetail offeringDetail = new CourseOfferingDetail(offering.StartTime, offering.EndTime, offering.Location, offering.Days, offering.Date, (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
+                mInformation.Add(offeringDetail);
+            }
 
-            CourseOfferingDetail offeringDetail2 = new CourseOfferingDetail("530", "820", "SUR5560 \n 5:30 - 8:20", "Mon,Wed,Fri", "10-1-2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
-            mInformation.Add(offeringDetail2);
+            
+
+            //CourseOfferingDetail offeringDetail2 = new CourseOfferingDetail("530", "820", "SUR5560 \n 5:30 - 8:20", "Mon,Wed,Fri", "10-1-2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService), this.BaseContext);
+            //mInformation.Add(offeringDetail2);
 
             Header header = new Header(this.LayoutInflater, "Exam");
-            ExamDetail ex = new ExamDetail("3:30", "6:30", "6/1/2014", (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
+            ExamDetail ex = new ExamDetail(mCourse.Exam.StartTime, mCourse.Exam.EndTime, mCourse.Exam.Date.ToString(), (LayoutInflater)this.GetSystemService(Context.LayoutInflaterService));
             mInformation.Add(header);
             mInformation.Add(ex);
 
             
 
-            Header gradesHeader = new Header(this.LayoutInflater, "Grades");
-            mInformation.Add(gradesHeader);
+            //Header gradesHeader = new Header(this.LayoutInflater, "Grades");
+            //mInformation.Add(gradesHeader);
             ListView courseDetailListView = this.FindViewById<ListView>(Resource.Id.CourseDetailListView);
             CourseDetailAdapter adapter = new CourseDetailAdapter(this, mInformation);
             courseDetailListView.Adapter = adapter;
